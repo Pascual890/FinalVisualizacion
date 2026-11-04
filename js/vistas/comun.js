@@ -4,7 +4,8 @@ import { estado, seguir, hallarNota } from '../estado.js';
 /** Barra superior: nombre del archivo, notas halladas, a quién se sigue. */
 export function barra(ctx, { volver = true } = {}) {
   const fin = h('div', { class: 'barra__fin' });
-  const nodo = h('header', { class: 'barra' },
+  const nodo = h('header', { class: volver ? 'barra barra--volver' : 'barra' },
+    volver ? h('a', { class: 'volver', href: '#/archivo' }, flecha(), h('span', {}, 'Volver', h('span', { class: 'volver__resto' }, ' a la mesa'))) : null,
     h('a', { class: 'marca', href: '#/archivo', 'aria-label': 'Archivo de Cregon: volver al escritorio' },
       h('span', { class: 'marca__nombre' }, 'Archivo de Cregon'),
       h('span', { class: 'marca__sub' }, 'lo que quedó después de la caída')
@@ -14,8 +15,7 @@ export function barra(ctx, { volver = true } = {}) {
   const pintar = () => {
     fin.replaceChildren(...[
       estado.seguido ? sello(ctx) : null,
-      hallazgos(),
-      volver ? h('a', { class: 'boton', href: '#/archivo' }, flecha(), 'Volver') : null
+      hallazgos()
     ].filter(Boolean));
   };
   pintar();
