@@ -1,0 +1,27 @@
+{
+  "_nota": "x, y en coordenadas del viewBox de assets/cregon.svg. 'casa': la casa que tiene su sede ahí. 'zona': de quién es la tierra alrededor (Libro de tierras).",
+  "ciudades": [
+    { "id": "aldemar",   "nombre": "Aldemar",    "x": 258, "y": 570, "tipo": "Capital del reino",            "zona": "aldeanos", "habitantes": 10600, "riqueza": 520,
+      "texto": "Capital del reino. En su plaza el señor Vareck da sus discursos, y en su plaza se robó la daga." },
+    { "id": "brisel",    "nombre": "Brisel",     "x": 336, "y": 530, "tipo": "Ciudad de mercaderes",         "zona": "vandel",   "habitantes": 6800,  "riqueza": 380,
+      "texto": "Ciudad de mercaderes, pegada a la capital. Paga sus impuestos a la casa Vandel." },
+    { "id": "torvane",   "nombre": "Torvane",    "x": 628, "y": 494, "tipo": "Sede de la casa Voss",         "zona": "voss",     "casa": "voss",   "habitantes": 4500,  "riqueza": 260,
+      "texto": "Sede de la casa Voss, al este, junto al río." },
+    { "id": "san-corvel","nombre": "San Corvel", "x": 218, "y": 704, "tipo": "Pueblo de aldeanos",           "zona": "aldeanos", "habitantes": 3700,  "riqueza": 60,
+      "texto": "Pueblo del sur, tierra de aldeanos. Casi todo lo que se come en Aldemar sale de aquí." },
+    { "id": "ordane",    "nombre": "Ordane",     "x": 335, "y": 330, "tipo": "Sede de la casa Vandel",       "zona": "vandel",   "casa": "vandel", "habitantes": 3200,  "riqueza": 300,
+      "texto": "Sede de la casa Vandel, en el valle alto." },
+    { "id": "caerlun",   "nombre": "Caerlún",    "x": 560, "y": 370, "tipo": "Fortaleza de la casa Vareck",  "zona": "vareck",   "casa": "vareck", "habitantes": 2500,  "riqueza": 610,
+      "texto": "Fortaleza de la casa Vareck, en las montañas. Poca gente y más oro que en ninguna otra ciudad." },
+    { "id": "valmora",   "nombre": "Valmora",    "x": 270, "y": 445, "tipo": "Aldea de pastores",            "zona": "aldeanos", "habitantes": 1900,  "riqueza": 40,
+      "texto": "Aldea de pastores, junto a la frontera con Dornhal. Fue lo primero que se quemó en la guerra." },
+    { "id": "fenwar",    "nombre": "Fénwar",     "x": 720, "y": 300, "tipo": "Pueblo de montaña",            "zona": "vareck",   "habitantes": 1300,  "riqueza": 30,
+      "texto": "Pueblo de las montañas del este, en tierras de Vareck." }
+  ],
+  "fuera": [
+    { "id": "dornhal",  "nombre": "Dornhal",          "x": -95,  "y": 335, "tipo": "Reino vencido",
+      "texto": "El reino del oeste, vencido en la guerra de 1207 a 1210. De Dornhal no queda casi nada." },
+    { "id": "velmoor",  "nombre": "Ruinas de Velmoor", "x": -110, "y": 440, "tipo": "Capital de Dornhal, en ruinas",
+      "texto": "La capital de Dornhal, quemada al final de la guerra." }
+  ]
+}

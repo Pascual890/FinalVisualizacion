@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Archivo de Cregon</title>
+  <meta name="description" content="El archivo abandonado del reino de Cregon: censos, cuentas, tierras, linajes y la daga Netherbane. Visualización de datos.">
+  <link rel="icon" href="assets/icono.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700&family=Cinzel:wght@500;600&family=EB+Garamond:ital,wght@0,400;0,500;1,400&family=IM+Fell+English:ital@0;1&family=Reenie+Beanie&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/escritorio.css">
+  <link rel="stylesheet" href="css/documento.css">
+  <link rel="stylesheet" href="css/graficos.css">
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <div id="app"></div>
+  <!-- brillo de vela para lo que se toca en los SVG (región amplia para que no se recorte en cuadrado) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <filter id="brillo" x="-100%" y="-100%" width="300%" height="300%">
+      <feDropShadow dx="0" dy="0" stdDeviation="5" flood-color="#e9b35f" flood-opacity=".95"/>
+    </filter>
+    <filter id="brillo-reliquia" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="0" stdDeviation="22" flood-color="#e9b35f" flood-opacity="1"/>
+    </filter>
+  </svg>
+  <noscript>El Archivo de Cregon necesita JavaScript para abrirse.</noscript>
+</body>
+</html>

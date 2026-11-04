@@ -1,0 +1,93 @@
+/* ==========================================================================
+   Gráficos: tinta sobre papel
+   ========================================================================== */
+
+.grafico { position: relative; width: 100%; }
+.grafico svg { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--f-texto); }
+
+.eje line, .eje path { stroke: var(--tinta-tenue); stroke-opacity: .55; shape-rendering: crispEdges; }
+.eje text { fill: var(--tinta-tenue); font-size: 13px; }
+.rejilla line { stroke: var(--tinta); stroke-opacity: .09; stroke-dasharray: 2 4; }
+.unidad { fill: var(--tinta-tenue); font-size: 12px; font-style: italic; }
+
+.etiqueta { fill: var(--tinta); font-size: 15px; }
+.valor { fill: var(--tinta); font-size: 14px; font-variant-numeric: tabular-nums; }
+.valor--fuera { fill: var(--tinta-tenue); }
+
+/* franja de la guerra */
+.franja rect { fill: url(#rayado); }
+.franja text { fill: var(--sangre); font-size: 12px; font-style: italic; letter-spacing: .05em; }
+
+/* marcas de datos */
+.marca-dato { transition: opacity .3s, filter .3s; cursor: default; }
+.barra-dato { transition: width .9s var(--ease), opacity .3s; }
+.linea-dato { fill: none; stroke-width: 2.4; stroke-linejoin: round; stroke-linecap: round; }
+.linea-dato--dibujar { stroke-dasharray: var(--largo); stroke-dashoffset: var(--largo); animation: trazar 1.6s var(--ease) forwards; }
+@keyframes trazar { to { stroke-dashoffset: 0; } }
+.punto-dato { stroke: var(--hoja); stroke-width: 1.5; }
+
+.cursor-linea { stroke: var(--tinta); stroke-opacity: .35; stroke-dasharray: 3 3; pointer-events: none; }
+.zona-hover { fill: transparent; cursor: crosshair; }
+
+/* seguir a un noble: lo suyo con tinta plena, lo demás se aparta */
+.grafico.hay-seguido .marca-dato:not(.is-seguido) { opacity: .35; }
+svg .marca-dato.is-seguido { filter: url(#brillo); }
+.leyenda .is-seguido { box-shadow: 0 0 0 2px var(--vela); }
+
+/* sector de anillo/tarta */
+.sector { stroke: var(--hoja); stroke-width: 2; transition: transform .25s var(--ease), opacity .3s; transform-origin: center; transform-box: view-box; }
+.sector:hover { transform: scale(1.03); }
+.centro-valor { font-family: var(--f-titulo); font-size: 30px; fill: var(--tinta); }
+.centro-texto { font-size: 13px; fill: var(--tinta-tenue); font-style: italic; }
+.guia { stroke: var(--tinta-tenue); stroke-opacity: .6; fill: none; }
+
+/* leyenda (también filtra: toca para ocultar) */
+.leyenda { display: flex; flex-wrap: wrap; gap: 6px 16px; margin: 12px 0 0; padding: 0; list-style: none; font-size: .92rem; }
+.leyenda button { display: inline-flex; align-items: center; gap: 8px; border: 0; background: none; padding: 4px 2px; cursor: pointer; color: var(--tinta); min-height: 32px; }
+.leyenda i { width: 14px; height: 14px; display: inline-block; border: 1px solid rgba(43,29,14,.4); }
+.leyenda button[aria-pressed="false"] { opacity: .4; text-decoration: line-through; text-decoration-color: var(--sangre); }
+
+.controles { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
+
+/* escudos (Libro de linajes) */
+.escudo { transition: transform .25s var(--ease), opacity .4s; transform-box: fill-box; transform-origin: center; cursor: default; }
+.escudo:hover { transform: translateY(-3px); }
+.escudo--caido path.forma { fill: none; stroke: var(--tinta-tenue); stroke-opacity: .8; stroke-dasharray: 4 3; }
+.escudo .tachon { stroke: var(--sangre); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 40; stroke-dashoffset: 40; animation: tachar .5s var(--ease) forwards; }
+@keyframes tachar { to { stroke-dashoffset: 0; } }
+.fila-anio { font-family: var(--f-titulo); font-size: 16px; fill: var(--tinta); }
+.fila-cuenta { font-size: 14px; fill: var(--tinta-tenue); font-style: italic; }
+
+/* mapas */
+.mapa-grafico svg { max-height: 620px; }
+.mapa-grafico #reino { fill: var(--pergamino); }
+.ciudad { cursor: pointer; }
+.ciudad__circulo { transition: r .8s var(--ease), opacity .3s; }
+.ciudad__nombre { font-size: 15px; fill: var(--tinta); paint-order: stroke; stroke: rgba(243,233,210,.85); stroke-width: 4px; pointer-events: none; }
+.ciudad:hover .ciudad__circulo, .ciudad:focus-visible .ciudad__circulo { stroke: var(--oro); stroke-width: 3; filter: url(#brillo); }
+.ciudad:focus-visible { outline: none; }
+/* el lugar elegido en la Carta: anillo de vela que late y nombre destacado */
+.ciudad__anillo { fill: rgba(233,179,95,.18); stroke: var(--vela); stroke-width: 3; opacity: 0; transition: opacity .3s; pointer-events: none; }
+.ciudad.is-elegida .ciudad__anillo { opacity: 1; animation: latido 1.8s ease-in-out infinite; }
+@keyframes latido { 0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: .35; } }
+.ciudad.is-elegida .ciudad__circulo:not(.ciudad__circulo--zona) { fill: var(--vela); stroke: var(--tinta); stroke-width: 2; }
+.ciudad.is-elegida .ciudad__nombre { font-weight: bold; font-size: 18px; }
+.parcela { transition: opacity .3s; }
+.mapa-grafico .ruta { opacity: 0; transition: opacity .6s; }
+.mapa-grafico .ruta.is-visible { opacity: 1; }
+.mapa-grafico #frontera { transition: opacity .4s; }
+.mapa-grafico.sin-frontera #frontera { opacity: 0; }
+.ruta-dibujo { stroke-dasharray: 9 7; }
+
+/* en los SVG el foco se marca con el brillo de vela, no con el recuadro del navegador */
+svg [tabindex]:focus { outline: none; }
+svg .marca-dato:focus-visible, svg .escudo:focus-visible { filter: url(#brillo); }
+
+/* en pantallas estrechas el SVG se encoge: textos un poco más grandes */
+@media (max-width: 560px) {
+  .eje text, .valor { font-size: 22px; }
+  .etiqueta { font-size: 22px; }
+  .unidad, .franja text { font-size: 18px; }
+  .ciudad__nombre { font-size: 24px; }
+  .nota-flotante { white-space: normal !important; max-width: 70%; font-size: 1.4rem !important; }
+}

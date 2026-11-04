@@ -1,0 +1,120 @@
+{
+  "titulo": "Libro de la guardia",
+  "paginas": [
+    {
+      "id": "robos",
+      "anio": "1199 – 1218",
+      "titulo": "Robos denunciados por año",
+      "grafico": {
+        "tipo": "lineas",
+        "unidad": "robos",
+        "cambio": true,
+        "franja": {
+          "desde": 1207,
+          "hasta": 1210,
+          "texto": "guerra"
+        },
+        "labels": [
+          1199,
+          1200,
+          1201,
+          1202,
+          1203,
+          1204,
+          1205,
+          1206,
+          1207,
+          1208,
+          1209,
+          1210,
+          1211,
+          1212,
+          1213,
+          1214,
+          1215,
+          1216,
+          1217,
+          1218
+        ],
+        "series": [
+          {
+            "nombre": "Robos denunciados",
+            "color": "sangre",
+            "valores": [
+              330,
+              315,
+              345,
+              325,
+              350,
+              335,
+              310,
+              340,
+              365,
+              470,
+              690,
+              880,
+              960,
+              1010,
+              1040,
+              1070,
+              1090,
+              1110,
+              1130,
+              1150
+            ]
+          }
+        ]
+      },
+      "texto": "Durante años la guardia anotó unos trescientos robos al año. Con la guerra se dispararon y ya no volvieron a bajar: en 1218 se denuncian más del triple que antes. Con «cambio anual» se ve que el salto grande fue en 1208 y 1209; desde entonces siguen subiendo, pero cada año un poco menos.",
+      "nota": {
+        "id": "guardia-1",
+        "texto": "nadie anotó que teníamos hambre",
+        "sobre": 1210,
+        "marca": "flecha"
+      }
+    },
+    {
+      "id": "denuncias",
+      "anio": "1218",
+      "titulo": "Denuncias de 1218",
+      "lista": [
+        {
+          "fecha": "3 de marzo",
+          "texto": "Robo de dos sacos de grano en el molino de [San Corvel](lugar:san-corvel)."
+        },
+        {
+          "fecha": "19 de abril",
+          "texto": "Robo de una bolsa con monedas a un mercader, en el mercado de [Brisel](lugar:brisel)."
+        },
+        {
+          "fecha": "2 de junio",
+          "texto": "Robo de pan en la tahona de la calle del Pozo, [Aldemar](lugar:aldemar). Ladrones: dos muchachos, no se les alcanzó."
+        },
+        {
+          "fecha": "27 de julio",
+          "texto": "Robo de una oveja en [Valmora](lugar:valmora)."
+        },
+        {
+          "fecha": "14 de septiembre",
+          "texto": "Robo de [una daga](daga) con el emblema de la casa [Vareck](noble:vareck), en la plaza de [Aldemar](lugar:aldemar), durante el discurso del señor Vareck. Ladrón: desconocido.",
+          "destacada": true
+        },
+        {
+          "fecha": "15 de septiembre",
+          "texto": "La casa Vareck ofrece cien monedas por el nombre del ladrón."
+        },
+        {
+          "fecha": "30 de septiembre",
+          "texto": "Sin más denuncias. La guardia no vuelve a escribir en este libro."
+        }
+      ],
+      "texto": "Las últimas páginas que escribió la guardia. Después del robo de la daga el libro se queda en blanco.",
+      "nota": {
+        "id": "guardia-2",
+        "texto": "los de la tahona también éramos nosotros",
+        "sobre": "2 de junio",
+        "marca": "subrayado"
+      }
+    }
+  ]
+}

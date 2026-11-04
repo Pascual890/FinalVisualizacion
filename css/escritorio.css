@@ -1,0 +1,401 @@
+/* ==========================================================================
+   Portada y escritorio del archivo
+   La mesa se ve en perspectiva (CSS 3D, sin librerías): los libros tienen
+   grosor, la vela da la luz y las sombras caen hacia abajo a la derecha.
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Portada
+   -------------------------------------------------------------------------- */
+.portada {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  padding: 32px 16px;
+  position: relative;
+  overflow: hidden;
+  background:
+    radial-gradient(ellipse 55% 50% at 50% 50%, rgba(233,179,95,.14), transparent 70%),
+    radial-gradient(ellipse 90% 60% at 50% 115%, rgba(58,42,28,.9), transparent 70%),
+    var(--hollin);
+}
+.portada::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse 38% 34% at 50% 50%, rgba(233,179,95,.12), transparent 70%);
+  animation: vela 4.5s ease-in-out infinite alternate;
+  pointer-events: none;
+}
+@keyframes vela {
+  0%   { opacity: .55; transform: scale(1); }
+  35%  { opacity: .9;  transform: scale(1.03); }
+  60%  { opacity: .7;  transform: scale(.99); }
+  100% { opacity: 1;   transform: scale(1.02); }
+}
+.portada__contenido { position: relative; display: grid; justify-items: center; gap: 18px; max-width: 820px; }
+.portada__antes { font-family: var(--f-titulo); font-size: .82rem; letter-spacing: .4em; text-transform: uppercase; color: var(--polvo); opacity: .65; }
+.portada__titulo {
+  font-family: var(--f-portada);
+  font-weight: 700;
+  font-size: clamp(2.8rem, 8.5vw, 6rem);
+  line-height: 1;
+  letter-spacing: .02em;
+  color: var(--pergamino);
+  text-shadow: 0 0 50px rgba(233,179,95,.22), 0 3px 0 rgba(0,0,0,.6);
+}
+.portada__filete { width: min(360px, 70%); height: 14px; color: var(--sangre); }
+.portada__sub { font-family: var(--f-registro); font-style: italic; font-size: 1.25rem; color: var(--polvo); }
+.portada__entrar { margin-top: 18px; font-family: var(--f-titulo); letter-spacing: .32em; text-transform: uppercase; font-size: .9rem; padding: 12px 36px; min-height: 48px; }
+.portada__reiniciar { font-family: var(--f-registro); font-style: italic; font-size: 1rem; color: var(--polvo); opacity: .7; padding: 8px 12px; min-height: 40px; transition: color .2s, opacity .2s; }
+.portada__reiniciar:hover, .portada__reiniciar:focus-visible { color: var(--vela); opacity: 1; }
+.portada__pie { position: absolute; bottom: 22px; left: 0; right: 0; font-size: .82rem; color: var(--polvo); opacity: .4; font-style: italic; }
+
+/* --------------------------------------------------------------------------
+   Escritorio
+   -------------------------------------------------------------------------- */
+.escritorio { min-height: 100vh; display: flex; flex-direction: column; background: var(--hollin); overflow: hidden; }
+.escritorio .barra { position: absolute; left: 0; right: 0; top: 0; }
+
+.escena {
+  position: relative;
+  flex: 1;
+  min-height: 100vh;
+  perspective: 1700px;
+  perspective-origin: 50% 10%;
+  overflow: hidden;
+}
+
+/* la mesa */
+.tablero {
+  position: absolute;
+  left: 50%; top: 12%;
+  width: max(1080px, 104vw);
+  min-height: 110vh;
+  aspect-ratio: 16 / 9.4;
+  transform: translateX(-50%) rotateX(36deg);
+  transform-origin: 50% 30%;
+  transform-style: preserve-3d;
+  background-color: #2a1c11;
+  background-image:
+    radial-gradient(ellipse 60% 60% at 12% 10%, rgba(233,170,90,.16), transparent 70%),
+    var(--tex-madera);
+  background-size: 100% 100%, 1024px 512px;
+  border-radius: 6px;
+  box-shadow: inset 0 0 160px 40px rgba(0,0,0,.55);
+  /* la mesa no responde al cursor: está en el mismo plano que los enlaces y,
+     al inclinarse, a veces "ganaba" el hover y el objeto subía y bajaba */
+  pointer-events: none;
+}
+a.obj { pointer-events: auto; }
+
+/* oscuridad que crece lejos de la vela (en pantalla, por encima de todo) */
+.penumbra {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 75% at var(--vx, 18%) var(--vy, 22%), transparent 0, rgba(12,8,5,.18) 40%, rgba(12,8,5,.72) 85%),
+    linear-gradient(180deg, rgba(12,8,5,.85), transparent 18%, transparent 80%, rgba(12,8,5,.7));
+  z-index: 5;
+}
+.resplandor {
+  position: absolute; inset: 0;
+  pointer-events: none;
+  /* mezcla normal (no `screen`): sobre la mesa oscura se ve igual y no obliga
+     a recomponer todo lo de abajo en cada parpadeo */
+  background: radial-gradient(circle 420px at var(--vx, 18%) var(--vy, 22%), rgba(255,190,110,.13), transparent 70%);
+  animation: parpadeo 3.2s infinite;
+  z-index: 6;
+}
+@keyframes parpadeo {
+  0%, 100% { opacity: .85; } 12% { opacity: 1; } 20% { opacity: .78; } 34% { opacity: .95; }
+  48% { opacity: .82; } 63% { opacity: 1; } 77% { opacity: .88; } 90% { opacity: .96; }
+}
+.polvo { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; z-index: 7; }
+
+.escritorio__ayuda {
+  position: absolute; left: 0; right: 0; bottom: 18px;
+  text-align: center;
+  font-family: var(--f-registro);
+  font-style: italic;
+  font-size: 1rem;
+  color: var(--polvo);
+  opacity: .8;
+  z-index: 8;
+  pointer-events: none;
+}
+
+/* etiqueta flotante (en pantalla, nítida) al pasar sobre un objeto */
+.etiqueta-mesa {
+  position: absolute;
+  z-index: 9;
+  pointer-events: none;
+  padding: 10px 14px;
+  max-width: 260px;
+  font-size: .92rem;
+  line-height: 1.35;
+  transform: translate(-50%, -100%) translateY(-10px);
+  opacity: 0;
+  transition: opacity .18s;
+  box-shadow: var(--sombra-papel);
+}
+.etiqueta-mesa.is-visible { opacity: 1; }
+.etiqueta-mesa strong { display: block; font-family: var(--f-titulo); font-size: .9rem; letter-spacing: .04em; }
+
+/* --------------------------------------------------------------------------
+   Objetos sobre la mesa
+   -------------------------------------------------------------------------- */
+.obj {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: calc(var(--ancho) * 1%);
+  transform: rotateZ(calc(var(--giro) * 1deg));
+  transform-style: preserve-3d;
+  display: block;
+  color: inherit;
+  text-decoration: none;
+  outline: none;
+}
+/* el objeto se levanta al pasar el cursor, pero la zona que responde al cursor
+   es la del enlace, que no se mueve: así no se escapa del puntero y no tiembla */
+.obj__pieza {
+  position: relative;
+  transform-style: preserve-3d;
+  transform: translateZ(var(--t, 1px));
+  transition: transform .45s var(--ease);
+  pointer-events: none;
+}
+.obj__sombra {
+  position: absolute; inset: 0;
+  transform: translate(10px, 14px) translateZ(.5px);
+  border-radius: 3px;
+  transition: transform .45s var(--ease);
+  pointer-events: none;
+}
+/* dos sombras fijas, una nítida y otra difusa, que se cruzan al levantar el
+   objeto: animar el desenfoque obligaría a repintarlo en cada cuadro */
+.obj__sombra::before, .obj__sombra::after {
+  content: '';
+  position: absolute; inset: 0;
+  border-radius: inherit;
+  background: rgba(0,0,0,.7);
+  transition: opacity .45s;
+}
+.obj__sombra::before { filter: blur(8px); opacity: .8; }
+.obj__sombra::after { filter: blur(20px); opacity: 0; }
+.obj:hover .obj__pieza, .obj:focus-visible .obj__pieza { transform: translateZ(calc(var(--t, 1px) + 34px)); }
+.obj:hover .obj__sombra, .obj:focus-visible .obj__sombra { transform: translate(30px, 42px) translateZ(.5px) scale(1.04); }
+.obj:hover .obj__sombra::before, .obj:focus-visible .obj__sombra::before { opacity: 0; }
+.obj:hover .obj__sombra::after, .obj:focus-visible .obj__sombra::after { opacity: .55; }
+.obj:focus-visible .obj__pieza > :first-child { box-shadow: var(--brillo-vela); }
+/* el objeto que se abre se levanta más mientras la cámara se acerca */
+.obj.is-elegido .obj__pieza { transform: translateZ(calc(var(--t, 1px) + 70px)); }
+.obj.is-elegido .obj__sombra { transform: translate(44px, 60px) translateZ(.5px) scale(1.06); }
+.obj.is-elegido .obj__sombra::before { opacity: 0; }
+.obj.is-elegido .obj__sombra::after { opacity: .45; }
+.escena.is-acercando .escritorio__ayuda { opacity: 0; transition: opacity .2s; }
+
+/* --- libros con grosor -------------------------------------------------- */
+.libro3d { aspect-ratio: 3 / 4; }
+.libro3d__tapa {
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column; justify-content: center; align-items: center; gap: 7px;
+  padding: 14% 12%;
+  text-align: center;
+  color: #e9d6a8;
+  background-color: var(--tapa);
+  background-image:
+    radial-gradient(ellipse 90% 80% at 35% 30%, rgba(255,255,255,.09), transparent 65%),
+    linear-gradient(90deg, rgba(0,0,0,.35) 0 4%, rgba(255,255,255,.06) 5%, transparent 9%),
+    var(--tex-manchas),
+    var(--tex-papel);
+  background-size: 100% 100%, 100% 100%, 500px 500px, 260px 260px;
+  background-blend-mode: normal, normal, multiply, multiply;
+  border-radius: 2px 5px 5px 2px;
+  box-shadow: inset 0 0 0 5px rgba(0,0,0,.18), inset 0 0 0 6px rgba(201,160,80,.45), inset 0 0 0 10px rgba(0,0,0,.12), inset 0 0 0 11px rgba(201,160,80,.25), inset 0 -20px 40px rgba(0,0,0,.25);
+  backface-visibility: hidden;
+}
+.libro3d__titulo { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(.7rem, 1vw, 1.02rem); line-height: 1.2; letter-spacing: .07em; text-transform: uppercase; text-shadow: 0 1px 0 rgba(0,0,0,.5); }
+.libro3d__sub { font-family: var(--f-registro); font-style: italic; font-size: clamp(.62rem, .82vw, .84rem); opacity: .82; }
+.libro3d__filete { width: 50%; height: 7px; background: radial-gradient(circle, #c9a050 0 2px, transparent 2.5px) center / 7px 7px no-repeat, linear-gradient(#c9a050, #c9a050) center / 100% 1px no-repeat; opacity: .8; }
+
+/* caras: canto de páginas (frente y derecha) y lomo (izquierda) */
+.cara { position: absolute; backface-visibility: visible; }
+.cara--frente {
+  left: 2px; right: 3px; top: 100%; height: var(--t);
+  transform-origin: top; transform: rotateX(-90deg);
+  background: repeating-linear-gradient(180deg, #e6d8b8 0 1px, #c4b088 1px 2px), #ddcca6;
+  box-shadow: inset 0 0 0 1px rgba(0,0,0,.25);
+}
+.cara--derecha {
+  top: 2px; bottom: 3px; left: calc(100% - 3px); width: var(--t);
+  transform-origin: left; transform: rotateY(90deg);
+  background: repeating-linear-gradient(90deg, #e2d3b2 0 1px, #bba57d 1px 2px), #d9c7a0;
+  filter: brightness(.82);
+}
+.cara--lomo {
+  top: 0; bottom: 0; right: 100%; width: var(--t);
+  transform-origin: right; transform: rotateY(-90deg);
+  background:
+    repeating-linear-gradient(180deg, transparent 0 18%, rgba(0,0,0,.35) 18% 19%, rgba(255,220,160,.18) 19% 20%, transparent 20% 38%),
+    var(--tapa);
+  filter: brightness(.7);
+}
+
+.tapa--madera { --tapa: #5a3d24; }
+.tapa--oscura { --tapa: #34261a; }
+.tapa--verde  { --tapa: #2f3f2c; }
+.tapa--sangre { --tapa: #63241a; }
+.tapa--vino   { --tapa: #4e2622; }
+.tapa--ceniza { --tapa: #3d342d; }
+
+/* polvo sobre los libros que nadie ha abierto */
+.libro3d__tapa::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(170deg, rgba(220,210,185,.22), rgba(220,210,185,.08) 45%, transparent 70%);
+  pointer-events: none;
+  transition: opacity .6s;
+}
+.obj.is-visto .libro3d__tapa::after { opacity: 0; }
+
+/* --- papeles ------------------------------------------------------------ */
+.papel-mesa { padding: 9% 10% 11%; }
+.denuncia-mini__titulo { font-family: var(--f-titulo); color: var(--sangre); font-size: clamp(.95rem, 1.35vw, 1.35rem); letter-spacing: .16em; text-transform: uppercase; }
+.papel-mesa p { margin: 6px 0 0; font-size: clamp(.72rem, .95vw, .98rem); line-height: 1.4; }
+/* la entrada llama con un halo de vela que respira; solo cambia la opacidad,
+   nunca la posición, para que el texto no tiemble */
+.obj--entrada::before {
+  content: '';
+  position: absolute; inset: -18px;
+  border-radius: 12px;
+  background: radial-gradient(closest-side, rgba(233,179,95,.38), rgba(233,179,95,.12) 60%, transparent);
+  transform: translateZ(.5px);
+  pointer-events: none;
+  animation: llamar 2.8s ease-in-out infinite;
+}
+@keyframes llamar { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
+.obj .lacre { right: 9%; bottom: -6%; width: 15%; transform: translateZ(2px); }
+
+.carta-mini { padding: 6% 7% 4%; }
+.carta-mini__titulo { font-family: var(--f-titulo); font-size: clamp(.85rem, 1.2vw, 1.15rem); }
+.carta-mini__sub { font-family: var(--f-registro); font-style: italic; font-size: .8rem; color: var(--tinta-tenue); }
+.carta-mini svg { display: block; width: 100%; height: auto; margin-top: 2px; }
+
+.nota-mesa { padding: 12% 12% 16%; transform: rotate(0); }
+.nota-mesa .nota-leo { font-size: clamp(.9rem, 1.3vw, 1.35rem); clip-path: none; animation: none; display: block; }
+.nota-mesa__lineas { display: grid; gap: 7px; margin-top: 8px; }
+.nota-mesa__lineas i { height: 2px; background: var(--lapiz); opacity: .35; border-radius: 2px; }
+
+/* --- relicario: caja abierta y vacía ------------------------------------ */
+.caja3d { aspect-ratio: 16 / 7; --alto: 30px; }
+.caja3d__fondo {
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse at 50% 45%, #5b1b14, #2a0a07 85%);
+  box-shadow: inset 0 0 0 7px #3a2616, inset 0 0 0 8px rgba(201,160,80,.5), inset 0 0 30px 10px rgba(0,0,0,.6);
+  border-radius: 3px;
+}
+/* la huella de la daga en el terciopelo */
+.caja3d__huella {
+  position: absolute; left: 50%; top: 50%;
+  width: 46%; aspect-ratio: 702 / 1047;
+  transform: translate(-50%, -50%) rotate(-58deg);
+  -webkit-mask: url('../assets/netherbane/daga.webp') center / contain no-repeat;
+  mask: url('../assets/netherbane/daga.webp') center / contain no-repeat;
+  background: linear-gradient(135deg, rgba(0,0,0,.75), rgba(0,0,0,.45) 55%, rgba(120,40,30,.4));
+}
+.caja3d__pared { position: absolute; background: linear-gradient(#4a3220, #2c1d11); box-shadow: inset 0 0 0 1px rgba(201,160,80,.35); }
+.caja3d__pared--frente { left: 0; right: 0; bottom: 0; height: var(--alto); transform-origin: bottom; transform: rotateX(-90deg); }
+.caja3d__pared--fondo { left: 0; right: 0; top: 0; height: var(--alto); transform-origin: top; transform: rotateX(90deg); }
+.caja3d__pared--izq { top: 0; bottom: 0; left: 0; width: var(--alto); transform-origin: left; transform: rotateY(-90deg); }
+.caja3d__pared--der { top: 0; bottom: 0; right: 0; width: var(--alto); transform-origin: right; transform: rotateY(90deg); }
+.caja3d__tapa {
+  position: absolute; left: 0; right: 0; top: 0; height: 100%;
+  transform-origin: top;
+  transform: translateZ(var(--alto)) rotateX(104deg);
+  transform-style: preserve-3d;
+  background: linear-gradient(#3e2a19, #24170d);
+  box-shadow: inset 0 0 0 1px rgba(201,160,80,.4);
+}
+.caja3d__tapa-dentro {
+  position: absolute; inset: 6px;
+  transform: rotateX(180deg) translateZ(1px);
+  backface-visibility: hidden;
+  background: radial-gradient(ellipse at 50% 40%, #6a2219, #2e0c08 85%);
+  display: grid; place-items: center;
+  box-shadow: inset 0 0 20px rgba(0,0,0,.6);
+}
+.caja3d__placa {
+  font-family: var(--f-titulo); font-size: clamp(.55rem, .8vw, .8rem); letter-spacing: .22em;
+  color: #2a1a0c; padding: 4px 12px;
+  background: linear-gradient(135deg, #a07c35, #e6cf86 45%, #a47f33);
+  box-shadow: 0 1px 2px rgba(0,0,0,.5);
+}
+
+/* --- tintero, pluma y vela ---------------------------------------------- */
+.tintero { aspect-ratio: 1; transform-style: preserve-3d; }
+.tintero i {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: radial-gradient(circle at 40% 35%, #3b4250, #10131a 70%);
+  transform: translateZ(calc(var(--n) * 4px));
+}
+.tintero i:last-child { background: radial-gradient(circle at 50% 50%, #07080b 0 34%, #2c3340 38%, #12151c 70%), #111; box-shadow: inset 0 0 0 2px rgba(255,255,255,.08); }
+.tintero i:last-child::after { content: ''; position: absolute; left: 22%; top: 18%; width: 22%; height: 12%; border-radius: 50%; background: rgba(255,255,255,.35); filter: blur(1px); }
+
+.pluma { transform: translateZ(2px); }
+.pluma svg { display: block; width: 100%; height: auto; }
+
+.vela { transform-style: preserve-3d; aspect-ratio: 1; }
+.vela__plato { position: absolute; inset: 0; border-radius: 50%; background: radial-gradient(circle at 40% 35%, #b39860, #5c4824 70%); box-shadow: inset 0 0 0 3px rgba(0,0,0,.25); }
+.vela__cuerpo {
+  position: absolute; left: 32%; width: 36%; bottom: 50%; height: 180%;
+  transform-origin: bottom; transform: rotateX(-90deg);
+  background: linear-gradient(90deg, #b9a98a, #f1e6cc 40%, #e7d9bb 60%, #a8977a);
+  border-radius: 6px 6px 3px 3px;
+}
+.vela__cuerpo::before {   /* cera derretida */
+  content: ''; position: absolute; left: -4%; right: -4%; top: -2%; height: 18%;
+  background: radial-gradient(ellipse at 50% 0, #fff6e0, #e6d6b4 70%);
+  border-radius: 40% 40% 50% 50%;
+}
+.vela__llama {
+  position: absolute; left: 50%; bottom: 100%;
+  width: 46%; aspect-ratio: 1 / 2.2;
+  transform: translateX(-50%);
+  background: radial-gradient(ellipse 50% 60% at 50% 70%, #fff8e0, #ffd27a 40%, rgba(255,140,40,.6) 70%, transparent 72%);
+  border-radius: 50% 50% 45% 45% / 65% 65% 35% 35%;
+  filter: blur(.6px);
+  animation: llama 1.8s ease-in-out infinite alternate;
+  box-shadow: 0 0 40px 18px rgba(255,180,90,.35);
+}
+@keyframes llama {
+  0% { transform: translateX(-50%) scaleY(1) skewX(0); }
+  30% { transform: translateX(-52%) scaleY(1.08) skewX(-3deg); }
+  55% { transform: translateX(-49%) scaleY(.94) skewX(2deg); }
+  100% { transform: translateX(-50%) scaleY(1.04) skewX(-1deg); }
+}
+
+/* --------------------------------------------------------------------------
+   Pantallas estrechas: sin perspectiva, los documentos se apilan
+   -------------------------------------------------------------------------- */
+@media (max-width: 820px) {
+  .escritorio .barra { position: relative; }
+  .escena { perspective: none; min-height: 0; overflow: visible; padding: 16px 16px 60px; }
+  .tablero {
+    position: static; transform: none; width: auto; aspect-ratio: auto;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 26px 18px;
+    background: none; box-shadow: none;
+  }
+  .penumbra, .resplandor, .polvo, .etiqueta-mesa, .decorado, .cara, .obj__sombra, .caja3d__pared, .caja3d__tapa { display: none; }
+  .obj { position: relative; left: auto; top: auto; width: auto; transform: rotate(calc(var(--giro) * .4deg)); }
+  .obj__pieza { transform: none !important; animation: none !important; box-shadow: var(--sombra-papel); }
+  .obj--papel, .obj--mapa, .obj--caja { grid-column: 1 / -1; }
+  .obj--papel { order: -1; }
+  .libro3d__titulo { font-size: .88rem; }
+  .libro3d__sub { font-size: .8rem; }
+  .papel-mesa p { font-size: 1rem; }
+  .escritorio__ayuda { position: static; padding: 0 16px 28px; }
+  .caja3d__huella { width: 38%; }
+}

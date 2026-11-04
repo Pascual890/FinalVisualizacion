@@ -1,0 +1,83 @@
+{
+  "_nota": "Las 12 casas nobles. 'cae': año del registro en que ya no aparece en pie (null = sigue en pie en 1218). Los nombres de las 9 casas caídas son provisionales. El emblema de Vareck (Cerbero) viene de la infografía; los de Vandel y Voss son provisionales.",
+  "casas": [
+    {
+      "id": "vareck",
+      "nombre": "Vareck",
+      "cae": null,
+      "color": "sangre",
+      "emblema": "cerbero",
+      "sede": "caerlun"
+    },
+    {
+      "id": "vandel",
+      "nombre": "Vandel",
+      "cae": null,
+      "color": "bosque",
+      "emblema": "arbol",
+      "sede": "ordane"
+    },
+    {
+      "id": "voss",
+      "nombre": "Voss",
+      "cae": null,
+      "color": "lapis",
+      "emblema": "torre",
+      "sede": "torvane"
+    },
+    {
+      "id": "aldren",
+      "nombre": "Aldren",
+      "cae": 1210,
+      "nota": "murió el último heredero en la guerra"
+    },
+    {
+      "id": "bermond",
+      "nombre": "Bérmond",
+      "cae": 1210,
+      "nota": "sus tierras quedaron del lado de Dornhal"
+    },
+    {
+      "id": "corsal",
+      "nombre": "Corsal",
+      "cae": 1210,
+      "nota": "se pasó al bando de Dornhal"
+    },
+    {
+      "id": "dravin",
+      "nombre": "Dravin",
+      "cae": 1210,
+      "nota": "murió el último heredero en la guerra"
+    },
+    {
+      "id": "esterel",
+      "nombre": "Esterel",
+      "cae": 1210,
+      "nota": "su castillo ardió en Valmora"
+    },
+    {
+      "id": "faunor",
+      "nombre": "Fáunor",
+      "cae": 1218,
+      "nota": "vendió sus tierras a Vareck"
+    },
+    {
+      "id": "grevan",
+      "nombre": "Grevan",
+      "cae": 1218,
+      "nota": "casó a su heredera con un Vandel"
+    },
+    {
+      "id": "halden",
+      "nombre": "Halden",
+      "cae": 1218,
+      "nota": "perdió sus tierras por deudas con Voss"
+    },
+    {
+      "id": "morvel",
+      "nombre": "Morvel",
+      "cae": 1218,
+      "nota": "vendió sus tierras a Vareck"
+    }
+  ]
+}

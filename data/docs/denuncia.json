@@ -1,0 +1,26 @@
+{
+  "titulo": "Denuncia",
+  "fuente": "Libro de denuncias de la guardia del reino, folio 212.",
+  "anio": "1218",
+  "texto": "[Plaza de Aldemar](lugar:aldemar), año 1218. Robo de [una daga](daga) con el emblema de la casa [Vareck](noble:vareck), durante el discurso del señor Vareck, a plena luz del día. Ladrón: desconocido.",
+  "sello": "Guardia del reino",
+  "nota": {
+    "id": "denuncia",
+    "texto": "fue Aaron",
+    "tacha": "desconocido"
+  },
+  "seguir": [
+    {
+      "texto": "Ver los robos en el Libro de la guardia",
+      "href": "#/doc/guardia/denuncias"
+    },
+    {
+      "texto": "La casa Vareck en el Libro de linajes",
+      "href": "#/doc/linajes/vareck"
+    },
+    {
+      "texto": "Aldemar en la Carta del reino",
+      "href": "#/doc/carta/aldemar"
+    }
+  ]
+}

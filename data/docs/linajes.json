@@ -1,0 +1,117 @@
+{
+  "titulo": "Libro de linajes",
+  "paginas": [
+    {
+      "id": "casas",
+      "anio": "1207 · 1210 · 1218",
+      "titulo": "Casas en pie",
+      "grafico": {
+        "tipo": "escudos",
+        "cortes": [
+          1207,
+          1210,
+          1218
+        ]
+      },
+      "texto": "Antes de la guerra había doce casas nobles en Cregon. Cinco cayeron con la guerra. Después de la guerra cayeron cuatro más, y no por espadas: vendieron o perdieron sus tierras, y siempre a las mismas tres casas. Pasa el cursor sobre un escudo para leer qué fue de cada una."
+    },
+    {
+      "id": "vareck",
+      "anio": "1218",
+      "noble": "vareck",
+      "titulo": "Casa Vareck",
+      "lema": "el mayor de los tres hermanos",
+      "ficha": [
+        {
+          "clave": "Sede",
+          "valor": "[Caerlún](lugar:caerlun)"
+        },
+        {
+          "clave": "Riqueza",
+          "valor": "620 mil monedas",
+          "barra": 620,
+          "max": 620
+        },
+        {
+          "clave": "Tierra",
+          "valor": "38 de cada 100 partes del reino",
+          "barra": 38,
+          "max": 38
+        },
+        {
+          "clave": "Emblema",
+          "valor": "Cerbero, el perro de tres cabezas, en rojo sobre oro"
+        }
+      ],
+      "texto": "La casa más rica y la que más tierra tiene. El señor Vareck es el mayor de los tres hermanos que quedaron al frente de las casas nobles. Su emblema, Cerbero, va en el pomo de [Netherbane](daga), la daga que dice quién manda en Cregon. La llevaba al cinto en cada discurso, hasta el día de la [plaza de Aldemar](lugar:aldemar).",
+      "nota": {
+        "id": "linajes-vareck",
+        "texto": "él ni nos miró"
+      }
+    },
+    {
+      "id": "vandel",
+      "anio": "1218",
+      "noble": "vandel",
+      "titulo": "Casa Vandel",
+      "lema": "el segundo de los hermanos",
+      "ficha": [
+        {
+          "clave": "Sede",
+          "valor": "[Ordane](lugar:ordane)"
+        },
+        {
+          "clave": "Riqueza",
+          "valor": "340 mil monedas",
+          "barra": 340,
+          "max": 620
+        },
+        {
+          "clave": "Tierra",
+          "valor": "22 de cada 100 partes del reino",
+          "barra": 22,
+          "max": 38
+        },
+        {
+          "clave": "Emblema",
+          "valor": "un árbol en verde sobre oro"
+        }
+      ],
+      "texto": "Gobierna el valle alto desde [Ordane](lugar:ordane) y cobra los peajes de los caminos de [Brisel](lugar:brisel). Sigue a su hermano [Vareck](noble:vareck) en todo, un paso por detrás."
+    },
+    {
+      "id": "voss",
+      "anio": "1218",
+      "noble": "voss",
+      "titulo": "Casa Voss",
+      "lema": "el menor de los hermanos",
+      "ficha": [
+        {
+          "clave": "Sede",
+          "valor": "[Torvane](lugar:torvane)"
+        },
+        {
+          "clave": "Riqueza",
+          "valor": "240 mil monedas",
+          "barra": 240,
+          "max": 620
+        },
+        {
+          "clave": "Tierra",
+          "valor": "15 de cada 100 partes del reino",
+          "barra": 15,
+          "max": 38
+        },
+        {
+          "clave": "Emblema",
+          "valor": "una torre en azul sobre oro"
+        }
+      ],
+      "texto": "La más pequeña de las tres casas, en [Torvane](lugar:torvane), al este. Presta dinero a las casas pequeñas; la casa Halden perdió todas sus tierras por las deudas que tenía con Voss.",
+      "nota": {
+        "id": "linajes-voss",
+        "texto": "tres hermanos con todo. dos hermanos sin nada"
+      }
+    }
+  ]
+}

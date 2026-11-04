@@ -1,0 +1,272 @@
+/* ==========================================================================
+   Archivo de Cregon — base: colores, tipografía, papel
+   Reglas del lenguaje gráfico:
+   · Oscuro = el lugar. Claro = los documentos. Todo lo que se lee va sobre papel.
+   · Rojo sangre solo para Vareck, la daga, los tachones y los números de sección
+     (como en la infografía de Netherbane).
+   · Luz de vela = lo que se puede tocar (hover, enlaces entre documentos).
+   · Verde y azul solo dentro de los gráficos (Vandel y Voss).
+   ========================================================================== */
+
+:root {
+  /* de la página de Cregon y la infografía */
+  --pergamino: #e8d9b8;
+  --hoja: #f4ead3;
+  --tinta: #2b1d0e;
+  --tinta-tenue: #6e5a45;
+  --sangre: #8a2f1f;
+  --oro: #b8862b;
+  --bosque: #3f5a3a;
+  --lapis: #2f4a6d;
+
+  /* el archivo abandonado */
+  --hollin: #15110d;
+  --madera: #3a2a1c;
+  --polvo: #cfc4ac;
+  --quemado: #6a4024;
+  --lapiz: #47403a;
+  --vela: #e9b35f;
+
+  /* tres voces: el reino (títulos), los registros (texto) y la mano de Leo.
+     EB Garamond para leer y para los números; IM Fell solo como voz del registro. */
+  --f-portada: 'Cinzel Decorative', 'Cinzel', Georgia, serif;
+  --f-titulo: 'Cinzel', Georgia, serif;
+  --f-texto: 'EB Garamond', Georgia, 'Times New Roman', serif;
+  --f-registro: 'IM Fell English', 'EB Garamond', Georgia, serif;
+  --f-mano: 'Reenie Beanie', 'Segoe Print', cursive;
+
+  /* sombras: la vela está arriba a la izquierda, así que caen abajo a la derecha */
+  --sombra-papel: 2px 3px 2px rgba(0,0,0,.18), 8px 14px 26px -8px rgba(0,0,0,.65);
+  --sombra-alta: 4px 6px 4px rgba(0,0,0,.2), 18px 30px 44px -12px rgba(0,0,0,.75);
+  --brillo-vela: 0 0 0 1px rgba(233,179,95,.5), 0 0 30px 6px rgba(233,179,95,.22);
+
+  --tex-papel: url('../assets/texturas/papel.webp');
+  --tex-manchas: url('../assets/texturas/manchas.webp');
+  --tex-madera: url('../assets/texturas/madera.webp');
+  --tex-grafito: url('../assets/texturas/grafito.webp');
+
+  --ease: cubic-bezier(.2,.7,.2,1);
+  --ease-libro: cubic-bezier(.55,.05,.25,1);
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body { height: 100%; }
+
+body {
+  margin: 0;
+  background: var(--hollin);
+  color: var(--hoja);
+  font-family: var(--f-texto);
+  font-size: 19px;
+  line-height: 1.5;
+  font-variant-numeric: lining-nums;
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+h1, h2, h3 { font-family: var(--f-titulo); font-weight: 600; margin: 0; letter-spacing: .04em; }
+
+a { color: inherit; }
+button { font: inherit; color: inherit; }
+:focus-visible { outline: 2px solid var(--vela); outline-offset: 3px; }
+
+.oculto-visual {
+  position: absolute !important;
+  width: 1px; height: 1px; overflow: hidden;
+  clip: rect(0 0 0 0); white-space: nowrap;
+}
+
+/* --------------------------------------------------------------------------
+   Papel. Tres capas multiplicadas sobre el color: manchas grandes, fibras y
+   grano, y el borde oscurecido por los años. Cada documento cambia el color
+   (--papel) y la retícula (Cuentas, Censo, Tierras…).
+   -------------------------------------------------------------------------- */
+.papel {
+  --papel: var(--hoja);
+  position: relative;
+  color: var(--tinta);
+  background-color: var(--papel);
+  background-image:
+    radial-gradient(ellipse 120% 110% at 50% 45%, transparent 58%, rgba(120,80,40,.22) 100%),
+    var(--tex-manchas),
+    var(--tex-papel);
+  background-size: 100% 100%, 900px 900px, 420px 420px;
+  background-position: center, var(--mx-papel, 0) var(--my-papel, 0), 0 0;
+  background-blend-mode: multiply, multiply, multiply;
+}
+.papel--viejo { --papel: var(--pergamino); }
+.papel--vitela { --papel: #f1e6cc; }
+.papel--trapo { --papel: #efe5cf; }
+
+/* sombra que respeta los bordes irregulares (clip-path recorta box-shadow) */
+.con-sombra { filter: drop-shadow(2px 3px 2px rgba(0,0,0,.25)) drop-shadow(10px 16px 18px rgba(0,0,0,.45)); }
+
+/* dobleces de una hoja doblada en cuatro */
+.doblada::after {
+  content: '';
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background:
+    linear-gradient(90deg, transparent calc(50% - 14px), rgba(0,0,0,.07) calc(50% - 1px), rgba(255,255,255,.35) 50%, rgba(0,0,0,.04) calc(50% + 2px), transparent calc(50% + 18px)),
+    linear-gradient(180deg, transparent calc(50% - 12px), rgba(0,0,0,.06) calc(50% - 1px), rgba(255,255,255,.3) 50%, rgba(0,0,0,.035) calc(50% + 2px), transparent calc(50% + 14px));
+  mix-blend-mode: multiply;
+}
+
+/* borde chamuscado: el JS muerde la esquina con clip-path; esto la oscurece */
+.chamuscado::before {
+  content: '';
+  position: absolute;
+  width: var(--q-r, 160px); height: var(--q-r, 160px);
+  pointer-events: none;
+  z-index: 3;
+  background: radial-gradient(circle farthest-corner at var(--q-esq, 100% 100%), #0e0906 0 47%, #2a170b 51%, rgba(80,45,20,.75) 55%, rgba(106,64,36,.35) 62%, rgba(106,64,36,.12) 72%, transparent 82%);
+}
+.chamuscado[data-esquina="br"]::before { right: 0; bottom: 0; --q-esq: 100% 100%; }
+.chamuscado[data-esquina="tr"]::before { right: 0; top: 0; --q-esq: 100% 0; }
+.chamuscado[data-esquina="bl"]::before { left: 0; bottom: 0; --q-esq: 0 100%; }
+.chamuscado[data-esquina="tl"]::before { left: 0; top: 0; --q-esq: 0 0; }
+
+/* sello de lacre */
+.lacre {
+  position: absolute;
+  width: 64px; aspect-ratio: 1;
+  border-radius: 47% 53% 50% 50% / 52% 48% 52% 48%;
+  background:
+    radial-gradient(circle at 50% 50%, transparent 38%, rgba(0,0,0,.18) 40%, transparent 44%),
+    radial-gradient(circle at 36% 32%, #c4553c, var(--sangre) 50%, #4e170d 100%);
+  box-shadow: 2px 4px 6px rgba(0,0,0,.45), inset 0 -3px 5px rgba(0,0,0,.35), inset 0 2px 3px rgba(255,190,160,.25);
+  z-index: 4;
+}
+
+/* --------------------------------------------------------------------------
+   Enlaces entre documentos (nombres subrayados)
+   -------------------------------------------------------------------------- */
+.ref {
+  color: inherit;
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+  text-decoration-color: rgba(43,29,14,.45);
+  border-radius: 2px;
+  transition: background-color .2s, text-decoration-color .2s, box-shadow .2s;
+}
+.ref:hover, .ref:focus-visible {
+  text-decoration-color: var(--tinta);
+  background-color: rgba(233,179,95,.35);
+  box-shadow: 0 0 0 2px rgba(233,179,95,.35);
+}
+.ref--noble[data-casa="vareck"], .ref--daga { text-decoration-color: rgba(138,47,31,.7); }
+.ref.is-seguido { background-color: rgba(233,179,95,.28); box-shadow: 0 0 0 2px rgba(233,179,95,.28); }
+
+/* número de sección en rojo, como en la infografía (I · HOJA) */
+.num { font-family: var(--f-titulo); color: var(--sangre); font-weight: 600; margin-right: .45em; letter-spacing: .02em; }
+
+/* --------------------------------------------------------------------------
+   La mano de Leo: grafito, no tinta. El grano del papel hace de máscara para
+   que el trazo se vea irregular, como lápiz.
+   -------------------------------------------------------------------------- */
+.nota-leo {
+  font-family: var(--f-mano);
+  color: var(--lapiz);
+  font-size: 1.75em;
+  line-height: .95;
+  transform: rotate(var(--giro, -4deg));
+  display: inline-block;
+  pointer-events: none;
+  -webkit-mask-image: var(--tex-grafito);
+  -webkit-mask-size: 110px 110px;
+  mask-image: var(--tex-grafito);
+  mask-size: 110px 110px;
+  clip-path: inset(-20% 100% -20% 0);
+  animation: escribir 1.5s steps(26, end) .5s forwards;
+}
+@keyframes escribir { to { clip-path: inset(-20% -5% -20% 0); } }
+
+/* trazos de lápiz en SVG (círculos, flechas, tachones) */
+.trazo { fill: none; stroke: var(--lapiz); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; opacity: .85; }
+.trazo--dibujar { stroke-dasharray: var(--largo, 400); stroke-dashoffset: var(--largo, 400); animation: trazar-lapiz .9s var(--ease) var(--retraso, .3s) forwards; }
+@keyframes trazar-lapiz { to { stroke-dashoffset: 0; } }
+.capa-trazos { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; overflow: visible; z-index: 4; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-delay: 0s !important; transition-duration: .01ms !important; }
+}
+
+/* --------------------------------------------------------------------------
+   Barra superior
+   -------------------------------------------------------------------------- */
+.barra {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  align-items: center;
+  gap: 16px 24px;
+  flex-wrap: wrap;
+  padding: 20px clamp(16px, 3vw, 44px) 0;
+}
+.marca { text-decoration: none; display: grid; line-height: 1.2; }
+.marca__nombre { font-family: var(--f-titulo); font-size: 1.05rem; letter-spacing: .26em; text-transform: uppercase; color: var(--pergamino); }
+.marca__sub { font-family: var(--f-registro); font-style: italic; font-size: .85rem; color: var(--polvo); opacity: .7; }
+.barra__fin { margin-left: auto; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+
+.boton {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 40px;
+  padding: 6px 16px;
+  background: rgba(21,17,13,.35);
+  border: 1px solid rgba(207,196,172,.3);
+  color: var(--polvo);
+  font-family: var(--f-texto);
+  font-size: .95rem;
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .2s, border-color .2s, box-shadow .2s, background-color .2s;
+}
+.boton:hover, .boton:focus-visible { color: var(--vela); border-color: var(--vela); box-shadow: 0 0 18px -4px rgba(233,179,95,.5); }
+.boton[aria-pressed="true"] { color: var(--hollin); background: var(--vela); border-color: var(--vela); }
+.boton svg { width: 16px; height: 16px; }
+
+/* contador de notas de Leo: palotes a lápiz */
+.hallazgos {
+  display: inline-flex; align-items: center; gap: 10px;
+  font-family: var(--f-mano); font-size: 1.35rem; color: var(--polvo);
+  text-decoration: none;
+}
+.hallazgos:hover { color: var(--vela); }
+.hallazgos__marcas { display: inline-flex; gap: 3px; }
+.hallazgos__marcas i { width: 6px; height: 15px; border-left: 2px solid rgba(207,196,172,.2); transform: skewX(-12deg); }
+.hallazgos__marcas i.is-hallada { border-color: var(--polvo); }
+.hallazgos__marcas i:nth-child(5n) { transform: skewX(-12deg) translateX(1px); margin-right: 4px; }
+
+.siguiendo {
+  display: inline-flex; align-items: center; gap: 10px;
+  padding: 4px 6px 4px 12px;
+  border: 1px solid var(--vela);
+  color: var(--vela);
+  font-size: .95rem;
+  box-shadow: 0 0 22px -6px rgba(233,179,95,.6);
+}
+.siguiendo button { border: 0; background: none; cursor: pointer; padding: 4px 8px; color: inherit; font-size: 1.1rem; line-height: 1; }
+
+/* tooltip de gráficos y mapas */
+.tip {
+  position: fixed;
+  z-index: 90;
+  pointer-events: none;
+  max-width: 260px;
+  padding: 10px 14px;
+  font-size: .92rem;
+  line-height: 1.35;
+  opacity: 0;
+  transform: translateY(4px);
+  transition: opacity .12s, transform .12s;
+  box-shadow: var(--sombra-papel);
+}
+.tip.is-visible { opacity: 1; transform: none; }
+.tip strong { font-family: var(--f-titulo); font-weight: 600; display: block; font-size: .92rem; margin-bottom: 2px; }
+
+/* transición entre vistas */
+#app { min-height: 100%; }
+.vista { animation: aparecer .45s var(--ease) both; }
+@keyframes aparecer { from { opacity: 0; } to { opacity: 1; } }

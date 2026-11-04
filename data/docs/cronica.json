@@ -1,0 +1,52 @@
+{
+  "titulo": "Crónica del reino",
+  "_borrador": "Momentos provisionales: reemplazar por los del storyboard de la unidad 1.",
+  "momentos": [
+    {
+      "anio": 1199,
+      "titulo": "Doce casas",
+      "texto": "Cregon vive en paz. Doce casas nobles se reparten el reino y el pueblo come dos veces al día.",
+      "ver": "#/doc/linajes/casas"
+    },
+    {
+      "anio": 1207,
+      "titulo": "Empieza la guerra",
+      "texto": "El reino entra en guerra con [Dornhal](lugar:dornhal) por la frontera del oeste. Arde [Valmora](lugar:valmora).",
+      "ver": "#/doc/carta/valmora"
+    },
+    {
+      "anio": 1210,
+      "titulo": "Cae Velmoor",
+      "texto": "Cregon gana la guerra y quema [Velmoor](lugar:velmoor), la capital de Dornhal. Cinco casas nobles no sobreviven.",
+      "ver": "#/doc/censo/habitantes"
+    },
+    {
+      "anio": 1214,
+      "titulo": "Los tres hermanos",
+      "texto": "[Vareck](noble:vareck), [Vandel](noble:vandel) y [Voss](noble:voss) compran las tierras de las casas arruinadas.",
+      "ver": "#/doc/tierras/zonas"
+    },
+    {
+      "anio": 1218,
+      "titulo": "El discurso",
+      "texto": "El señor Vareck habla en la plaza de Aldemar con [la daga](daga) al cinto. La plaza está llena.",
+      "ver": "#/doc/denuncia"
+    },
+    {
+      "anio": 1218,
+      "titulo": "El robo",
+      "texto": "La daga desaparece entre la gente. La casa Vareck ofrece cien monedas por el nombre del ladrón.",
+      "ver": "#/doc/guardia/denuncias"
+    },
+    {
+      "anio": 1218,
+      "titulo": "Después",
+      "texto": "La crónica termina aquí. Las páginas siguientes están en blanco."
+    }
+  ],
+  "nota": {
+    "id": "cronica-1",
+    "texto": "aquí no salimos. nunca salimos",
+    "sobre": 2
+  }
+}

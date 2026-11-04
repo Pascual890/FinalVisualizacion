@@ -1,0 +1,54 @@
+{
+  "titulo": "Censo del reino",
+  "paginas": [
+    {
+      "id": "habitantes",
+      "anio": "1207 → 1218",
+      "titulo": "Qué fue de los habitantes",
+      "grafico": {
+        "tipo": "anillo",
+        "unidad": "personas",
+        "centro": {
+          "valor": "48.000",
+          "texto": "vivían en Cregon en 1207"
+        },
+        "items": [
+          {
+            "etiqueta": "Siguen viviendo en Cregon",
+            "valor": 34500,
+            "color": "tinta"
+          },
+          {
+            "etiqueta": "Murieron en la guerra",
+            "valor": 8200,
+            "color": "quemado"
+          },
+          {
+            "etiqueta": "Se fueron del reino",
+            "valor": 5300,
+            "color": "polvo"
+          }
+        ]
+      },
+      "texto": "Antes de la guerra con [Dornhal](lugar:dornhal) vivían en el reino cuarenta y ocho mil almas. Al hacer el censo de 1218 quedan treinta y cuatro mil quinientas. Una de cada seis murió en la guerra; otras tantas se fueron y no volvieron.",
+      "nota": {
+        "id": "censo-1",
+        "texto": "nosotros llegamos. no salimos en ninguna cuenta",
+        "sobre": "Se fueron del reino",
+        "marca": "flecha"
+      }
+    },
+    {
+      "id": "ciudades",
+      "anio": "1218",
+      "titulo": "Habitantes por ciudad",
+      "grafico": {
+        "tipo": "mapa",
+        "modo": "proporcional",
+        "medida": "habitantes",
+        "unidad": "personas"
+      },
+      "texto": "Casi la mitad de la gente vive en [Aldemar](lugar:aldemar) y en [Brisel](lugar:brisel), las dos ciudades del centro. Las sedes de las casas nobles —[Caerlún](lugar:caerlun), [Ordane](lugar:ordane), [Torvane](lugar:torvane)— son pequeñas: allí vive poca gente y mucho oro."
+    }
+  ]
+}

@@ -1,0 +1,153 @@
+{
+  "titulo": "Cuentas del tesorero",
+  "paginas": [
+    {
+      "id": "tendencia",
+      "anio": "1199 – 1218",
+      "titulo": "Gente común y casas nobles",
+      "grafico": {
+        "tipo": "lineas",
+        "unidad": "mil monedas",
+        "franja": {
+          "desde": 1207,
+          "hasta": 1210,
+          "texto": "guerra"
+        },
+        "labels": [
+          1199,
+          1200,
+          1201,
+          1202,
+          1203,
+          1204,
+          1205,
+          1206,
+          1207,
+          1208,
+          1209,
+          1210,
+          1211,
+          1212,
+          1213,
+          1214,
+          1215,
+          1216,
+          1217,
+          1218
+        ],
+        "series": [
+          {
+            "nombre": "Gente común",
+            "color": "tintaTenue",
+            "valores": [
+              1700,
+              1720,
+              1690,
+              1740,
+              1710,
+              1680,
+              1730,
+              1700,
+              1660,
+              1280,
+              850,
+              620,
+              680,
+              740,
+              790,
+              840,
+              880,
+              920,
+              960,
+              1000
+            ]
+          },
+          {
+            "nombre": "Casas nobles",
+            "color": "oro",
+            "valores": [
+              900,
+              890,
+              910,
+              900,
+              880,
+              900,
+              910,
+              895,
+              880,
+              870,
+              860,
+              850,
+              920,
+              1000,
+              1060,
+              1100,
+              1130,
+              1160,
+              1180,
+              1200
+            ]
+          }
+        ]
+      },
+      "texto": "Hasta la guerra, toda la gente común del reino junta tenía casi el doble que las casas nobles. En tres años de guerra la gente común perdió dos tercios de lo que tenía. Los nobles casi no perdieron nada, y desde 1211 no han dejado de ganar: hoy tienen más que todo el pueblo junto.",
+      "nota": {
+        "id": "cuentas-1",
+        "texto": "aquí dejamos de comer dos veces al día",
+        "sobre": 1209,
+        "marca": "circulo"
+      }
+    },
+    {
+      "id": "casas",
+      "anio": "1218",
+      "titulo": "Riqueza de cada casa",
+      "grafico": {
+        "tipo": "barras",
+        "unidad": "mil monedas",
+        "items": [
+          {
+            "etiqueta": "Vareck",
+            "valor": 620,
+            "casa": "vareck"
+          },
+          {
+            "etiqueta": "Vandel",
+            "valor": 340,
+            "casa": "vandel"
+          },
+          {
+            "etiqueta": "Voss",
+            "valor": 240,
+            "casa": "voss"
+          },
+          {
+            "etiqueta": "Todas las familias del reino",
+            "valor": 1000,
+            "color": "tintaTenue",
+            "aparte": true
+          }
+        ]
+      },
+      "texto": "[Vareck](noble:vareck) tiene más que [Vandel](noble:vandel) y [Voss](noble:voss) juntos. Las tres casas suman más que todas las familias del reino, que son miles."
+    },
+    {
+      "id": "ciudades",
+      "anio": "1218",
+      "titulo": "Riqueza por ciudad",
+      "grafico": {
+        "tipo": "mapa",
+        "modo": "proporcional",
+        "medida": "riqueza",
+        "unidad": "mil monedas"
+      },
+      "texto": "Donde más oro hay no es donde más gente vive. [Caerlún](lugar:caerlun), la fortaleza de Vareck, tiene apenas dos mil quinientos habitantes y más riqueza que [Aldemar](lugar:aldemar) entera.",
+      "nota": {
+        "id": "cuentas-2",
+        "texto": "en Caerlún los perros comen mejor",
+        "sobre": "caerlun",
+        "marca": "circulo"
+      }
+    }
+  ]
+}

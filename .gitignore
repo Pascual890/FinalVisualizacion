@@ -1,0 +1,8 @@
+# Sistema / editor
+.DS_Store
+Thumbs.db
+.vscode/
+__pycache__/
+
+# Sesión local de Claude (no hace falta publicarla)
+.claude/
