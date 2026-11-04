@@ -61,14 +61,14 @@
 @media (min-width: 821px) {
   .doc { background: transparent; }
   /* se deja ver la mesa alrededor de los documentos grandes */
-  .doc .libro, .doc .reliquia { width: min(1240px, calc(100% - 2 * clamp(16px, 7vw, 120px))); }
+  .doc .libro, .doc .relicario { width: min(1240px, calc(100% - 2 * clamp(16px, 7vw, 120px))); }
   .doc .carta { width: min(1320px, calc(100% - 2 * clamp(16px, 7vw, 120px))); }
 }
 @media (max-width: 820px) {
   .fondo-mesa.is-activo, .luz-vela { display: none; }
 }
 @media (prefers-reduced-motion: reduce) {
-  .luz-vela::after, .fondo-mesa .resplandor { animation: none; }
+  .luz-vela::after, .fondo-mesa .resplandor, .daga { animation: none; }
 }
 
 /* rastro: Denuncia › Libro de la guardia › Libro de linajes */
@@ -321,23 +321,105 @@
 /* --------------------------------------------------------------------------
    Relicario: la hoja de registro de Netherbane (lenguaje de la infografía)
    -------------------------------------------------------------------------- */
-.reliquia {
-  margin: 24px auto 0;
-  width: min(1240px, calc(100% - 2 * clamp(16px, 3vw, 44px)));
-  padding: clamp(28px, 4vw, 64px) clamp(22px, 4vw, 72px) clamp(40px, 5vw, 72px);
+.relicario { margin: 18px auto 0; width: min(1240px, calc(100% - 32px)); display: grid; gap: 30px; }
+
+/* la caja del escritorio, abierta y vista desde arriba: la tapa queda detrás,
+   más lejos (por eso más angosta), con su placa */
+.caja-abierta__tapa {
+  position: relative;
+  display: grid; place-items: center;
+  margin: 0 clamp(8px, 2vw, 26px);
+  padding: clamp(14px, 2vw, 26px) 12px clamp(12px, 1.8vw, 22px);
+  background: radial-gradient(ellipse 75% 130% at 50% 25%, #6a2219, #2e0c08 85%);
+  box-shadow: inset 0 0 0 7px #2c1d11, inset 0 0 0 8px rgba(201,160,80,.45), inset 0 -22px 30px rgba(0,0,0,.6);
+  clip-path: polygon(2.4% 0, 97.6% 0, 100% 100%, 0 100%);
 }
-.reliquia__cabecera { display: grid; grid-template-columns: 1fr 200px; gap: 24px; align-items: start; }
-.reliquia__ante { margin: 0; font-family: var(--f-titulo); font-size: .82rem; letter-spacing: .42em; text-transform: uppercase; color: var(--tinta-tenue); }
-.reliquia__nombre { font-family: var(--f-portada); font-weight: 700; font-size: clamp(2.8rem, 7vw, 5.6rem); line-height: 1; letter-spacing: .01em; color: var(--tinta); margin: 4px 0 0; }
-.reliquia__lema { margin: 8px 0 6px; font-family: var(--f-registro); font-style: italic; font-size: 1.3rem; color: var(--tinta-tenue); }
-.reliquia__ornamento { display: block; width: min(360px, 80%); height: 20px; color: var(--sangre); margin: 4px 0 14px; }
-.reliquia__texto { margin: 0; max-width: 62ch; font-size: 1.12rem; line-height: 1.6; }
-.reliquia__entera { width: 100%; height: auto; transform: rotate(8deg); filter: drop-shadow(4px 8px 8px rgba(43,29,14,.35)); }
+.caja-abierta__placa {
+  text-align: center;
+  padding: 7px clamp(22px, 5vw, 56px) 9px;
+  color: #2a1a0c;
+  background: linear-gradient(135deg, #a07c35, #e6cf86 45%, #a47f33);
+  box-shadow: 0 2px 5px rgba(0,0,0,.6), inset 0 0 0 1px rgba(255,240,190,.55), inset 0 0 0 3px rgba(90,60,20,.3);
+}
+.caja-abierta__placa p { margin: 0; font-family: var(--f-titulo); font-size: clamp(.56rem, .9vw, .72rem); letter-spacing: .36em; text-transform: uppercase; }
+.caja-abierta__placa h1 { font-family: var(--f-portada); font-weight: 700; font-size: clamp(1.7rem, 4.2vw, 3.1rem); line-height: 1.05; letter-spacing: .02em; color: inherit; }
+
+/* el borde de madera y, dentro, el terciopelo: las paredes de la izquierda y
+   de atrás le dan sombra, porque la vela está arriba a la izquierda */
+.caja-abierta__cuerpo {
+  padding: clamp(9px, 1.5vw, 18px) clamp(9px, 1.5vw, 18px) 0;
+  background-color: #3a2616;
+  background-image: linear-gradient(180deg, rgba(255,214,160,.1), transparent 14%), var(--tex-madera);
+  background-size: 100% 100%, 1024px 512px;
+  border-radius: 3px;
+  box-shadow: var(--sombra-alta), inset 0 0 0 1px rgba(201,160,80,.35);
+}
+.caja-abierta__terciopelo {
+  position: relative;
+  overflow: hidden;
+  background-color: #521510;
+  background-image:
+    radial-gradient(ellipse 60% 75% at 20% 16%, rgba(255,150,105,.17), transparent 72%),
+    radial-gradient(ellipse 85% 95% at 50% 48%, transparent 45%, rgba(0,0,0,.5) 100%),
+    var(--tex-papel);
+  background-size: 100% 100%, 100% 100%, 260px 260px;
+  background-blend-mode: normal, normal, multiply;
+  box-shadow: inset 0 0 0 1px rgba(201,160,80,.5), inset 16px 20px 26px rgba(0,0,0,.62), inset -4px -4px 14px rgba(0,0,0,.35);
+}
+.huella { position: absolute; inset: 0; width: 100%; height: 100%; opacity: .55; filter: brightness(0) blur(5px); pointer-events: none; transition: opacity 1.2s var(--ease-libro); }
+/* con las piezas separadas la huella se retira: si no, parece una sombra corrida */
+.caja-abierta__terciopelo:has(.is-separada) .huella { opacity: .3; }
+.caja-abierta__frente {
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px 20px;
+  padding: 10px 2px 12px;
+  font-family: var(--f-registro); font-style: italic; font-size: .98rem; color: var(--polvo);
+}
+.caja-abierta__acciones { display: flex; align-items: center; flex-wrap: wrap; gap: 8px 14px; }
+.caja-abierta__acciones .boton { font-style: normal; }
+.caja-abierta__vacia { font-family: var(--f-titulo); font-style: normal; font-size: .72rem; letter-spacing: .16em; text-transform: uppercase; color: #cfa95a; }
+
+/* las hojas de papel que acompañan a la caja */
+.relicario__hojas { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 26px; align-items: start; }
+.reliquia { padding: clamp(24px, 3vw, 40px) clamp(22px, 3vw, 44px) clamp(28px, 3.4vw, 46px); }
+.relicario__hojas .reliquia:first-child { transform: rotate(-.7deg); }
+.reliquia__lema { margin: 0 0 6px; font-family: var(--f-registro); font-style: italic; font-size: 1.3rem; line-height: 1.3; color: var(--tinta-tenue); }
+.reliquia__ornamento { display: block; width: 100%; height: 20px; color: var(--sangre); margin: 4px 0 14px; }
+.reliquia__texto { margin: 0; font-size: 1.12rem; line-height: 1.6; }
 .reliquia__seccion { font-family: var(--f-titulo); font-size: 1.05rem; letter-spacing: .1em; text-transform: uppercase; color: var(--sangre); margin: 0 0 8px; }
 
-.reliquia__escenario { margin-top: 34px; }
-.escenario { display: block; width: 100%; height: auto; overflow: visible; }
-.escenario .eje { stroke: var(--tinta); stroke-opacity: .3; stroke-width: 6; stroke-dasharray: 22 26; opacity: 0; transition: opacity .6s .6s; }
+/* el dibujo de la daga sobre el terciopelo: en dorado lo que se puede tocar */
+.escenario { position: relative; display: block; width: 100%; height: auto; overflow: visible; will-change: transform; }
+.daga, .daga3d { animation: aparecer-dibujo .6s var(--ease) .55s both; }
+@keyframes aparecer-dibujo { from { opacity: 0; } to { opacity: 1; } }
+
+/* la daga en relieve (relieve() en relicario.js). Las medidas van en cqw, % del
+   ancho de la caja, para que el grosor y la perspectiva escalen con ella */
+.caja-abierta__terciopelo { container-type: inline-size; }
+.daga3d { position: absolute; inset: 0; perspective: 120cqw; perspective-origin: 52% 42%; visibility: hidden; pointer-events: none; }
+.caja-abierta.en-3d .daga3d { visibility: visible; }
+.caja-abierta.en-3d .escenario { visibility: hidden; }
+.daga3d__pose {
+  position: absolute; inset: 0;
+  transform-style: preserve-3d;
+  transform-origin: 54.6% 47.8%;   /* el centro de la daga armada */
+  transition: transform .7s var(--ease-libro);
+}
+.daga3d__eje { position: absolute; width: 100%; aspect-ratio: 3140 / 4000; transform-origin: 0 0; transform: rotate(90deg); transform-style: preserve-3d; }
+.daga3d__eje img { position: absolute; }
+.daga3d__brillo { position: absolute; overflow: hidden; -webkit-mask-size: 100% 100%; mask-size: 100% 100%; opacity: 0; transition: opacity .6s; }
+.daga3d.is-alzada .daga3d__brillo { opacity: 1; }
+.daga3d__brillo i {
+  position: absolute; left: 0; right: 0; top: 0; height: 300%;
+  background: linear-gradient(172deg, transparent 30%, rgba(255,240,205,var(--b)) 44%, rgba(255,255,255,calc(var(--b) * .2)) 56%, transparent 68%);
+  transition: transform .7s var(--ease-libro);
+}
+.daga3d__toque { position: absolute; left: 18%; right: 8%; top: 8%; bottom: 20%; pointer-events: auto; cursor: grab; touch-action: pan-y; }
+.daga3d__toque:active { cursor: grabbing; }
+@media (max-width: 820px) {
+  .daga3d { display: none; }
+  .caja-abierta.en-3d .escenario { visibility: visible; }
+}
+.escenario .eje { stroke: #e6cf86; stroke-opacity: .28; stroke-width: 6; stroke-dasharray: 22 26; opacity: 0; transition: opacity .6s .6s; }
 .escenario.is-separada .eje { opacity: 1; }
 .pieza { cursor: pointer; transform: translate(0, var(--armada)); transition: transform 1.2s var(--ease-libro), filter .25s; }
 .escenario.is-separada .pieza { transform: none; }
@@ -345,18 +427,17 @@
 .rotulos, .marcas-lupa { opacity: 0; transition: opacity .6s; pointer-events: none; }
 .escenario.is-separada .rotulos, .escenario.is-separada .marcas-lupa { opacity: 1; transition-delay: 1s; pointer-events: auto; }
 .rotulo { cursor: pointer; }
-.rotulo__linea { stroke: var(--sangre); stroke-width: 6; }
-.rotulo__punto { fill: var(--sangre); }
-.rotulo__texto { font-family: var(--f-titulo); font-weight: 600; font-size: 74px; letter-spacing: 4px; fill: var(--tinta); }
-.rotulo__num { fill: var(--sangre); }
-.rotulo:hover .rotulo__texto, .rotulo.is-elegido .rotulo__texto { fill: var(--sangre); }
+.rotulo__linea { stroke: #c9a050; stroke-width: 6; }
+.rotulo__punto { fill: #e6cf86; }
+.rotulo__texto { font-family: var(--f-titulo); font-weight: 600; font-size: 74px; letter-spacing: 4px; fill: #efe0b4; }
+.rotulo__num { fill: #e0b552; }
+.rotulo:hover .rotulo__texto, .rotulo.is-elegido .rotulo__texto { fill: var(--vela); }
 .marca-lupa { cursor: zoom-in; }
-.marca-lupa__aro { fill: rgba(233,179,95,.12); stroke: var(--tinta); stroke-width: 7; }
-.marca-lupa__mango { stroke: var(--tinta); stroke-width: 14; stroke-linecap: round; }
-.marca-lupa:hover .marca-lupa__aro { fill: rgba(233,179,95,.4); stroke: var(--sangre); }
-.reliquia__acciones { display: flex; gap: 14px; align-items: center; flex-wrap: wrap; margin-top: 12px; font-family: var(--f-registro); font-style: italic; color: var(--tinta-tenue); }
+.marca-lupa__aro { fill: rgba(233,179,95,.16); stroke: #e6cf86; stroke-width: 7; }
+.marca-lupa__mango { stroke: #e6cf86; stroke-width: 14; stroke-linecap: round; }
+.marca-lupa:hover .marca-lupa__aro { fill: rgba(233,179,95,.45); stroke: #fff2c9; }
 
-.reliquia__detalle { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(24px, 4vw, 56px); margin-top: 36px; padding-top: 30px; border-top: 1px solid rgba(43,29,14,.2); }
+.reliquia__detalle { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); gap: clamp(24px, 3vw, 44px); }
 .reliquia__ficha h3 { font-size: 1.7rem; margin-bottom: 8px; }
 .reliquia__ficha p { margin: 0 0 16px; font-size: 1.12rem; line-height: 1.6; }
 .reliquia__indice { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -396,21 +477,24 @@
 .capas-lista strong { display: block; font-family: var(--f-titulo); font-size: .86rem; letter-spacing: .06em; text-transform: uppercase; }
 .capas-lista span { font-size: .98rem; line-height: 1.4; }
 
-/* la gema: el metal tapa la mitad de la lupa; el cursor hace un agujero */
+/* la gema: el metal tapa la mitad de la lupa; el cursor hace un agujero. El
+   metal es la mitad izquierda del emblema reflejada sobre el corte del dibujo
+   (48,3 %): así el pomo se ve entero y la tapa tiene su misma silueta */
 .gema-cuerpo { position: relative; display: grid; grid-template-columns: minmax(0, 300px) 1fr; gap: 18px; align-items: center; }
 .lupa-gema { position: relative; cursor: none; touch-action: none; }
 .lupa-gema img { display: block; width: 100%; height: auto; }
 .lupa-gema__metal {
   --px: -200px; --py: -200px; --rh: 0px;
-  position: absolute; left: 48.5%; top: 1.5%; width: 48%; height: 97%;
-  border-radius: 0 50% 50% 0 / 0 50% 50% 0;
-  background:
-    repeating-linear-gradient(100deg, rgba(255,255,255,.08) 0 2px, transparent 2px 6px),
-    linear-gradient(120deg, #a8862f, #e9d48a 40%, #c3a246 55%, #8d6e22);
-  box-shadow: inset 3px 0 0 #2a2116, inset -6px 0 10px rgba(0,0,0,.25);
+  position: absolute; left: 48%; top: 0; width: 48.3%; height: 100%;
   -webkit-mask-image: radial-gradient(circle var(--rh) at var(--px) var(--py), transparent 96%, #000 100%);
   mask-image: radial-gradient(circle var(--rh) at var(--px) var(--py), transparent 96%, #000 100%);
   transition: opacity .5s;
+}
+.lupa-gema__metal::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: url('../assets/netherbane/lupa-gema.webp') 0 0 / 207% 100% no-repeat;
+  transform: scaleX(-1);
 }
 .lupa-gema.is-transparente .lupa-gema__metal { opacity: 0; }
 .gema-nota { font-size: 1.6rem !important; white-space: normal; max-width: 220px; }
@@ -458,8 +542,9 @@
   .pagina--der { border-top: 1px dashed rgba(43,29,14,.25); }
   .carta, .reliquia__detalle { grid-template-columns: 1fr; }
   .carta__panel { position: static; }
-  .reliquia__cabecera { grid-template-columns: 1fr; }
-  .reliquia__entera { display: none; }
+}
+@media (max-width: 1100px) {
+  .relicario__hojas { grid-template-columns: 1fr; }
 }
 @media (max-width: 560px) {
   body { font-size: 17px; }
