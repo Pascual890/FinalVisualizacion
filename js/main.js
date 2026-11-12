@@ -1,5 +1,5 @@
 import { estado, alCambiar, marcarVisto, pisar } from './estado.js';
-import { contarNotas, bandeja } from './vistas/comun.js';
+import { bandeja } from './vistas/comun.js';
 import portada from './vistas/portada.js';
 import escritorio, { tomarOrigen } from './vistas/escritorio.js';
 import libro from './vistas/libro.js';
@@ -7,16 +7,18 @@ import denuncia from './vistas/denuncia.js';
 import carta from './vistas/carta.js';
 import relicario from './vistas/relicario.js';
 import cronica from './vistas/cronica.js';
-import leo from './vistas/leo.js';
+import recado from './vistas/recado.js';
+import noticia from './vistas/noticia.js';
+import colofon from './vistas/colofon.js';
 import { abrirDesde } from './apertura.js';
 import { mostrarFondo, luzVela } from './vistas/fondo.js';
 
 /**
  * Punto de entrada: carga los datos del archivo y decide qué vista mostrar
- * según la dirección (#/, #/archivo, #/doc/<id>/<página>). Usa rutas con #
+ * según la dirección (#/, #/archivo, #/doc/<id>/<página>, #/creditos). Usa rutas con #
  * para que funcione igual en local y en GitHub Pages.
  */
-const VISTAS = { libro, denuncia, carta, relicario, cronica, leo };
+const VISTAS = { libro, denuncia, carta, relicario, cronica, recado, noticia };
 const app = document.getElementById('app');
 let ctx;
 let vistaActual = null;
@@ -28,7 +30,6 @@ async function cargar() {
     json('data/documentos.json'), json('data/casas.json'), json('data/ciudades.json')
   ]);
   const docs = Object.fromEntries(await Promise.all(documentos.map(async d => [d.id, await json(`data/docs/${d.id}.json`)])));
-  estado.totalNotas = contarNotas(docs);
   return { documentos, casas, ciudades, fuera, docs };
 }
 
@@ -36,6 +37,7 @@ function leerRuta() {
   const partes = location.hash.replace(/^#\/?/, '').split('/').filter(Boolean);
   if (!partes.length) return { vista: 'portada' };
   if (partes[0] === 'archivo') return { vista: 'escritorio' };
+  if (partes[0] === 'creditos') return { vista: 'colofon' };
   if (partes[0] === 'doc' && ctx.docs[partes[1]]) return { vista: 'doc', id: partes[1], sub: partes[2] ? decodeURIComponent(partes[2]) : undefined };
   return { vista: 'escritorio' };
 }
@@ -54,15 +56,22 @@ function mostrar() {
   let vista;
   if (ruta.vista === 'portada') vista = portada();
   else if (ruta.vista === 'escritorio') vista = escritorio(ctx);
+  else if (ruta.vista === 'colofon') vista = colofon(ctx);
   else {
     anotarRastro(ruta);
     marcarVisto(ruta.id);
     const meta = ctx.documentos.find(d => d.id === ruta.id);
-    vista = VISTAS[meta.tipo](ctx, ruta.id, ruta.sub);
-    vista.append(luzVela(), bandeja(ctx, ruta.id));
+    try {
+      vista = VISTAS[meta.tipo](ctx, ruta.id, ruta.sub);
+      vista.append(luzVela(), bandeja(ctx, ruta.id));
+    } catch (err) {
+      // casi siempre es una copia vieja del código guardada por el navegador
+      console.error(err);
+      vista = noSeAbre();
+    }
   }
   // los documentos se leen sobre la misma mesa del escritorio
-  mostrarFondo(ruta.vista === 'doc', { desdeMesa: previa?.vista === 'escritorio' });
+  mostrarFondo(ruta.vista === 'doc' || ruta.vista === 'colofon', { desdeMesa: previa?.vista === 'escritorio' });
 
   rutaAnterior = ruta;
   vistaActual?.desmontar?.();
@@ -74,7 +83,16 @@ function mostrar() {
   const listo = vista.montado?.({ origen: origen?.id === ruta.id ? origen : null, previa });
   if (origen?.id === ruta.id && !vista.abreSolo) abrirDesde(origen, vista);
   Promise.resolve(listo).then(pintarSeguido);
-  document.title = ruta.vista === 'doc' ? `${ctx.docs[ruta.id].titulo} · Archivo de Cregon` : 'Archivo de Cregon';
+  document.title = ruta.vista === 'doc' ? `${ctx.docs[ruta.id].titulo} · Archivo de Cregon` : ruta.vista === 'colofon' ? 'Créditos · Archivo de Cregon' : 'Archivo de Cregon';
+}
+
+function noSeAbre() {
+  const vista = document.createElement('main');
+  vista.className = 'vista doc';
+  vista.innerHTML = '<p style="padding:40px;max-width:640px;color:var(--polvo)">Este documento no se pudo abrir. ' +
+    'El navegador guardó una versión vieja del archivo. Recarga con Ctrl + F5 (en Mac, Cmd + Shift + R). ' +
+    '<a href="#/archivo" style="text-decoration:underline">Volver a la mesa</a></p>';
+  return vista;
 }
 
 function anotarRastro(ruta) {

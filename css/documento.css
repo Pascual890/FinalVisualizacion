@@ -177,6 +177,9 @@
 .pagina__anio { font-family: var(--f-registro); font-style: italic; color: var(--tinta-tenue); font-size: .98rem; }
 .pagina__titulo { font-size: clamp(1.15rem, 1.8vw, 1.5rem); color: var(--tinta); margin: 2px 0 14px; }
 .pagina__registro { margin: 0; font-size: 1.1rem; line-height: 1.62; }
+.pagina__clave { margin: 4px 0 0; padding-top: 16px; border-top: 1px solid rgba(138,47,31,.35); display: grid; grid-template-columns: auto 1fr; gap: 4px 18px; align-items: center; }
+.pagina__clave strong { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.9rem, 3vw, 2.7rem); line-height: 1; color: var(--sangre); white-space: nowrap; font-variant-numeric: lining-nums; }
+.pagina__clave span { font-family: var(--f-registro); font-style: italic; font-size: 1rem; line-height: 1.4; color: var(--tinta-tenue); }
 .pagina__registro::first-letter { font-family: var(--f-registro); font-size: 3.1em; float: left; line-height: .8; margin: 6px 10px 0 0; color: var(--sangre); }
 .pagina__fuente { font-family: var(--f-registro); font-size: .85rem; font-style: italic; color: var(--tinta-tenue); margin-top: auto; border-top: 1px solid rgba(43,29,14,.18); padding-top: 10px; display: flex; justify-content: space-between; }
 
@@ -258,10 +261,14 @@
 /* el giro lo anima apertura.js (girarTapa); mientras viaja, el libro está cerrado */
 .libro__cuerpo.is-cerrado { background: transparent; box-shadow: none; }
 .libro__cuerpo.is-cerrado .pliego { opacity: 0; }
+/* mientras la tapa gira, las páginas se pintan una sola vez en su propia capa */
+.libro__cuerpo.is-cerrado .pliego, .libro__cuerpo.is-abriendo .pliego { will-change: transform; }
 
 /* nota de Leo dentro de una página */
 .pagina .nota-leo { font-size: 1.95rem; display: block; width: fit-content; max-width: 100%; margin-top: 4px; }
 .nota-flotante { position: absolute; z-index: 5; font-size: 1.7rem !important; white-space: nowrap; }
+/* nota sobre un dato: el texto va al margen del gráfico y una flecha lo une al dato */
+.pagina .nota-margen { position: relative; z-index: 5; font-size: 1.6rem; max-width: min(100%, 15em); margin-top: 14px; margin-bottom: 6px; }
 
 /* lista de denuncias */
 .denuncias { list-style: none; margin: 0; padding: 0; display: grid; }
@@ -509,7 +516,9 @@
 .linea-tiempo { list-style: none; margin: 10px 0 0; padding: 0; position: relative; }
 .linea-tiempo::before { content: ''; position: absolute; left: 6.2em; top: 8px; bottom: 8px; width: 1px; background: rgba(43,29,14,.35); }
 .momento { display: grid; grid-template-columns: 5.2em 2em 1fr; align-items: start; padding: 14px 0; position: relative; }
-.momento__anio { font-family: var(--f-titulo); color: var(--sangre); font-size: 1.05rem; text-align: right; padding-top: 2px; }
+.momento__anio { font-family: var(--f-titulo); color: var(--sangre); font-size: 1.05rem; text-align: right; padding-top: 2px; display: grid; }
+.momento__anio b { font-weight: inherit; }
+.momento__anio small { font-family: var(--f-registro); font-style: italic; font-size: .82rem; color: var(--tinta-tenue); padding-top: 3px; }
 .momento__punto { justify-self: center; width: 13px; height: 13px; margin-top: 8px; border-radius: 50%; background: var(--hoja); border: 2px solid var(--tinta); position: relative; z-index: 1; }
 .momento h3 { font-size: 1.1rem; margin-bottom: 4px; }
 .momento > div { padding-left: 8px; }
@@ -529,6 +538,15 @@
 .carta-leo__borrosa { font-family: var(--f-mano); color: var(--lapiz); opacity: .2; filter: blur(3.5px); user-select: none; }
 .carta-leo__firma { margin: 18px 0 0; text-align: right; font-size: 2.2rem; display: block; }
 .carta-leo__ayuda { width: min(640px, calc(100% - 32px)); margin: 18px auto 0; font-family: var(--f-registro); font-style: italic; color: var(--polvo); opacity: .8; text-align: center; }
+
+/* el recado del potrero: tinta de pluma, letra apretada; el aviso del dorso se trasluce */
+.recado { position: relative; overflow: hidden; margin: 30px auto 0; width: min(560px, calc(100% - 32px)); padding: clamp(32px, 6vw, 56px) clamp(26px, 6vw, 58px) clamp(40px, 7vw, 64px); transform: rotate(-1.2deg); font-family: var(--f-registro); font-style: italic; font-size: clamp(1.15rem, 2.1vw, 1.35rem); line-height: 1.55; color: var(--tinta); }
+.recado p { position: relative; margin: 0 0 14px; }
+.recado__dorso { position: absolute; inset: 22% 0 auto; display: grid; gap: 6px; text-align: center; transform: scaleX(-1) rotate(-5deg); font-family: var(--f-titulo); font-style: normal; text-transform: uppercase; letter-spacing: .16em; color: var(--tinta); opacity: .07; pointer-events: none; user-select: none; }
+.recado__dorso span:nth-child(2) { font-size: 3.2em; line-height: 1; }
+.recado__fecha { text-align: right; opacity: .8; }
+.recado__saludo { margin-bottom: 20px !important; }
+.recado__firma { margin: 26px 0 0 !important; text-align: right; }
 
 .borrador { font-family: var(--f-mano); color: var(--sangre); font-size: 1.25rem; opacity: .75; }
 
@@ -558,3 +576,49 @@
   .capas-cuerpo, .gema-cuerpo { grid-template-columns: 1fr; }
   .rotulo__texto { font-size: 110px; }
 }
+
+/* --------------------------------------------------------------------------
+   Hoja de noticias: impresa, a dos columnas; la esquina quemada corta el texto
+   -------------------------------------------------------------------------- */
+.noticia { position: relative; margin: 30px auto 0; width: min(860px, calc(100% - 32px)); padding: clamp(24px, 4vw, 44px) clamp(22px, 4.5vw, 52px) clamp(60px, 9vw, 110px); transform: rotate(.6deg); color: var(--tinta); }
+.noticia__cabecera { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 20px; flex-wrap: wrap; padding-bottom: 8px; border-bottom: 3px double var(--tinta); }
+.noticia__nombre { font-family: var(--f-portada); font-weight: 700; font-size: clamp(1.3rem, 3vw, 2rem); letter-spacing: .04em; }
+.noticia__fecha { font-family: var(--f-registro); font-style: italic; color: var(--tinta-tenue); }
+.noticia__titular { margin: 18px 0 16px; font-family: var(--f-titulo); font-size: clamp(1.5rem, 4vw, 2.6rem); line-height: 1.08; letter-spacing: .03em; text-transform: uppercase; }
+.noticia__cuerpo { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(20px, 4vw, 40px); align-items: start; }
+.noticia__texto p { margin: 0; font-family: var(--f-registro); font-size: clamp(1.08rem, 1.8vw, 1.22rem); line-height: 1.55; text-align: justify; hyphens: auto; }
+.noticia__texto p::first-letter { font-family: var(--f-titulo); font-size: 2.6em; float: left; line-height: .85; padding: 4px 6px 0 0; }
+
+.guardias { margin: 0; padding-left: clamp(16px, 3vw, 32px); border-left: 1px solid rgba(43,29,14,.35); }
+.guardias figcaption strong { display: block; font-family: var(--f-titulo); font-size: .92rem; letter-spacing: .08em; text-transform: uppercase; }
+.guardias figcaption span { font-family: var(--f-registro); font-style: italic; color: var(--tinta-tenue); }
+.guardias__leyenda { display: flex; flex-wrap: wrap; gap: 4px 18px; margin: 12px 0 8px; font-size: .92rem; }
+.guardias__leyenda span { display: inline-flex; align-items: center; gap: 7px; }
+.guardias__leyenda i { width: 14px; height: 14px; border: 1px solid rgba(43,29,14,.4); }
+.guardias__dias { list-style: none; margin: 0; padding: 0; display: grid; gap: 9px; }
+.guardias__dias li { display: grid; grid-template-columns: 92px 1fr; gap: 12px; align-items: center; }
+.guardias__dia b { display: block; font-family: var(--f-titulo); font-size: .84rem; letter-spacing: .04em; }
+.guardias__dia small { display: block; font-family: var(--f-registro); font-style: italic; font-size: .88rem; line-height: 1.1; color: var(--tinta-tenue); }
+.guardias__dias .is-hoy .guardias__dia small { color: var(--sangre); }
+.guardias__barra { display: flex; gap: 2px; height: 30px; }
+.guardias__parte { width: var(--ancho); display: flex; align-items: center; justify-content: center; overflow: hidden; font-family: var(--f-titulo); font-size: .82rem; font-variant-numeric: tabular-nums; transform-origin: left; animation: guardias-crece .7s var(--ease) calc(.25s + var(--i, 0) * .12s) both; }
+.guardias__parte--afueras { background: rgba(110,90,69,.32); color: var(--tinta); }
+.guardias__parte--ciudades { background: var(--sangre); color: var(--pergamino); }
+.guardias__pie { margin: 14px 0 0; font-family: var(--f-registro); font-size: 1.02rem; line-height: 1.4; }
+@keyframes guardias-crece { from { transform: scaleX(0); } }
+
+/* --------------------------------------------------------------------------
+   Colofón
+   -------------------------------------------------------------------------- */
+.colofon { margin: 40px auto 0; width: min(560px, calc(100% - 32px)); padding: clamp(34px, 6vw, 60px) clamp(24px, 6vw, 56px); color: var(--tinta); font-family: var(--f-registro); font-size: 1.12rem; line-height: 1.5; text-align: center; }
+.colofon p { margin: 0; }
+.colofon__antes { font-style: italic; color: var(--tinta-tenue); }
+.colofon__cuento { margin: 8px 0 6px; font-family: var(--f-titulo); font-size: clamp(1.4rem, 3.4vw, 2rem); line-height: 1.15; letter-spacing: .04em; color: var(--sangre); }
+.colofon__autor { font-size: 1.2rem; padding-bottom: 24px; margin-bottom: 24px !important; border-bottom: 1px solid rgba(43,29,14,.22); }
+.colofon__pie { margin-top: 26px !important; font-style: italic; color: var(--tinta-tenue); }
+
+@media (max-width: 700px) {
+  .noticia__cuerpo { grid-template-columns: 1fr; }
+  .guardias { padding: 18px 0 0; border-left: 0; border-top: 1px solid rgba(43,29,14,.35); }
+}
+@media (prefers-reduced-motion: reduce) { .guardias__parte { animation: none; } }

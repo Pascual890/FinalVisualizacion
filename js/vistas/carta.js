@@ -1,6 +1,6 @@
 import { h, texto, referencias, bordeIrregular } from '../util.js';
 import { dibujar } from '../graficos/index.js';
-import { barra, rastro, notaLeo, titulo } from './comun.js';
+import { barra, rastro, titulo } from './comun.js';
 
 /**
  * Carta del reino: mapa de ubicación, sin datos. Tocar un lugar dice qué es y
@@ -57,14 +57,10 @@ export default function carta(ctx, _id, lugarId) {
           activa = !activa;
           boton.setAttribute('aria-pressed', String(activa));
           mapa.capa(c.id, activa);
-          nota.hidden = !(c.nota && activa);
-          if (c.nota && activa && !nota.firstChild) nota.append(notaLeo(d.nota, { giro: -8, clase: 'nota-flotante' }));
         }
       }, c.texto);
       capas.append(boton);
     });
-    const nota = h('div', { hidden: true, style: { position: 'absolute', left: '6%', top: '74%' } });
-    lienzo.append(nota);
     elegir(lugarId);
   };
   vista.esDoc = otro => otro === 'carta';

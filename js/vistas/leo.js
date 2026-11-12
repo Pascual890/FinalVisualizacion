@@ -14,7 +14,7 @@ export default function leo(ctx) {
     h('ol', { class: 'carta-leo__lineas' }, d.lineas.map((linea, i) => i < visibles
       ? h('li', { class: 'nota-leo', style: { '--giro': `${(i % 3 - 1) * .6}deg`, animationDelay: `${.3 + i * .25}s` } }, linea)
       : h('li', { class: 'carta-leo__borrosa', 'aria-hidden': 'true' }, linea))),
-    visibles >= d.lineas.length ? h('p', { class: 'nota-leo carta-leo__firma' }, `— ${d.firma}`) : null
+    visibles >= d.lineas.length ? h('p', { class: 'nota-leo carta-leo__firma' }, d.firma) : null
   );
 
   const vista = h('main', { class: 'vista doc' },

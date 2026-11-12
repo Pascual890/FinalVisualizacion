@@ -12,8 +12,16 @@ export function abrirDesde(origen, vista, destino = vista.querySelector('[data-a
   const a = origen.rect, b = destino.getBoundingClientRect();
   if (!b.width || !b.height) return Promise.resolve();
   const desde = `translate(${a.left - b.left}px, ${a.top - b.top}px) scale(${a.width / b.width}, ${a.height / b.height})`;
-  return destino.animate(
-    [{ transform: desde, transformOrigin: '0 0', opacity: .6 }, { transform: 'none', transformOrigin: '0 0', opacity: 1 }],
+  // si la hoja va sola dentro de su sombra (.con-sombra, un filtro), se anima
+  // el envoltorio: mover la hoja por dentro obligaría a recalcular la sombra
+  // difusa en cada cuadro, que es lo más caro de toda la apertura
+  const padre = destino.parentElement;
+  const conSombra = padre?.classList.contains('con-sombra') && padre.children.length === 1;
+  const nodo = conSombra ? padre : destino;
+  const p = nodo.getBoundingClientRect();
+  const origen0 = `${b.left - p.left}px ${b.top - p.top}px`;
+  return nodo.animate(
+    [{ transform: desde, transformOrigin: origen0, opacity: .6 }, { transform: 'none', transformOrigin: origen0, opacity: 1 }],
     { duration: duracion, easing: 'cubic-bezier(.55,.05,.25,1)' }
   ).finished.catch(() => {});
 }
@@ -42,6 +50,7 @@ export function girarTapa(tapa, cuerpo = null, duracion = 1000) {
   // la guarda se desvanece al final, cuando la tapa ya está acostada a la izquierda
   tapa.querySelector('.tapa-abre__cara--detras').animate([{ opacity: 1, offset: .8 }, { opacity: 0 }], { ...op, fill: 'forwards' });
   if (cuerpo) {
+    cuerpo.classList.add('is-abriendo');
     // dónde cae el borde libre de la tapa (en % del ancho del libro) según cuánto giró;
     // el lomo está en el 55,55 % (ver .pliego) y la tapa mide el resto
     const LOMO = 55.55, ANCHO = 100 - LOMO;
@@ -53,5 +62,5 @@ export function girarTapa(tapa, cuerpo = null, duracion = 1000) {
     cuerpo.animate([...pasos, { offset: 1, clipPath: recorte(0) }], op);
   }
   return tapa.animate([{ transform: 'rotateY(0deg)' }, { transform: 'rotateY(-180deg)' }], { ...op, fill: 'forwards' })
-    .finished.then(() => tapa.remove(), () => tapa.remove());
+    .finished.catch(() => {}).then(() => { tapa.remove(); cuerpo?.classList.remove('is-abriendo'); });
 }

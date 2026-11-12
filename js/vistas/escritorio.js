@@ -34,7 +34,7 @@ export default function escritorio(ctx) {
   );
 
   const vista = h('main', { class: 'vista escritorio' },
-    barra(ctx, { volver: false }),
+    barra(ctx, { volver: false, colofon: true }),
     h('h1', { class: 'oculto-visual' }, 'Escritorio del archivo'),
     escena
   );
@@ -71,7 +71,7 @@ export default function escritorio(ctx) {
     // al volver de un documento, la cámara se aleja desde donde estaba ese objeto
     const dejado = previa?.vista === 'doc' && tablero.querySelector(`a.obj[data-id="${previa.id}"]`);
     if (dejado && hayCamara()) alejar(escena, tablero, dejado);
-    const pararPolvo = polvo(lienzoPolvo, escena);
+    const pararPolvo = polvo(lienzoPolvo, escena, () => escena.classList.contains('is-acercando'));
     const pararMesa = asomarseConCursor(escena, tablero);
     vista.desmontar = () => { pararPolvo(); pararMesa(); };
   };
@@ -125,13 +125,23 @@ function objeto(doc, ctx) {
     cartaMini(ctx).then(svg => { hoja.append(svg); bordeIrregular(hoja, { semilla: 11, quemado: 'tr', radio: 70 }); });
   }
 
-  if (doc.forma === 'nota') {
-    const hoja = h('div', { class: 'papel papel--trapo nota-mesa' },
-      h('span', { class: 'nota-leo', style: { '--giro': '-3deg' } }, 'Leo'),
-      h('span', { class: 'nota-mesa__lineas', 'aria-hidden': 'true' },
-        [92, 70, 84, 56, 76].map(w => h('i', { style: { width: `${w}%` } }))));
+  if (doc.forma === 'recado') {
+    const hoja = h('div', { class: 'papel papel--trapo doblada recado-mesa' },
+      h('span', { class: 'recado-mesa__dorso', 'aria-hidden': 'true' }, 'Cien monedas'),
+      h('span', { class: 'recado-mesa__lineas', 'aria-hidden': 'true' },
+        [58, 90, 76, 94, 62, 84, 40].map(w => h('i', { style: { width: `${w}%` } }))));
     pieza.append(hoja);
-    requestAnimationFrame(() => bordeIrregular(hoja, { semilla: 21, amplitud: 3.2 }));
+    requestAnimationFrame(() => bordeIrregular(hoja, { semilla: 29, amplitud: 3 }));
+  }
+
+  if (doc.forma === 'noticia') {
+    const renglones = anchos => h('span', { class: 'noticia-mesa__lineas', 'aria-hidden': 'true' }, anchos.map(w => h('i', { style: { width: `${w}%` } })));
+    const hoja = h('div', { class: 'papel papel--viejo doblada noticia-mesa' },
+      h('span', { class: 'noticia-mesa__nombre' }, ctx.docs[doc.id].cabecera),
+      h('span', { class: 'noticia-mesa__titular' }, ctx.docs[doc.id].titular),
+      h('span', { class: 'noticia-mesa__columnas' }, renglones([96, 100, 92, 100, 70]), renglones([100, 88, 100, 94, 100])));
+    pieza.append(hoja);
+    requestAnimationFrame(() => bordeIrregular(hoja, { semilla: 41, amplitud: 3, quemado: 'bl', radio: 40 }));
   }
 
   if (doc.forma === 'caja') {

@@ -1,5 +1,5 @@
 import { h, s, texto, bordeIrregular } from '../util.js';
-import { barra, rastro, notaLeo } from './comun.js';
+import { barra, rastro } from './comun.js';
 
 /**
  * Relicario: la caja de la mesa, abierta y vista desde arriba. Está vacía
@@ -332,7 +332,7 @@ function gema(d) {
   return h('section', { class: 'reliquia__extra' },
     h('h3', { class: 'reliquia__seccion' }, d.gema.titulo),
     h('p', {}, d.gema.texto),
-    h('div', { class: 'gema-cuerpo' }, lupa, notaLeo(d.nota, { giro: -6, clase: 'gema-nota' })),
+    h('div', { class: 'gema-cuerpo' }, lupa),
     h('p', { class: 'reliquia__ayuda' }, 'Pasa el cursor por el pomo para ver detrás del metal.'),
     boton);
 }

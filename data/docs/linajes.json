@@ -13,7 +13,11 @@
           1218
         ]
       },
-      "texto": "Antes de la guerra había doce casas nobles en Cregon. Cinco cayeron con la guerra. Después de la guerra cayeron cuatro más, y no por espadas: vendieron o perdieron sus tierras, y siempre a las mismas tres casas. Pasa el cursor sobre un escudo para leer qué fue de cada una."
+      "texto": "Antes de la guerra había doce casas nobles en Cregon. Cinco cayeron con la guerra. Después de la guerra cayeron cuatro más, y no por espadas, sino porque vendieron o perdieron sus tierras, siempre a las mismas tres casas. Toca un escudo, o pasa el cursor por encima, para leer qué fue de cada casa.",
+      "clave": {
+        "valor": "9 de 12",
+        "texto": "casas cayeron en once años, cinco con la guerra y cuatro por ventas y deudas."
+      }
     },
     {
       "id": "vareck",
@@ -43,11 +47,7 @@
           "valor": "Cerbero, el perro de tres cabezas, en rojo sobre oro"
         }
       ],
-      "texto": "La casa más rica y la que más tierra tiene. El señor Vareck es el mayor de los tres hermanos que quedaron al frente de las casas nobles. Su emblema, Cerbero, va en el pomo de [Netherbane](daga), la daga que dice quién manda en Cregon. La llevaba al cinto en cada discurso, hasta el día de la [plaza de Aldemar](lugar:aldemar).",
-      "nota": {
-        "id": "linajes-vareck",
-        "texto": "él ni nos miró"
-      }
+      "texto": "La casa más rica y la que más tierra tiene. El señor Vareck es el mayor de los tres hermanos que quedaron al frente de las casas nobles. Su emblema, Cerbero, va en el pomo de [Netherbane](daga), la daga que dice quién manda en Cregon. La llevaba al cinto en cada discurso, hasta el día de la [plaza de Aldemar](lugar:aldemar)."
     },
     {
       "id": "vandel",
@@ -107,11 +107,7 @@
           "valor": "una torre en azul sobre oro"
         }
       ],
-      "texto": "La más pequeña de las tres casas, en [Torvane](lugar:torvane), al este. Presta dinero a las casas pequeñas; la casa Halden perdió todas sus tierras por las deudas que tenía con Voss.",
-      "nota": {
-        "id": "linajes-voss",
-        "texto": "tres hermanos con todo. dos hermanos sin nada"
-      }
+      "texto": "La más pequeña de las tres casas, en [Torvane](lugar:torvane), al este. Presta dinero a las casas pequeñas. La casa Halden perdió todas sus tierras por las deudas que tenía con Voss."
     }
   ]
 }

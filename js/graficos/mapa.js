@@ -98,7 +98,7 @@ export default async function mapa(cont, spec, ctx) {
       const c = ctx.ciudades.find(c => c.id === sobre);
       if (!c) return null;
       const vb = svg.viewBox.baseVal;
-      return { x: (c.x - vb.x) / vb.width, y: (c.y - vb.y + radio(c) + 20) / vb.height };
+      return { x: (c.x - vb.x) / vb.width, y: (c.y - vb.y) / vb.height, r: radio(c) / vb.width };
     }
   };
 }
@@ -155,7 +155,9 @@ function zonas(svg, spec, figura) {
   reino.after(capa);
   const grupos = zs.map(z => {
     const g = s('g', { class: 'parcela marca-dato', dataset: z.casa ? { casa: z.casa } : {} });
-    g.addEventListener('pointermove', ev => tip(ev, z.etiqueta, `${z.valor} de cada 100 partes del reino`));
+    g.addEventListener('pointermove', ev => tip(ev, z.etiqueta, figura.classList.contains('is-despues') && z.casa
+      ? `${z.valor} de cada 100 partes del reino, sin dueño`
+      : `${z.valor} de cada 100 partes del reino`));
     g.addEventListener('pointerleave', () => tip(null));
     capa.append(g);
     return g;
@@ -164,11 +166,33 @@ function zonas(svg, spec, figura) {
     const z = zs[duenos[i]];
     const cuadro = s('rect', { x: pt.x - PASO / 2 + 1.5, y: pt.y - PASO / 2 + 1.5, width: PASO - 3, height: PASO - 3, fill: z.colorFinal, 'fill-opacity': .78, rx: 1.5 });
     cuadro.style.opacity = 0;
-    cuadro.style.transition = `opacity .5s ${Math.round((pt.y - caja.y) * 1.4)}ms`;
+    cuadro.style.transition = `opacity .5s ${Math.round((pt.y - caja.y) * 1.4)}ms, fill .9s, fill-opacity .9s`;
     grupos[duenos[i]].append(cuadro);
     requestAnimationFrame(() => requestAnimationFrame(() => { cuadro.style.opacity = 1; }));
   });
 
-  figura.append(leyenda(zs, (k, activo) => { grupos[k].style.display = activo ? '' : 'none'; }));
+  // la leyenda lleva la cifra: el mapa dice dónde, el número dice cuánto
+  figura.append(leyenda(zs.map(z => ({ ...z, etiqueta: `${z.etiqueta} · ${z.valor} %` })), (k, activo) => { grupos[k].style.display = activo ? '' : 'none'; }));
+  if (spec.despues) despues(figura, spec, zs);
   return {};
+}
+
+/**
+ * «Después del callejón»: las parcelas de las casas nobles se quedan sin color.
+ * Es lo único del archivo que mira más allá de la última página escrita.
+ */
+function despues(figura, spec, zs) {
+  const sinDueno = zs.filter(z => z.casa).reduce((t, z) => t + z.valor, 0);
+  const aviso = h('p', { class: 'mapa-despues', hidden: '' }, h('strong', {}, `${sinDueno} %`), h('span', {}, spec.despues.texto));
+  const opciones = [[false, spec.despues.antes], [true, spec.despues.boton]];
+  const botones = opciones.map(([activo, t]) => h('button', {
+    type: 'button', class: 'boton boton--papel', 'aria-pressed': String(!activo),
+    onclick: () => {
+      botones.forEach((b, i) => b.setAttribute('aria-pressed', String(opciones[i][0] === activo)));
+      figura.classList.toggle('is-despues', activo);
+      aviso.toggleAttribute('hidden', !activo);
+    }
+  }, t));
+  figura.before(h('div', { class: 'controles', role: 'group', 'aria-label': 'Qué momento mostrar' }, botones));
+  figura.append(aviso);
 }

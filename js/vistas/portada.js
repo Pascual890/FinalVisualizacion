@@ -16,6 +16,6 @@ export default function portada() {
       h('a', { class: 'boton portada__entrar', href: '#/archivo' }, volviendo ? 'Continuar' : 'Entrar'),
       volviendo ? h('a', { class: 'portada__reiniciar', href: '#/archivo', onclick: reiniciar }, 'Empezar de nuevo') : null
     ),
-    h('p', { class: 'portada__pie' }, 'Visualización de datos · producto final')
+    h('p', { class: 'portada__pie' }, 'Visualización de datos · producto final · ', h('a', { href: '#/creditos' }, 'Créditos'))
   );
 }

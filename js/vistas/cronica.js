@@ -1,6 +1,6 @@
 import { h, texto, bordeIrregular } from '../util.js';
 import { abrirDesde, tapaDeLibro, girarTapa } from '../apertura.js';
-import { barra, rastro, notaLeo, titulo } from './comun.js';
+import { barra, rastro, titulo } from './comun.js';
 
 /**
  * Crónica del reino: los momentos del storyboard, en orden. En la mesa es un
@@ -17,13 +17,15 @@ export default function cronica(ctx) {
     titulo(d.titulo, meta.sub),
     h('div', { class: 'con-sombra cronica__mesa' }, h('article', { class: 'cronica papel papel--viejo', 'data-abrir': '' },
       h('ol', { class: 'linea-tiempo' }, d.momentos.map((m, i) => h('li', { class: `momento${i === ultimo ? ' momento--fin' : ''}` },
-        h('span', { class: 'momento__anio' }, m.anio),
+        // el año se escribe una vez; los momentos del mismo año llevan solo el día
+        h('span', { class: 'momento__anio' },
+          d.momentos[i - 1]?.anio === m.anio ? null : h('b', {}, m.anio),
+          m.fecha ? h('small', {}, m.fecha) : null),
         h('span', { class: 'momento__punto', 'aria-hidden': 'true' }),
         h('div', {},
           h('h3', {}, m.titulo),
           h('p', {}, texto(m.texto)),
-          m.ver ? h('a', { class: 'ref momento__ver', href: m.ver }, 'ver en el archivo') : null,
-          d.nota.sobre === i ? notaLeo(d.nota, { giro: -3 }) : null
+          m.ver ? h('a', { class: 'ref momento__ver', href: m.ver }, destino(ctx, m.ver)) : null
         )
       ))),
       h('div', { class: 'pagina-blanca', 'aria-hidden': 'true' })
@@ -47,4 +49,12 @@ export default function cronica(ctx) {
     abrirDesde(origen, vista, tapa, 650).then(() => { hoja.style.visibility = ''; girarTapa(tapa); });
   };
   return vista;
+}
+
+/** Nombre del documento (y la página) al que lleva un enlace de la crónica. */
+function destino(ctx, href) {
+  const [id, sub] = href.replace(/^#\/doc\//, '').split('/');
+  const doc = ctx.docs[id];
+  const pagina = doc?.paginas?.find(p => p.id === sub)?.titulo ?? ctx.ciudades.find(c => c.id === sub)?.nombre;
+  return `Ver en: ${doc?.titulo ?? 'el archivo'}${pagina ? ` · ${pagina}` : ''}`;
 }

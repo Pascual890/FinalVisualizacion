@@ -124,17 +124,30 @@
       "ancho": 21
     },
     {
-      "id": "leo",
-      "tipo": "leo",
-      "titulo": "Hoja suelta",
-      "corto": "Hoja suelta",
-      "sub": "escrita a lápiz",
-      "forma": "nota",
-      "resumen": "Una hoja que no pertenece a ningún libro.",
-      "x": 10.5,
+      "id": "recado",
+      "tipo": "recado",
+      "titulo": "Recado",
+      "corto": "Recado",
+      "sub": "escrito con tinta",
+      "forma": "recado",
+      "resumen": "Un papel doblado, escrito al dorso del aviso de la casa Vareck.",
+      "x": 64,
+      "y": 54,
+      "giro": 7,
+      "ancho": 10.5
+    },
+    {
+      "id": "noticia",
+      "tipo": "noticia",
+      "titulo": "Hoja de noticias",
+      "corto": "Noticias",
+      "sub": "17 de septiembre de 1218",
+      "forma": "noticia",
+      "resumen": "El periódico que se leía en el mercado de Aldemar la mañana del callejón.",
+      "x": 10,
       "y": 58,
-      "giro": -9,
-      "ancho": 12
+      "giro": -7,
+      "ancho": 12.5
     }
   ]
 }

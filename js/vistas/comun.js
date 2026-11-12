@@ -1,8 +1,8 @@
 import { h, s } from '../util.js';
-import { estado, seguir, hallarNota } from '../estado.js';
+import { estado, seguir, cortarRastro } from '../estado.js';
 
-/** Barra superior: nombre del archivo, notas halladas, a quién se sigue. */
-export function barra(ctx, { volver = true } = {}) {
+/** Barra superior: nombre del archivo y a quién se sigue. */
+export function barra(ctx, { volver = true, colofon = false } = {}) {
   const fin = h('div', { class: 'barra__fin' });
   const nodo = h('header', { class: volver ? 'barra barra--volver' : 'barra' },
     volver ? h('a', { class: 'volver', href: '#/archivo' }, flecha(), h('span', {}, 'Volver', h('span', { class: 'volver__resto' }, ' a la mesa'))) : null,
@@ -15,7 +15,7 @@ export function barra(ctx, { volver = true } = {}) {
   const pintar = () => {
     fin.replaceChildren(...[
       estado.seguido ? sello(ctx) : null,
-      hallazgos()
+      colofon ? h('a', { class: 'barra__colofon', href: '#/creditos' }, 'Créditos') : null
     ].filter(Boolean));
   };
   pintar();
@@ -28,15 +28,6 @@ function sello(ctx) {
   return h('span', { class: 'siguiendo' },
     h('a', { href: `#/doc/linajes/${casa.id}`, style: { textDecoration: 'none' } }, `Siguiendo a ${casa.nombre}`),
     h('button', { type: 'button', 'aria-label': `Dejar de seguir a ${casa.nombre}`, onclick: () => seguir(casa.id) }, '×')
-  );
-}
-
-function hallazgos() {
-  const n = estado.notas.size, total = estado.totalNotas;
-  return h('span', { class: 'hallazgos', title: 'Notas a lápiz encontradas en los documentos' },
-    h('span', { class: 'hallazgos__marcas', 'aria-hidden': 'true' },
-      Array.from({ length: total }, (_, i) => h('i', { class: i < n ? 'is-hallada' : null }))),
-    h('span', {}, `${n} de ${total} notas`)
   );
 }
 
@@ -57,28 +48,9 @@ export function rastro() {
   );
 }
 
-/** Nota a lápiz de Leo. Al mostrarse cuenta como encontrada. */
-export function notaLeo(nota, { giro = -4, clase = '' } = {}) {
-  if (!nota) return null;
-  hallarNota(nota.id);
-  return h('span', { class: `nota-leo ${clase}`, style: { '--giro': `${giro}deg` }, 'aria-label': `Nota a lápiz: ${nota.texto}` }, nota.texto);
-}
-
 /** Título grande del documento. */
 export function titulo(texto, sub) {
   return h('div', { class: 'doc__titulo' }, h('h1', {}, texto), sub ? h('span', {}, sub) : null);
-}
-
-/** Todos los ids de notas de Leo en los documentos (para el contador). */
-export function contarNotas(docs) {
-  const ids = new Set();
-  const buscar = obj => {
-    if (!obj || typeof obj !== 'object') return;
-    if (obj.nota?.id) ids.add(obj.nota.id);
-    Object.values(obj).forEach(buscar);
-  };
-  buscar(docs);
-  return ids.size;
 }
 
 /** Número romano (para páginas y folios, como en la infografía). */
@@ -94,6 +66,7 @@ export function bandeja(ctx, actual) {
   return h('nav', { class: 'bandeja', 'aria-label': 'Documentos del archivo' },
     ctx.documentos.map(d => h('a', {
       href: `#/doc/${d.id}`,
+      onclick: cortarRastro,
       'aria-current': d.id === actual ? 'page' : null,
       class: d.tapa ? `tapa--${d.tapa}` : null
     }, h('i', { class: d.forma === 'libro' ? null : d.forma === 'caja' ? 'es-caja' : 'es-papel', 'aria-hidden': 'true' }), d.corto ?? d.titulo))

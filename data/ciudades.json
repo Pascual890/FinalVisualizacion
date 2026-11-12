@@ -21,7 +21,7 @@
   "fuera": [
     { "id": "dornhal",  "nombre": "Dornhal",          "x": -95,  "y": 335, "tipo": "Reino vencido",
       "texto": "El reino del oeste, vencido en la guerra de 1207 a 1210. De Dornhal no queda casi nada." },
-    { "id": "velmoor",  "nombre": "Ruinas de Velmoor", "x": -110, "y": 440, "tipo": "Capital de Dornhal, en ruinas",
-      "texto": "La capital de Dornhal, quemada al final de la guerra." }
+    { "id": "velmoor",  "nombre": "Ruinas de Velmoor", "x": -110, "y": 440, "tipo": "Pueblo de Dornhal, en ruinas",
+      "texto": "Pueblo de Dornhal, quemado al final de la guerra. Su gente huyó a Cregon por la frontera." }
   ]
 }

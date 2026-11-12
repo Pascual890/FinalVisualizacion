@@ -86,7 +86,9 @@ export default function lineas(cont, spec) {
       const ultimo = vals.length - 1;
       capa.append(s('circle', { class: 'punto-dato', cx: x(spec.labels[ultimo]), cy: y(vals[ultimo]), r: 4.5, fill: se.colorFinal }));
       if (series.length > 1) {
-        capa.append(s('text', { class: 'valor', x: W - M.r, y: y(vals[ultimo]) - 10, 'text-anchor': 'end', fill: se.colorFinal }, se.nombre));
+        // la serie que termina más abajo lleva el nombre por debajo: así no pisa a la otra
+        const debajo = activas.length > 1 && activas.every(o => valoresDe(o)[ultimo] >= vals[ultimo]);
+        capa.append(s('text', { class: 'valor', x: W - M.r, y: y(vals[ultimo]) + (debajo ? 22 : -10), 'text-anchor': 'end', fill: se.colorFinal }, se.nombre));
       }
     });
 
@@ -120,7 +122,7 @@ export default function lineas(cont, spec) {
   dibujar();
 
   return {
-    /** Dónde poner una nota de Leo: sobre un año. Devuelve % del gráfico. */
+    /** Posición de un año dentro del gráfico. Devuelve % del gráfico. */
     ancla(sobre) {
       const j = spec.labels.indexOf(sobre);
       if (j < 0) return null;

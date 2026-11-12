@@ -1,0 +1,21 @@
+{
+  "titulo": "Hoja de noticias",
+  "sub": "Aldemar, 17 de septiembre de 1218",
+  "_nota": "El periódico que leía el comerciante del mercado. Titular y texto salen del cuento, que se corta en «pero quienes-». 'guardias': dónde estaban los guardias de la casa Vareck cada día (cifras construidas para el archivo).",
+  "cabecera": "La Hoja de Aldemar",
+  "fecha": "17 de septiembre de 1218",
+  "titular": "Los carnívoros entran a las ciudades",
+  "texto": "Hace un solo día, los carnívoros de [Vareck](noble:vareck) se mantenían en las afueras de las ciudades y villas para vigilar a todo transeúnte que se atreviera a pasar las fronteras y buscar una vida mejor. Nadie sabe por qué el señor Vareck dio la orden de entrar, pero quienes-",
+  "guardias": {
+    "titulo": "Dónde están los guardias de Vareck",
+    "sub": "de 300 guardias, cuántos vigilan cada lugar",
+    "total": 300,
+    "dias": [
+      { "fecha": "14 sept.", "hecho": "roban la daga", "afueras": 260, "ciudades": 40 },
+      { "fecha": "15 sept.", "hecho": "cien monedas", "afueras": 250, "ciudades": 50 },
+      { "fecha": "16 sept.", "hecho": "entran", "afueras": 90, "ciudades": 210 },
+      { "fecha": "17 sept.", "hecho": "hoy", "afueras": 30, "ciudades": 270 }
+    ],
+    "pie": "Hoy, nueve de cada diez guardias están dentro de las ciudades. Las fronteras quedaron casi sin vigilancia."
+  }
+}

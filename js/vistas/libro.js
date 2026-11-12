@@ -2,8 +2,7 @@ import { h, texto, emblema, COLOR_CASA } from '../util.js';
 import { estado, seguir } from '../estado.js';
 import { dibujar } from '../graficos/index.js';
 import { abrirDesde, tapaDeLibro, girarTapa } from '../apertura.js';
-import { capaTrazos, trazar, circulo, flecha as flechaMano, subrayado } from '../marcas.js';
-import { barra, rastro, notaLeo, titulo, flecha, romano } from './comun.js';
+import { barra, rastro, titulo, flecha, romano } from './comun.js';
 
 /**
  * Un libro abierto: cintas con las páginas (en orden de año, con número
@@ -121,63 +120,20 @@ export default function libro(ctx, id, paginaId) {
 async function paginaGrafico(p, izq, der, ctx) {
   izq.append(h('div', { class: 'pagina__anio' }, p.anio), h('h2', { class: 'pagina__titulo' }, p.titulo));
 
-  let notaColocada = false;
   if (p.grafico) {
     const lienzo = h('div', { style: { position: 'relative' } });
     izq.append(lienzo);
-    const api = await dibujar(lienzo, p.grafico, ctx);
-    if (p.nota?.sobre != null && api?.ancla) notaColocada = notaSobreDato(p.nota, api, lienzo);
+    await dibujar(lienzo, p.grafico, ctx);
   }
 
   if (p.lista) {
-    izq.append(h('ol', { class: 'denuncias' }, p.lista.map(item => {
-      const li = h('li', { class: item.destacada ? 'is-destacada' : null }, h('time', {}, item.fecha), h('span', {}, texto(item.texto)));
-      if (p.nota?.sobre === item.fecha) {
-        li.append(notaLeo(p.nota, { giro: -3 }));
-        if (p.nota.marca === 'subrayado') requestAnimationFrame(() => subrayar(li));
-        notaColocada = true;
-      }
-      return li;
-    })));
+    izq.append(h('ol', { class: 'denuncias' }, p.lista.map(item =>
+      h('li', { class: item.destacada ? 'is-destacada' : null }, h('time', {}, item.fecha), h('span', {}, texto(item.texto))))));
   }
 
   der.append(h('p', { class: 'pagina__registro' }, texto(p.texto)));
-  if (p.nota && !notaColocada) der.append(notaLeo(p.nota, { giro: -3 }));
-}
-
-/**
- * La nota de Leo junto al dato al que se refiere, con su marca a lápiz:
- * un círculo alrededor o una flecha que lo señala.
- */
-function notaSobreDato(nota, api, lienzo) {
-  const pos = api.ancla(nota.sobre);
-  if (!pos) return false;
-  const caja = lienzo.getBoundingClientRect(), svgCaja = api.svg.getBoundingClientRect();
-  const x = svgCaja.left - caja.left + pos.x * svgCaja.width;
-  const y = svgCaja.top - caja.top + pos.y * svgCaja.height;
-  const capa = capaTrazos(caja.width, caja.height);
-  lienzo.append(capa);
-  const texto = notaLeo(nota, { giro: -5, clase: 'nota-flotante' });
-  const izquierda = x > caja.width * .6;
-  if (nota.marca === 'flecha') {
-    const tx = izquierda ? x - 250 : x + 40, ty = y - 120;
-    texto.style.left = `${Math.max(0, tx)}px`; texto.style.top = `${Math.max(0, ty)}px`;
-    trazar(capa, flechaMano(izquierda ? tx + 150 : tx + 30, ty + 40, x + (izquierda ? -8 : 6), y - 10), 1.6);
-  } else {
-    if (nota.marca === 'circulo') trazar(capa, circulo(x, y - 8, 30, 22), 1.6);
-    texto.style.left = `${izquierda ? Math.max(0, x - 290) : x + 36}px`;
-    texto.style.top = `${y + 10}px`;
-  }
-  lienzo.append(texto);
-  return true;
-}
-
-function subrayar(li) {
-  const span = li.querySelector('span');
-  const r = span.getBoundingClientRect(), rl = li.getBoundingClientRect();
-  const capa = capaTrazos(rl.width, rl.height);
-  li.append(capa);
-  trazar(capa, subrayado(r.left - rl.left, r.right - rl.left - 20, r.bottom - rl.top + 1), 1.6);
+  // la cifra que resume la página, en rojo como las rúbricas
+  if (p.clave) der.append(h('p', { class: 'pagina__clave' }, h('strong', {}, p.clave.valor), h('span', {}, p.clave.texto)));
 }
 
 /* --------------------------------------------------------------------------
@@ -218,5 +174,4 @@ async function paginaNoble(p, izq, der, ctx, alSeguir) {
     ),
     h('div', { class: 'otros-nobles' }, 'Sus hermanos:', otros.map(o => h('a', { class: 'ref ref--noble', href: `#/doc/linajes/${o.id}`, dataset: { casa: o.id } }, o.nombre)))
   );
-  if (p.nota) der.append(notaLeo(p.nota, { giro: -4 }));
 }

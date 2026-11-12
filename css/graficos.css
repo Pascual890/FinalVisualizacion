@@ -50,8 +50,9 @@ svg .marca-dato.is-seguido { filter: url(#brillo); }
 .controles { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 10px; }
 
 /* escudos (Libro de linajes) */
-.escudo { transition: transform .25s var(--ease), opacity .4s; transform-box: fill-box; transform-origin: center; cursor: default; }
-.escudo:hover { transform: translateY(-3px); }
+/* se levanta con `translate`: un `transform` en CSS anularía el del atributo y el escudo saltaría de sitio */
+.escudo { transition: translate .25s var(--ease), opacity .4s; cursor: default; }
+.escudo:hover { translate: 0 -3px; }
 .escudo--caido path.forma { fill: none; stroke: var(--tinta-tenue); stroke-opacity: .8; stroke-dasharray: 4 3; }
 .escudo .tachon { stroke: var(--sangre); stroke-width: 2.4; stroke-linecap: round; stroke-dasharray: 40; stroke-dashoffset: 40; animation: tachar .5s var(--ease) forwards; }
 @keyframes tachar { to { stroke-dashoffset: 0; } }
@@ -91,3 +92,11 @@ svg .marca-dato:focus-visible, svg .escudo:focus-visible { filter: url(#brillo);
   .ciudad__nombre { font-size: 24px; }
   .nota-flotante { white-space: normal !important; max-width: 70%; font-size: 1.4rem !important; }
 }
+
+/* «después del callejón»: la tierra de las casas se queda sin color */
+.mapa-grafico.is-despues .parcela[data-casa] rect { fill: var(--tinta-tenue); fill-opacity: .2; }
+.mapa-grafico.is-despues .leyenda button[data-casa] { text-decoration: line-through; text-decoration-color: var(--sangre); }
+.mapa-grafico.is-despues .leyenda button[data-casa] i { background: rgba(110,90,69,.16) !important; }
+.mapa-despues { display: flex; align-items: baseline; gap: 12px; margin: 10px 0 0; font-family: var(--f-registro); font-style: italic; font-size: 1.02rem; line-height: 1.35; }
+.mapa-despues[hidden] { display: none; }
+.mapa-despues strong { font-family: var(--f-titulo); font-style: normal; font-size: 1.5rem; color: var(--sangre); white-space: nowrap; }

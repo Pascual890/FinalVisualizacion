@@ -3,7 +3,7 @@
  * de motas que se mueven despacio y brillan más cerca de la llama.
  * Devuelve una función para detenerlo.
  */
-export function polvo(canvas, escena) {
+export function polvo(canvas, escena, enPausa = () => false) {
   if (matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {};
   const ctx = canvas.getContext('2d');
   let w = 0, hgt = 0, cuadro;
@@ -30,6 +30,8 @@ export function polvo(canvas, escena) {
     vy = parseFloat(css.getPropertyValue('--vy')) / 100 * hgt || vy;
   };
   const dibujar = t => {
+    // mientras la cámara se acerca a un documento el polvo no se dibuja
+    if (enPausa()) { cuadro = requestAnimationFrame(dibujar); return; }
     if (n++ % 60 === 0) leerVela();
     ctx.clearRect(0, 0, w, hgt);
     for (const m of motas) {

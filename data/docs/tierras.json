@@ -9,15 +9,38 @@
         "tipo": "tarta",
         "unidad": "%",
         "items": [
-          { "etiqueta": "Vareck", "valor": 38, "casa": "vareck" },
-          { "etiqueta": "Vandel", "valor": 22, "casa": "vandel" },
-          { "etiqueta": "Voss",   "valor": 15, "casa": "voss" },
-          { "etiqueta": "Tierra de los aldeanos", "valor": 20, "color": "oro" },
-          { "etiqueta": "Baldíos y bosque",       "valor": 5,  "color": "polvo" }
+          {
+            "etiqueta": "Vareck",
+            "valor": 38,
+            "casa": "vareck"
+          },
+          {
+            "etiqueta": "Vandel",
+            "valor": 22,
+            "casa": "vandel"
+          },
+          {
+            "etiqueta": "Voss",
+            "valor": 15,
+            "casa": "voss"
+          },
+          {
+            "etiqueta": "Tierra de los aldeanos",
+            "valor": 20,
+            "color": "oro"
+          },
+          {
+            "etiqueta": "Baldíos y bosque",
+            "valor": 5,
+            "color": "polvo"
+          }
         ]
       },
-      "texto": "Tres casas tienen tres cuartas partes del reino. A los aldeanos, que son casi todos, les queda una de cada cinco partes. Mucha de esa tierra era de las casas que cayeron: la compraron [Vareck](noble:vareck), [Vandel](noble:vandel) y [Voss](noble:voss).",
-      "nota": { "id": "tierras-1", "texto": "ni un palmo era nuestro" }
+      "texto": "Tres casas tienen tres cuartas partes del reino. A los aldeanos, que son casi todos, les queda una de cada cinco partes. Mucha de esa tierra era de las casas que cayeron, y la compraron [Vareck](noble:vareck), [Vandel](noble:vandel) y [Voss](noble:voss).",
+      "clave": {
+        "valor": "75 %",
+        "texto": "de la tierra del reino es de tres casas."
+      }
     },
     {
       "id": "zonas",
@@ -26,15 +49,103 @@
       "grafico": {
         "tipo": "mapa",
         "modo": "zonas",
+        "despues": {
+          "antes": "Según el libro",
+          "boton": "Después del callejón",
+          "texto": "Tres de cada cuatro partes del reino quedaron sin dueño el 17 de septiembre. El libro ya no lo anotó."
+        },
         "zonas": [
-          { "id": "vareck",   "etiqueta": "Vareck", "valor": 38, "casa": "vareck", "centros": [[560, 370], [720, 300], [470, 230]] },
-          { "id": "vandel",   "etiqueta": "Vandel", "valor": 22, "casa": "vandel", "centros": [[335, 330], [336, 530]] },
-          { "id": "voss",     "etiqueta": "Voss",   "valor": 15, "casa": "voss",   "centros": [[628, 494]] },
-          { "id": "aldeanos", "etiqueta": "Tierra de los aldeanos", "valor": 20, "color": "oro", "centros": [[218, 704], [258, 570], [270, 445]] },
-          { "id": "baldios",  "etiqueta": "Baldíos y bosque", "valor": 5, "color": "polvo", "centros": [[110, 640], [800, 220]] }
+          {
+            "id": "vareck",
+            "etiqueta": "Vareck",
+            "valor": 38,
+            "casa": "vareck",
+            "centros": [
+              [
+                560,
+                370
+              ],
+              [
+                720,
+                300
+              ],
+              [
+                470,
+                230
+              ]
+            ]
+          },
+          {
+            "id": "vandel",
+            "etiqueta": "Vandel",
+            "valor": 22,
+            "casa": "vandel",
+            "centros": [
+              [
+                335,
+                330
+              ],
+              [
+                336,
+                530
+              ]
+            ]
+          },
+          {
+            "id": "voss",
+            "etiqueta": "Voss",
+            "valor": 15,
+            "casa": "voss",
+            "centros": [
+              [
+                628,
+                494
+              ]
+            ]
+          },
+          {
+            "id": "aldeanos",
+            "etiqueta": "Tierra de los aldeanos",
+            "valor": 20,
+            "color": "oro",
+            "centros": [
+              [
+                218,
+                704
+              ],
+              [
+                258,
+                570
+              ],
+              [
+                270,
+                445
+              ]
+            ]
+          },
+          {
+            "id": "baldios",
+            "etiqueta": "Baldíos y bosque",
+            "valor": 5,
+            "color": "polvo",
+            "centros": [
+              [
+                110,
+                640
+              ],
+              [
+                800,
+                220
+              ]
+            ]
+          }
         ]
       },
-      "texto": "Cada punto es una parcela. Vareck tiene las montañas del norte y del este; Vandel, el valle alto y los caminos de [Brisel](lugar:brisel); Voss, la orilla del río en [Torvane](lugar:torvane). Los aldeanos se quedaron con el sur y con la franja de la frontera, la que se quemó en la guerra."
+      "texto": "Cada cuadro es una parcela. Vareck tiene las montañas del norte y del este. Vandel, el valle alto y los caminos de [Brisel](lugar:brisel). Voss, la orilla del río en [Torvane](lugar:torvane). Los aldeanos se quedaron con el sur y con la franja de la frontera, la que se quemó en la guerra. Con «después del callejón» se ve lo que el libro ya no alcanzó a anotar, la tierra que quedó sin dueño cuando los tres señores se volvieron polvo.",
+      "clave": {
+        "valor": "× 2",
+        "texto": "Vareck solo tiene casi el doble de tierra que todos los aldeanos juntos, 38 partes de cada 100 contra 20."
+      }
     }
   ]
 }

@@ -3,7 +3,7 @@
   "antetitulo": "Reliquia de la casa Vareck",
   "nombre": "Netherbane",
   "lema": "La daga que dice quién manda en Cregon",
-  "texto": "Pertenece a [Vareck](noble:vareck), el mayor de los tres hermanos de la casa noble. En el año 1218, dos hermanos que viven del robo se la quitaron en la [plaza de Aldemar](lugar:aldemar).",
+  "texto": "Pertenece a [Vareck](noble:vareck), el mayor de los tres hermanos que mandan en Cregon. En el año 1218, un muchacho que vive del robo se la quitó del cinto en la [plaza de Aldemar](lugar:aldemar). Tres días después apareció partida en un callejón del mercado, junto a un montón de polvo. La caja está vacía desde entonces.",
   "_nota": "Textos de la infografía de Netherbane. 'armada' y 'separada': posición de cada pieza en el dibujo original (assets/netherbane, en píxeles del dibujo de 2500 × 4000).",
   "partes": [
     {
@@ -19,7 +19,7 @@
       "id": "espiga",
       "numero": "II",
       "nombre": "Espiga",
-      "texto": "La cola de la hoja. Atraviesa la guarda y la empuñadura y se fija al pomo: es lo que mantiene la daga armada.",
+      "texto": "La cola de la hoja. Atraviesa la guarda y la empuñadura y se fija al pomo, y es lo que mantiene la daga armada.",
       "punto": { "pieza": "hoja", "y": 0.82 }
     },
     {
@@ -42,7 +42,7 @@
       "id": "pomo",
       "numero": "V",
       "nombre": "Pomo",
-      "texto": "Cierra y equilibra la daga. Lleva el emblema de la casa noble: Cerbero con sus tres cabezas.",
+      "texto": "Cierra y equilibra la daga. Lleva el emblema de la casa noble, Cerbero con sus tres cabezas.",
       "imagen": "pomo", "w": 294, "h": 347,
       "separada": { "x": 578, "y": 3520 }, "armada": { "x": 578, "y": 2940 },
       "lupa": "gema"
@@ -59,7 +59,6 @@
   },
   "gema": {
     "titulo": "La gema escondida",
-    "texto": "El emblema representa a Cerbero, el perro de tres cabezas. Detrás, el pomo guarda una espinela rosa, una gema rara. No está a la vista: solo se ve al mirar a través del metal."
-  },
-  "nota": { "id": "relicario-1", "texto": "Aaron dice que la piedra vale más que todo Aldemar", "parte": "pomo" }
+    "texto": "El emblema representa a Cerbero, el perro de tres cabezas. Detrás, el pomo guarda una espinela rosa, una gema rara. No está a la vista, solo se ve al mirar a través del metal. Vareck nunca la mostró ni dijo por qué la cuidaba tanto. Cuando la piedra se rompió en el callejón, de los tres hermanos no quedó más que polvo."
+  }
 }

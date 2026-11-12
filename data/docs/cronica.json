@@ -1,6 +1,5 @@
 {
   "titulo": "Crónica del reino",
-  "_borrador": "Momentos provisionales: reemplazar por los del storyboard de la unidad 1.",
   "momentos": [
     {
       "anio": 1199,
@@ -17,7 +16,7 @@
     {
       "anio": 1210,
       "titulo": "Cae Velmoor",
-      "texto": "Cregon gana la guerra y quema [Velmoor](lugar:velmoor), la capital de Dornhal. Cinco casas nobles no sobreviven.",
+      "texto": "Cregon gana la guerra. [Velmoor](lugar:velmoor), un pueblo de Dornhal, queda en ruinas y su gente huye por la frontera. Cinco casas nobles no sobreviven.",
       "ver": "#/doc/censo/habitantes"
     },
     {
@@ -27,26 +26,44 @@
       "ver": "#/doc/tierras/zonas"
     },
     {
+      "anio": 1216,
+      "titulo": "La fiebre",
+      "texto": "Una fiebre recorre los barrios pobres de [Aldemar](lugar:aldemar). Muchos de los muertos no figuraban en ningún censo."
+    },
+    {
       "anio": 1218,
+      "fecha": "14 de sept.",
       "titulo": "El discurso",
       "texto": "El señor Vareck habla en la plaza de Aldemar con [la daga](daga) al cinto. La plaza está llena.",
       "ver": "#/doc/denuncia"
     },
     {
       "anio": 1218,
+      "fecha": "14 de sept.",
       "titulo": "El robo",
       "texto": "La daga desaparece entre la gente. La casa Vareck ofrece cien monedas por el nombre del ladrón.",
       "ver": "#/doc/guardia/denuncias"
     },
     {
       "anio": 1218,
+      "fecha": "16 de sept.",
+      "titulo": "Los carnívoros",
+      "texto": "La guardia de la casa Vareck, a la que la gente llama «los carnívoros», deja las afueras y entra en las ciudades y villas. Registran el mercado de Aldemar puesto por puesto.",
+      "ver": "#/doc/noticia"
+    },
+    {
+      "anio": 1218,
+      "fecha": "17 de sept.",
+      "titulo": "El callejón",
+      "texto": "Los tres hermanos persiguen en persona a dos muchachos hasta un callejón del mercado. [La daga](daga) se parte. De los señores solo queda polvo.",
+      "ver": "#/doc/relicario"
+    },
+    {
+      "anio": 1218,
+      "fecha": "30 de sept.",
       "titulo": "Después",
-      "texto": "La crónica termina aquí. Las páginas siguientes están en blanco."
+      "texto": "Sin señores, la guardia se disuelve y el archivo queda abandonado. De los dos muchachos no se supo más. Las páginas siguientes están en blanco.",
+      "ver": "#/doc/recado"
     }
-  ],
-  "nota": {
-    "id": "cronica-1",
-    "texto": "aquí no salimos. nunca salimos",
-    "sobre": 2
-  }
+  ]
 }

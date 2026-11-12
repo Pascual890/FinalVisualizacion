@@ -64,7 +64,11 @@
   perspective: 1700px;
   perspective-origin: 50% 10%;
   overflow: hidden;
+  /* la cámara escala la escena ya pintada en vez de repintarla más grande */
+  will-change: transform;
 }
+.escena.is-acercando .resplandor { animation-play-state: paused; }
+.escena.is-acercando .polvo { display: none; }
 
 /* la mesa */
 .tablero {
@@ -275,6 +279,9 @@ a.obj { pointer-events: auto; }
   pointer-events: none;
   animation: llamar 2.8s ease-in-out infinite;
 }
+/* es el último papel que se dejó en la mesa: queda por encima de la carta y se lee su título */
+.obj--entrada { --t: 4px; }
+.obj--entrada .obj__sombra { transform: translate(10px, 14px) translateZ(2.5px); }
 @keyframes llamar { 0%, 100% { opacity: .35; } 50% { opacity: 1; } }
 .obj .lacre { right: 9%; bottom: -6%; width: 15%; transform: translateZ(2px); }
 
@@ -287,6 +294,11 @@ a.obj { pointer-events: auto; }
 .nota-mesa .nota-leo { font-size: clamp(.9rem, 1.3vw, 1.35rem); clip-path: none; animation: none; display: block; }
 .nota-mesa__lineas { display: grid; gap: 7px; margin-top: 8px; }
 .nota-mesa__lineas i { height: 2px; background: var(--lapiz); opacity: .35; border-radius: 2px; }
+/* el recado: renglones de tinta y, por detrás, el aviso impreso que se trasluce */
+.recado-mesa { position: relative; padding: 14% 12% 18%; overflow: hidden; }
+.recado-mesa__dorso { position: absolute; inset: 30% 0 auto; text-align: center; transform: scaleX(-1) rotate(-4deg); font-family: var(--f-titulo); font-size: clamp(.7rem, 1.1vw, 1.1rem); letter-spacing: .12em; text-transform: uppercase; color: var(--tinta); opacity: .1; }
+.recado-mesa__lineas { position: relative; display: grid; gap: 8px; }
+.recado-mesa__lineas i { height: 2px; background: var(--tinta); opacity: .55; border-radius: 2px; transform: rotate(-.6deg); }
 
 /* --- relicario: caja abierta y vacía ------------------------------------ */
 .caja3d { aspect-ratio: 16 / 7; --alto: 30px; }
@@ -301,7 +313,7 @@ a.obj { pointer-events: auto; }
 .caja3d__huella {
   position: absolute; left: 50%; top: 50%;
   width: 46%; aspect-ratio: 702 / 1047;
-  transform: translate(-50%, -50%) rotate(-58deg);
+  transform: translate(-50%, -50%) rotate(112deg);
   -webkit-mask: url('../assets/netherbane/daga.webp') center / contain no-repeat;
   mask: url('../assets/netherbane/daga.webp') center / contain no-repeat;
   background: linear-gradient(135deg, rgba(0,0,0,.75), rgba(0,0,0,.45) 55%, rgba(120,40,30,.4));
@@ -399,3 +411,15 @@ a.obj { pointer-events: auto; }
   .escritorio__ayuda { position: static; padding: 0 16px 28px; }
   .caja3d__huella { width: 38%; }
 }
+
+/* la hoja de noticias: cabecera, titular y dos columnas de renglones */
+.noticia-mesa { display: grid; gap: 5px; padding: 9% 9% 18%; overflow: hidden; }
+.noticia-mesa__nombre { padding-bottom: 3px; border-bottom: 2px double var(--tinta); font-family: var(--f-portada); font-weight: 700; font-size: clamp(.5rem, .72vw, .78rem); text-align: center; white-space: nowrap; }
+.noticia-mesa__titular { font-family: var(--f-titulo); font-size: clamp(.55rem, .86vw, .95rem); line-height: 1.08; text-transform: uppercase; }
+.noticia-mesa__columnas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+.noticia-mesa__lineas { display: grid; gap: 5px; align-content: start; }
+.noticia-mesa__lineas i { height: 1.5px; background: var(--tinta); opacity: .45; }
+.barra__colofon { font-family: var(--f-registro); font-style: italic; color: var(--polvo); opacity: .7; padding: 6px 4px; transition: color .2s, opacity .2s; }
+.barra__colofon:hover, .barra__colofon:focus-visible { color: var(--vela); opacity: 1; }
+.portada__pie a { color: inherit; text-decoration: underline; text-underline-offset: 3px; position: relative; }
+.portada__pie:has(a:hover), .portada__pie:has(a:focus-visible) { opacity: .9; }
