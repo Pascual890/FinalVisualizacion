@@ -1,11 +1,12 @@
 {
   "titulo": "Hoja de noticias",
   "sub": "Aldemar, 17 de septiembre de 1218",
-  "_nota": "El periódico que leía el comerciante del mercado. Titular y texto salen del cuento, que se corta en «pero quienes-». 'guardias': dónde estaban los guardias de la casa Vareck cada día (cifras construidas para el archivo).",
+  "_nota": "El periódico que leía el comerciante del mercado. Titular y comienzo del texto salen del cuento, que se corta en «pero quienes». 'resto': cómo sigue la noticia, cada vez más borrosa hasta que la tapa la quemadura. 'guardias': dónde estaban los guardias de la casa Vareck cada día (cifras construidas para el archivo).",
   "cabecera": "La Hoja de Aldemar",
   "fecha": "17 de septiembre de 1218",
   "titular": "Los carnívoros entran a las ciudades",
-  "texto": "Hace un solo día, los carnívoros de [Vareck](noble:vareck) se mantenían en las afueras de las ciudades y villas para vigilar a todo transeúnte que se atreviera a pasar las fronteras y buscar una vida mejor. Nadie sabe por qué el señor Vareck dio la orden de entrar, pero quienes-",
+  "texto": "Hace un solo día, los carnívoros de [Vareck](noble:vareck) se mantenían en las afueras de las ciudades y villas para vigilar a todo transeúnte que se atreviera a pasar las fronteras y buscar una vida mejor. Nadie sabe por qué el señor Vareck dio la orden de entrar, pero quienes",
+  "resto": "viven junto a las murallas dicen que los guardias van de puesto en puesto y revisan a todo el que pasa. En el mercado se repite que buscan algo que se perdió en la plaza el día del discurso, y que la casa Vareck paga cien monedas a quien dé un nombre. Los tenderos cierran temprano. Nadie quiere que lo encuentren con lo que no es suyo, y menos ahora que los señores",
   "guardias": {
     "titulo": "Dónde están los guardias de Vareck",
     "sub": "de 300 guardias, cuántos vigilan cada lugar",

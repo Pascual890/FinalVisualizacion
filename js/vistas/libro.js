@@ -124,6 +124,8 @@ async function paginaGrafico(p, izq, der, ctx) {
     const lienzo = h('div', { style: { position: 'relative' } });
     izq.append(lienzo);
     await dibujar(lienzo, p.grafico, ctx);
+    // cómo usar el gráfico: aparte del registro, que habla como libro
+    if (p.ayuda) izq.append(h('p', { class: 'pagina__ayuda' }, p.ayuda));
   }
 
   if (p.lista) {

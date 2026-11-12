@@ -28,7 +28,7 @@ export default function carta(ctx, _id, lugarId) {
     const l = lugares.find(x => x.id === id);
     mapa?.elegir(id);
     if (!l) {
-      panel.replaceChildren(h('h2', {}, 'El reino'), h('p', {}, texto(d.texto)));
+      panel.replaceChildren(h('h2', {}, 'El reino'), h('p', {}, texto(d.texto)), h('p', { class: 'pagina__ayuda' }, d.ayuda));
       return;
     }
     if (location.hash !== `#/doc/carta/${id}`) history.replaceState(null, '', `#/doc/carta/${id}`);

@@ -1,4 +1,4 @@
-import { s, colorDe, num, tip } from '../util.js';
+import { s, colorDe, cantidad, tip } from '../util.js';
 import { marco, animar } from './comun.js';
 
 /**
@@ -19,7 +19,7 @@ export default function circular(cont, spec) {
   const sectores = items.map(it => {
     const p = s('path', { class: 'sector marca-dato', fill: it.colorFinal, tabindex: 0, dataset: it.casa ? { casa: it.casa } : {} });
     const pct = Math.round((it.valor / total) * 100);
-    const cuerpo = spec.unidad === '%' ? `${it.valor} de cada 100 partes` : `${num.format(it.valor)} ${spec.unidad} · ${pct} %`;
+    const cuerpo = spec.unidad === '%' ? `${it.valor} de cada 100 partes` : `${cantidad(it.valor, spec.unidad)}, ${pct} %`;
     p.addEventListener('pointermove', ev => tip(ev, it.etiqueta, cuerpo));
     p.addEventListener('pointerleave', () => tip(null));
     capa.append(p);
@@ -45,16 +45,20 @@ export default function circular(cont, spec) {
   });
 
   if (anillo && spec.centro) {
+    // el texto del centro va en dos renglones para caber con letra legible
+    const palabras = spec.centro.texto.split(' ');
+    const corte = Math.ceil(palabras.length / 2);
+    const renglones = [palabras.slice(0, corte).join(' '), palabras.slice(corte).join(' ')].filter(Boolean);
     svg.append(
-      s('text', { class: 'centro-valor', x: CX, y: CY + 6, 'text-anchor': 'middle' }, spec.centro.valor),
-      s('text', { class: 'centro-texto', x: CX, y: CY + 28, 'text-anchor': 'middle' }, spec.centro.texto)
+      s('text', { class: 'centro-valor', x: CX, y: CY - 4, 'text-anchor': 'middle' }, spec.centro.valor),
+      ...renglones.map((t, i) => s('text', { class: 'centro-texto', x: CX, y: CY + 20 + i * 18, 'text-anchor': 'middle' }, t))
     );
   }
 
   // leyenda con valores, a la derecha
   const posiciones = [];
-  const x0 = 350;
-  const paso = Math.min(56, (H - 20) / items.length);
+  const x0 = 342;
+  const paso = Math.min(60, (H - 20) / items.length);
   const y0 = CY - ((items.length - 1) * paso) / 2;
   items.forEach((it, i) => {
     const y = y0 + i * paso;
@@ -62,8 +66,8 @@ export default function circular(cont, spec) {
     const g = s('g', { class: 'marca-dato', dataset: it.casa ? { casa: it.casa } : {} },
       s('rect', { x: x0, y: y - 12, width: 16, height: 16, fill: it.colorFinal }),
       s('text', { class: 'etiqueta', x: x0 + 26, y: y + 1 }, it.etiqueta),
-      s('text', { class: 'valor valor--fuera', x: x0 + 26, y: y + 20 },
-        spec.unidad === '%' ? `${it.valor} %` : `${num.format(it.valor)} ${spec.unidad} · ${pct} %`)
+      s('text', { class: 'valor valor--fuera', x: x0 + 26, y: y + 22 },
+        spec.unidad === '%' ? `${it.valor} %` : `${cantidad(it.valor, spec.unidad)}, ${pct} %`)
     );
     svg.append(g);
     posiciones.push({ etiqueta: it.etiqueta, x: x0 + 26, y: y + 20 });

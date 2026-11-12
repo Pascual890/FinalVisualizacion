@@ -1,9 +1,9 @@
 {
   "titulo": "Carta del reino",
   "anio": "1218",
-  "texto": "Carta de las ciudades del reino de Cregon y de la frontera con [Dornhal](lugar:dornhal). Toca un lugar para saber qué es y en qué libros aparece.",
+  "texto": "Carta de las ciudades del reino de Cregon y de la frontera con [Dornhal](lugar:dornhal).",
+  "ayuda": "Toca un lugar para saber qué es y en qué libros aparece.",
   "capas": [
-    { "id": "frontera", "texto": "Frontera con Dornhal", "activa": true },
     { "id": "ruta",     "texto": "Camino de los que huyeron de Velmoor", "activa": false }
   ]
 }

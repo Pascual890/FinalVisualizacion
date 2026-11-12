@@ -117,10 +117,10 @@ button { font: inherit; color: inherit; }
 .chamuscado::before {
   content: '';
   position: absolute;
-  width: var(--q-r, 160px); height: var(--q-r, 160px);
+  width: calc(var(--q-r, 160px) * var(--q-estira, 1)); height: var(--q-r, 160px);
   pointer-events: none;
   z-index: 3;
-  background: radial-gradient(circle farthest-corner at var(--q-esq, 100% 100%), #0e0906 0 47%, #2a170b 51%, rgba(80,45,20,.75) 55%, rgba(106,64,36,.35) 62%, rgba(106,64,36,.12) 72%, transparent 82%);
+  background: radial-gradient(ellipse farthest-corner at var(--q-esq, 100% 100%), #0e0906 0 47%, #2a170b 51%, rgba(80,45,20,.75) 55%, rgba(106,64,36,.35) 62%, rgba(106,64,36,.12) 72%, transparent 82%);
 }
 .chamuscado[data-esquina="br"]::before { right: 0; bottom: 0; --q-esq: 100% 100%; }
 .chamuscado[data-esquina="tr"]::before { right: 0; top: 0; --q-esq: 100% 0; }

@@ -3,7 +3,7 @@
   "antetitulo": "Reliquia de la casa Vareck",
   "nombre": "Netherbane",
   "lema": "La daga que dice quién manda en Cregon",
-  "texto": "Pertenece a [Vareck](noble:vareck), el mayor de los tres hermanos que mandan en Cregon. En el año 1218, un muchacho que vive del robo se la quitó del cinto en la [plaza de Aldemar](lugar:aldemar). Tres días después apareció partida en un callejón del mercado, junto a un montón de polvo. La caja está vacía desde entonces.",
+  "texto": "Pertenece a [Vareck](noble:vareck), el mayor de los tres hermanos que mandaban en Cregon. En el año 1218, un muchacho que vive del robo se la quitó del cinto en la [plaza de Aldemar](lugar:aldemar). Tres días después apareció partida en un callejón del mercado, junto a un montón de polvo. La caja está vacía desde entonces.",
   "_nota": "Textos de la infografía de Netherbane. 'armada' y 'separada': posición de cada pieza en el dibujo original (assets/netherbane, en píxeles del dibujo de 2500 × 4000).",
   "partes": [
     {
@@ -52,9 +52,9 @@
     "titulo": "Tres capas de metal",
     "texto": "Cortada a lo ancho, la hoja deja ver que no es un solo material.",
     "lista": [
-      { "nombre": "Acero de Damasco", "texto": "Capa de afuera. Dura, es la que lleva el filo.", "color": "#5d5d60" },
+      { "nombre": "Acero de Caerlún", "texto": "Capa de afuera. Dura, es la que lleva el filo.", "color": "#5d5d60" },
       { "nombre": "Acero al carbono", "texto": "Capa del medio. Le da rigidez a la hoja.", "color": "#9a9a9c" },
-      { "nombre": "Hierro dulce", "texto": "El corazón. Más blando que las otras capas y cede sin quebrarse.", "color": "#cfcfcf" }
+      { "nombre": "Hierro dulce", "texto": "El corazón. Más blando que las otras capas, cede sin quebrarse.", "color": "#cfcfcf" }
     ]
   },
   "gema": {

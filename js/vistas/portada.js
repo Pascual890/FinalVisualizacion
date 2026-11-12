@@ -6,7 +6,7 @@ export default function portada() {
   const volviendo = hayProgreso();
   return h('main', { class: 'vista portada' },
     h('div', { class: 'portada__contenido' },
-      h('p', { class: 'portada__antes' }, 'Reino de Cregon · año 1218'),
+      h('p', { class: 'portada__antes' }, 'Reino de Cregon, año 1218'),
       h('h1', { class: 'portada__titulo' }, 'Archivo de Cregon'),
       s('svg', { class: 'portada__filete', viewBox: '0 0 340 14', 'aria-hidden': 'true' },
         s('path', { d: 'M0 7 H150 M190 7 H340', stroke: 'currentColor', 'stroke-width': 1 }),
@@ -16,6 +16,6 @@ export default function portada() {
       h('a', { class: 'boton portada__entrar', href: '#/archivo' }, volviendo ? 'Continuar' : 'Entrar'),
       volviendo ? h('a', { class: 'portada__reiniciar', href: '#/archivo', onclick: reiniciar }, 'Empezar de nuevo') : null
     ),
-    h('p', { class: 'portada__pie' }, 'Visualización de datos · producto final · ', h('a', { href: '#/creditos' }, 'Créditos'))
+    h('p', { class: 'portada__pie' }, 'Producto final de Visualización de datos', h('a', { href: '#/creditos' }, 'Créditos'))
   );
 }

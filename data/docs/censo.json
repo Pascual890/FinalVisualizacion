@@ -3,7 +3,7 @@
   "paginas": [
     {
       "id": "habitantes",
-      "anio": "1207 → 1218",
+      "anio": "1207 a 1218",
       "titulo": "Qué fue de los habitantes",
       "grafico": {
         "tipo": "anillo",
@@ -46,7 +46,7 @@
         "medida": "habitantes",
         "unidad": "personas"
       },
-      "texto": "La mitad de la gente vive en [Aldemar](lugar:aldemar) y en [Brisel](lugar:brisel), las dos ciudades del centro. Las sedes de las casas nobles, [Caerlún](lugar:caerlun), [Ordane](lugar:ordane) y [Torvane](lugar:torvane), son pequeñas. Allí vive poca gente y mucho oro.",
+      "texto": "La mitad de la gente vive en [Aldemar](lugar:aldemar) y en [Brisel](lugar:brisel), las dos ciudades del centro. Las sedes de las casas nobles, [Caerlún](lugar:caerlun), [Ordane](lugar:ordane) y [Torvane](lugar:torvane), son pequeñas. Allí hay poca gente y mucho oro.",
       "clave": {
         "valor": "1 de 2",
         "texto": "habitantes vive en Aldemar o en Brisel, 17.400 de 34.500."

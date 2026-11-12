@@ -1,4 +1,4 @@
-import { h, s, colorDe, num, tip } from '../util.js';
+import { h, s, colorDe, cantidad, nombreUnidad, tip } from '../util.js';
 import { marco, leyenda, escala, marcas } from './comun.js';
 
 /**
@@ -6,10 +6,13 @@ import { marco, leyenda, escala, marcas } from './comun.js';
  * spec: { labels, series: [{nombre, color, valores}], unidad, franja?, cambio? }
  * Con `cambio: true` se puede ver la diferencia con el año anterior.
  */
-const W = 660, H = 360, M = { t: 30, r: 24, b: 44, l: 62 };
+const W = 660, H = 380, M0 = { t: 34, r: 24, b: 48, l: 64 };
 
 export default function lineas(cont, spec) {
   let modo = 'valores';
+  // las cifras en monedas son más largas: el eje necesita más margen
+  // y con varias series, cada una lleva su nombre a la derecha de su último punto
+  const M = { ...M0, l: spec.unidad === 'mil monedas' ? 112 : M0.l, r: spec.series.length > 1 ? 118 : M0.r };
   const visibles = spec.series.map(() => true);
   const series = spec.series.map(se => ({ ...se, colorFinal: colorDe(se) }));
 
@@ -57,16 +60,16 @@ export default function lineas(cont, spec) {
     const rejilla = s('g', { class: 'rejilla' });
     lista.forEach(v => {
       rejilla.append(s('line', { x1: M.l, x2: W - M.r, y1: y(v), y2: y(v) }));
-      ejeY.append(s('text', { x: M.l - 10, y: y(v) + 4, 'text-anchor': 'end' }, num.format(v)));
+      ejeY.append(s('text', { x: M.l - 10, y: y(v) + 4, 'text-anchor': 'end' }, cantidad(v, spec.unidad, { corto: true })));
     });
     if (min < 0) capa.append(s('line', { x1: M.l, x2: W - M.r, y1: y(0), y2: y(0), stroke: '#2b1d0e', 'stroke-opacity': .5 }));
-    capa.append(rejilla, ejeY, s('text', { class: 'unidad', x: M.l - 10, y: M.t - 12, 'text-anchor': 'end' }, modo === 'cambio' ? `+/− ${spec.unidad}` : spec.unidad));
+    capa.append(rejilla, ejeY, s('text', { class: 'unidad', x: 0, y: M.t - 14 }, modo === 'cambio' ? `${nombreUnidad(spec.unidad)} de más o de menos` : nombreUnidad(spec.unidad)));
 
     // eje X: un año sí y otro no, contando desde el último
     const ejeX = s('g', { class: 'eje' }, s('line', { x1: M.l, x2: W - M.r, y1: H - M.b, y2: H - M.b }));
     spec.labels.forEach((anio, i) => {
       if ((spec.labels.length - 1 - i) % 2) return;
-      ejeX.append(s('text', { x: x(anio), y: H - M.b + 22, 'text-anchor': 'middle' }, anio));
+      ejeX.append(s('text', { x: x(anio), y: H - M.b + 24, 'text-anchor': 'middle' }, anio));
     });
     capa.append(ejeX);
 
@@ -86,9 +89,11 @@ export default function lineas(cont, spec) {
       const ultimo = vals.length - 1;
       capa.append(s('circle', { class: 'punto-dato', cx: x(spec.labels[ultimo]), cy: y(vals[ultimo]), r: 4.5, fill: se.colorFinal }));
       if (series.length > 1) {
-        // la serie que termina más abajo lleva el nombre por debajo: así no pisa a la otra
-        const debajo = activas.length > 1 && activas.every(o => valoresDe(o)[ultimo] >= vals[ultimo]);
-        capa.append(s('text', { class: 'valor', x: W - M.r, y: y(vals[ultimo]) + (debajo ? 22 : -10), 'text-anchor': 'end', fill: se.colorFinal }, se.nombre));
+        // el nombre va a la derecha del último punto, fuera del trazo; si dos series
+        // terminan muy juntas, la de abajo baja un poco para no montarse
+        const yFin = y(vals[ultimo]);
+        const encima = activas.some(o => o !== se && valoresDe(o)[ultimo] > vals[ultimo] && Math.abs(y(valoresDe(o)[ultimo]) - yFin) < 20);
+        capa.append(s('text', { class: 'valor', x: W - M.r + 12, y: yFin + (encima ? 18 : 5), fill: se.colorFinal }, se.nombre));
       }
     });
 
@@ -110,7 +115,7 @@ export default function lineas(cont, spec) {
         if (!visibles[i] || v == null) return;
         puntos.append(s('circle', { class: 'punto-dato', cx: x(anio), cy: y(v), r: 5, fill: se.colorFinal }));
         const signo = modo === 'cambio' && v > 0 ? '+' : '';
-        filas.push(h('div', {}, `${se.nombre}: ${signo}${num.format(v)} ${spec.unidad}`));
+        filas.push(h('div', {}, `${se.nombre}: ${signo}${cantidad(v, spec.unidad)}`));
       });
       tip(ev, String(anio), filas.length ? filas : 'sin dato');
     };

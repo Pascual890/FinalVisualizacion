@@ -3,7 +3,7 @@
   "paginas": [
     {
       "id": "casas",
-      "anio": "1207 · 1210 · 1218",
+      "anio": "1207, 1210 y 1218",
       "titulo": "Casas en pie",
       "grafico": {
         "tipo": "escudos",
@@ -13,7 +13,8 @@
           1218
         ]
       },
-      "texto": "Antes de la guerra había doce casas nobles en Cregon. Cinco cayeron con la guerra. Después de la guerra cayeron cuatro más, y no por espadas, sino porque vendieron o perdieron sus tierras, siempre a las mismas tres casas. Toca un escudo, o pasa el cursor por encima, para leer qué fue de cada casa.",
+      "texto": "Antes de la guerra había doce casas nobles en Cregon. Cinco cayeron con la guerra. Después de la guerra cayeron cuatro más. Vendieron o perdieron sus tierras, siempre a las mismas tres casas.",
+      "ayuda": "Toca un escudo, o pasa el cursor por encima, para leer qué fue de cada casa.",
       "clave": {
         "valor": "9 de 12",
         "texto": "casas cayeron en once años, cinco con la guerra y cuatro por ventas y deudas."
@@ -77,7 +78,7 @@
           "valor": "un árbol en verde sobre oro"
         }
       ],
-      "texto": "Gobierna el valle alto desde [Ordane](lugar:ordane) y cobra los peajes de los caminos de [Brisel](lugar:brisel). Sigue a su hermano [Vareck](noble:vareck) en todo, un paso por detrás."
+      "texto": "Gobierna el valle alto desde [Ordane](lugar:ordane) y cobra los peajes de los caminos de [Brisel](lugar:brisel). Sigue a su hermano [Vareck](noble:vareck) en todo."
     },
     {
       "id": "voss",

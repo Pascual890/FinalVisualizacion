@@ -56,5 +56,5 @@ function destino(ctx, href) {
   const [id, sub] = href.replace(/^#\/doc\//, '').split('/');
   const doc = ctx.docs[id];
   const pagina = doc?.paginas?.find(p => p.id === sub)?.titulo ?? ctx.ciudades.find(c => c.id === sub)?.nombre;
-  return `Ver en: ${doc?.titulo ?? 'el archivo'}${pagina ? ` · ${pagina}` : ''}`;
+  return `Ver en: ${doc?.titulo ?? 'el archivo'}${pagina ? `, ${pagina}` : ''}`;
 }

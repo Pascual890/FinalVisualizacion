@@ -3,7 +3,7 @@
   "paginas": [
     {
       "id": "tendencia",
-      "anio": "1199 – 1218",
+      "anio": "1199 a 1218",
       "titulo": "Gente común y casas nobles",
       "grafico": {
         "tipo": "lineas",
@@ -90,10 +90,10 @@
           }
         ]
       },
-      "texto": "Hasta la guerra, toda la gente común del reino junta tenía casi el doble que las casas nobles. En tres años de guerra la gente común perdió dos tercios de lo que tenía. Los nobles casi no perdieron nada, y desde 1211 no han dejado de ganar, y hoy tienen más que todo el pueblo junto.",
+      "texto": "Hasta la guerra, toda la gente común del reino junta tenía casi el doble que las casas nobles. En tres años de guerra la gente común perdió dos tercios de lo que tenía. Los nobles casi no perdieron nada. Desde 1211 no han dejado de ganar y hoy tienen más que todo el pueblo junto.",
       "clave": {
         "valor": "⅔",
-        "texto": "de lo que tenía la gente común se perdió en los tres años de guerra, de 1.660 a 620 mil monedas."
+        "texto": "de lo que tenía la gente común se perdió en los tres años de guerra, de 1,66 millones a 620 mil monedas."
       }
     },
     {
@@ -129,8 +129,8 @@
       },
       "texto": "[Vareck](noble:vareck) tiene más que [Vandel](noble:vandel) y [Voss](noble:voss) juntos. Las tres casas suman más que todas las familias del reino, que son miles.",
       "clave": {
-        "valor": "1.200",
-        "texto": "mil monedas suman las tres casas. Todas las familias del reino juntas, 1.000."
+        "valor": "1,2",
+        "texto": "millones de monedas suman las tres casas. Todas las familias del reino juntas, 1 millón."
       }
     },
     {

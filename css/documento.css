@@ -177,6 +177,8 @@
 .pagina__anio { font-family: var(--f-registro); font-style: italic; color: var(--tinta-tenue); font-size: .98rem; }
 .pagina__titulo { font-size: clamp(1.15rem, 1.8vw, 1.5rem); color: var(--tinta); margin: 2px 0 14px; }
 .pagina__registro { margin: 0; font-size: 1.1rem; line-height: 1.62; }
+/* cómo usar un gráfico: letra pequeña, fuera del texto del registro */
+.pagina__ayuda { margin: 12px 0 0; font-family: var(--f-registro); font-style: italic; font-size: .92rem; line-height: 1.35; color: var(--tinta-tenue); }
 .pagina__clave { margin: 4px 0 0; padding-top: 16px; border-top: 1px solid rgba(138,47,31,.35); display: grid; grid-template-columns: auto 1fr; gap: 4px 18px; align-items: center; }
 .pagina__clave strong { font-family: var(--f-titulo); font-weight: 600; font-size: clamp(1.9rem, 3vw, 2.7rem); line-height: 1; color: var(--sangre); white-space: nowrap; font-variant-numeric: lining-nums; }
 .pagina__clave span { font-family: var(--f-registro); font-style: italic; font-size: 1rem; line-height: 1.4; color: var(--tinta-tenue); }
@@ -580,13 +582,17 @@
 /* --------------------------------------------------------------------------
    Hoja de noticias: impresa, a dos columnas; la esquina quemada corta el texto
    -------------------------------------------------------------------------- */
-.noticia { position: relative; margin: 30px auto 0; width: min(860px, calc(100% - 32px)); padding: clamp(24px, 4vw, 44px) clamp(22px, 4.5vw, 52px) clamp(60px, 9vw, 110px); transform: rotate(.6deg); color: var(--tinta); }
+.noticia { position: relative; margin: 30px auto 0; width: min(860px, calc(100% - 32px)); padding: clamp(24px, 4vw, 44px) clamp(22px, 4.5vw, 52px) clamp(30px, 4.5vw, 50px); transform: rotate(.6deg); color: var(--tinta); }
 .noticia__cabecera { display: flex; justify-content: space-between; align-items: baseline; gap: 8px 20px; flex-wrap: wrap; padding-bottom: 8px; border-bottom: 3px double var(--tinta); }
 .noticia__nombre { font-family: var(--f-portada); font-weight: 700; font-size: clamp(1.3rem, 3vw, 2rem); letter-spacing: .04em; }
 .noticia__fecha { font-family: var(--f-registro); font-style: italic; color: var(--tinta-tenue); }
 .noticia__titular { margin: 18px 0 16px; font-family: var(--f-titulo); font-size: clamp(1.5rem, 4vw, 2.6rem); line-height: 1.08; letter-spacing: .03em; text-transform: uppercase; }
 .noticia__cuerpo { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(20px, 4vw, 40px); align-items: start; }
 .noticia__texto p { margin: 0; font-family: var(--f-registro); font-size: clamp(1.08rem, 1.8vw, 1.22rem); line-height: 1.55; text-align: justify; hyphens: auto; }
+/* hollín sobre el texto: denso junto a la quemadura, se pierde al alejarse */
+.noticia__mugre { position: absolute; left: 0; bottom: 0; width: 64%; height: 62%; z-index: 2; pointer-events: none;
+  -webkit-mask-image: radial-gradient(ellipse farthest-side at 0 100%, #000 38%, rgba(0,0,0,.55) 62%, transparent 100%);
+  mask-image: radial-gradient(ellipse farthest-side at 0 100%, #000 38%, rgba(0,0,0,.55) 62%, transparent 100%); }
 .noticia__texto p::first-letter { font-family: var(--f-titulo); font-size: 2.6em; float: left; line-height: .85; padding: 4px 6px 0 0; }
 
 .guardias { margin: 0; padding-left: clamp(16px, 3vw, 32px); border-left: 1px solid rgba(43,29,14,.35); }
@@ -619,6 +625,9 @@
 
 @media (max-width: 700px) {
   .noticia__cuerpo { grid-template-columns: 1fr; }
-  .guardias { padding: 18px 0 0; border-left: 0; border-top: 1px solid rgba(43,29,14,.35); }
+  /* en una columna el texto va al final, para que la quemadura lo alcance a él y no al gráfico */
+  .noticia__texto { order: 2; }
+  .noticia__mugre { width: 100%; height: 34%; }
+  .guardias { padding: 0 0 18px; border-left: 0; border-bottom: 1px solid rgba(43,29,14,.35); }
 }
 @media (prefers-reduced-motion: reduce) { .guardias__parte { animation: none; } }

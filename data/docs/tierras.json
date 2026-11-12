@@ -36,7 +36,7 @@
           }
         ]
       },
-      "texto": "Tres casas tienen tres cuartas partes del reino. A los aldeanos, que son casi todos, les queda una de cada cinco partes. Mucha de esa tierra era de las casas que cayeron, y la compraron [Vareck](noble:vareck), [Vandel](noble:vandel) y [Voss](noble:voss).",
+      "texto": "Tres casas tienen tres cuartas partes del reino. A los aldeanos, que son casi todos, les queda una de cada cinco partes. Mucha de la tierra de las tres casas era de las que cayeron. La compraron [Vareck](noble:vareck), [Vandel](noble:vandel) y [Voss](noble:voss).",
       "clave": {
         "valor": "75 %",
         "texto": "de la tierra del reino es de tres casas."
@@ -141,10 +141,11 @@
           }
         ]
       },
-      "texto": "Cada cuadro es una parcela. Vareck tiene las montañas del norte y del este. Vandel, el valle alto y los caminos de [Brisel](lugar:brisel). Voss, la orilla del río en [Torvane](lugar:torvane). Los aldeanos se quedaron con el sur y con la franja de la frontera, la que se quemó en la guerra. Con «después del callejón» se ve lo que el libro ya no alcanzó a anotar, la tierra que quedó sin dueño cuando los tres señores se volvieron polvo.",
+      "texto": "Cada cuadro es una parcela. Vareck tiene las montañas del norte y del este. Vandel, el valle alto y los caminos de [Brisel](lugar:brisel). Voss, la orilla del río en [Torvane](lugar:torvane). Los aldeanos se quedaron con el sur y con la franja de la frontera, la que se quemó en la guerra.",
+      "ayuda": "Cambia a «Después del callejón» para ver la tierra que quedó sin dueño.",
       "clave": {
         "valor": "× 2",
-        "texto": "Vareck solo tiene casi el doble de tierra que todos los aldeanos juntos, 38 partes de cada 100 contra 20."
+        "texto": "La casa Vareck, ella sola, tiene casi el doble de tierra que todos los aldeanos juntos, 38 partes de cada 100 contra 20."
       }
     }
   ]

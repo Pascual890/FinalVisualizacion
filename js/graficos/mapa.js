@@ -1,4 +1,4 @@
-import { h, s, colorDe, num, tip, eventoDe, cargarSvg, COLORES, COLOR_CASA } from '../util.js';
+import { h, s, colorDe, cantidad, nombreUnidad, tip, eventoDe, cargarSvg, COLORES, COLOR_CASA } from '../util.js';
 import { leyenda } from './comun.js';
 
 /**
@@ -9,6 +9,10 @@ import { leyenda } from './comun.js';
  * spec: { modo, medida?, unidad?, zonas? }   ctx: { ciudades, fuera, alElegir? }
  */
 const RADIO_MAX = 72;
+// en los libros el mapa se acerca al reino: Dornhal queda casi fuera y todo se lee más grande
+const ENCUADRE_LIBRO = '30 0 920 780';
+// por debajo de este radio la cifra no cabe dentro del círculo y va junto al nombre
+const RADIO_CON_CIFRA = 34;
 
 export default async function mapa(cont, spec, ctx) {
   const figura = h('figure', { class: 'grafico mapa-grafico', style: { margin: 0 } });
@@ -17,6 +21,10 @@ export default async function mapa(cont, spec, ctx) {
   svg.setAttribute('role', 'img');
   svg.setAttribute('aria-label', 'Mapa del reino de Cregon');
   figura.append(svg);
+  if (spec.modo !== 'ubicacion') {
+    svg.setAttribute('viewBox', ENCUADRE_LIBRO);
+    figura.classList.add('mapa-grafico--libro');
+  }
 
   const capaCiudades = svg.querySelector('#ciudades');
   const ruta = svg.querySelector('#ruta');
@@ -31,6 +39,7 @@ export default async function mapa(cont, spec, ctx) {
 
   // las grandes debajo, las pequeñas encima
   const orden = [...ctx.ciudades].sort((a, b) => radio(b) - radio(a));
+  const capaNombres = s('g', { class: 'ciudades__nombres' });
   const nodos = new Map();
 
   orden.forEach((c, i) => {
@@ -42,7 +51,7 @@ export default async function mapa(cont, spec, ctx) {
       transform: `translate(${c.x} ${c.y})`,
       tabindex: 0,
       role: 'button',
-      'aria-label': medida ? `${c.nombre}: ${num.format(c[medida])} ${spec.unidad}` : c.nombre,
+      'aria-label': medida ? `${c.nombre}, ${cantidad(c[medida], spec.unidad)}` : c.nombre,
       dataset: casa ? { casa } : {}
     });
     const circulo = s('circle', {
@@ -52,11 +61,16 @@ export default async function mapa(cont, spec, ctx) {
       stroke: COLORES.tinta, 'stroke-width': medida ? 1.2 : 0
     });
     const r = radio(c);
-    g.append(s('circle', { class: 'ciudad__anillo', r: r + 9 }), circulo, s('text', { class: 'ciudad__nombre', y: -(r + 8), 'text-anchor': 'middle' }, c.nombre));
-    if (medida && r > 26) {
-      g.append(s('text', { class: 'valor', y: 5, 'text-anchor': 'middle', 'pointer-events': 'none' }, num.format(c[medida])));
-    }
-    const titulo = medida ? `${num.format(c[medida])} ${spec.unidad}` : c.tipo;
+    // todas las ciudades llevan su cifra a la vista: dentro del círculo si cabe, si no junto al nombre
+    const cifra = medida ? cantidad(c[medida], spec.unidad, { corto: true }) : '';
+    const dentro = medida && r > RADIO_CON_CIFRA;
+    const nombre = s('text', { class: 'ciudad__nombre', y: -(r + 9), 'text-anchor': 'middle' }, medida && !dentro ? `${c.nombre}, ${cifra}` : c.nombre);
+    g.append(s('circle', { class: 'ciudad__anillo', r: r + 9 }), circulo);
+    // con círculos grandes los nombres van en una capa por encima: así ningún círculo vecino los tapa
+    if (medida) capaNombres.append(s('g', { transform: `translate(${c.x} ${c.y})`, 'pointer-events': 'none' }, nombre));
+    else g.append(nombre);
+    if (dentro) g.append(s('text', { class: 'valor', y: 7, 'text-anchor': 'middle', 'pointer-events': 'none' }, cifra));
+    const titulo = medida ? cantidad(c[medida], spec.unidad) : c.tipo;
     g.addEventListener('pointermove', ev => tip(ev, c.nombre, titulo));
     g.addEventListener('pointerleave', () => tip(null));
     g.addEventListener('focus', () => tip(eventoDe(g), c.nombre, titulo));
@@ -83,7 +97,12 @@ export default async function mapa(cont, spec, ctx) {
     });
   }
 
-  if (medida) svg.append(leyendaTamanos(max, spec.unidad, relleno));
+  capaCiudades.append(capaNombres);
+  if (medida) {
+    // la leyenda de tamaños ocupa la esquina de la rosa de los vientos
+    svg.querySelector('#rosa')?.remove();
+    svg.append(leyendaTamanos(max, spec.unidad, relleno));
+  }
 
   return {
     ...api,
@@ -103,20 +122,24 @@ export default async function mapa(cont, spec, ctx) {
   };
 }
 
-/** Tres círculos de referencia en la esquina. */
+/**
+ * Tres círculos de referencia: cuánto vale cada tamaño. Va en la esquina de
+ * arriba a la derecha, sobre el mar, con las cifras a la izquierda para no
+ * salirse del recuadro.
+ */
 function leyendaTamanos(max, unidad, relleno) {
   const valores = [max, max / 2, max / 8].map(v => Math.round(v / 100) * 100 || Math.round(v));
-  const g = s('g', { transform: 'translate(-180 640)', 'pointer-events': 'none' });
-  const base = 120;
+  const g = s('g', { class: 'leyenda-tamanos', transform: 'translate(752 36)', 'pointer-events': 'none' });
+  const base = 2 * RADIO_MAX;
+  g.append(s('text', { class: 'unidad', x: 2 * RADIO_MAX, y: -12, 'text-anchor': 'end' }, `${nombreUnidad(unidad)} por ciudad`));
   valores.forEach(v => {
     const r = Math.sqrt(v / max) * RADIO_MAX;
     g.append(
       s('circle', { cx: RADIO_MAX, cy: base - r, r, fill: relleno, 'fill-opacity': .18, stroke: COLORES.tinta, 'stroke-width': 1 }),
-      s('line', { x1: RADIO_MAX, x2: RADIO_MAX * 2 + 14, y1: base - 2 * r, y2: base - 2 * r, stroke: COLORES.tinta, 'stroke-opacity': .4, 'stroke-dasharray': '2 2' }),
-      s('text', { class: 'valor', x: RADIO_MAX * 2 + 18, y: base - 2 * r + 5 }, num.format(v))
+      s('line', { x1: RADIO_MAX, x2: -12, y1: base - 2 * r, y2: base - 2 * r, stroke: COLORES.tinta, 'stroke-opacity': .4, 'stroke-dasharray': '2 2' }),
+      s('text', { class: 'valor', x: -18, y: base - 2 * r + 7, 'text-anchor': 'end' }, cantidad(v, unidad, { corto: true }))
     );
   });
-  g.append(s('text', { class: 'unidad', x: 0, y: base + 22 }, unidad));
   return g;
 }
 
@@ -172,7 +195,7 @@ function zonas(svg, spec, figura) {
   });
 
   // la leyenda lleva la cifra: el mapa dice dónde, el número dice cuánto
-  figura.append(leyenda(zs.map(z => ({ ...z, etiqueta: `${z.etiqueta} · ${z.valor} %` })), (k, activo) => { grupos[k].style.display = activo ? '' : 'none'; }));
+  figura.append(leyenda(zs.map(z => ({ ...z, etiqueta: `${z.etiqueta}, ${z.valor} %` })), (k, activo) => { grupos[k].style.display = activo ? '' : 'none'; }));
   if (spec.despues) despues(figura, spec, zs);
   return {};
 }

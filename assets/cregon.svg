@@ -25,13 +25,13 @@
     <path d="M166.4 50.0 L139.4 55.0 L135.2 84.3 L122.7 98.9 L120.3 112.7 L126.2 116.5 L127.1 129.1 L145.8 164.1 L136.4 189.2 L127.0 188.6 L116.6 205.4 L84.4 204.1 L90.7 221.0 L90.2 236.9 L67.9 266.2 L77.5 293.9 L96.8 311.3 L120.5 316.9 L127.9 329.7 L123.6 344.4 L93.3 371.5 L86.2 401.8 L89.8 415.1 L80.7 433.4 L81.3 447.8 L125.1 426.2 L136.4 413.3 L164.6 421.0 L169.1 424.7 L171.9 446.8 L197.5 477.8 L207.3 501.2 L154.1 544.0 L92.2 560.6 L64.0 581.5 L64.0 581.5 L71.2 587.4 L124.8 583.5 L138.2 599.0 L129.3 632.8 L142.5 644.2 L126.7 661.7 L132.1 700.0 L123.5 697.8 L125.7 710.1 L141.0 723.0 L185.5 725.8 L200.9 734.4 L221.2 733.2 L251.3 750.0 L211.3 810.0 L-260 770.0 L-260 10.0 L106.4 -20.0 Z" fill="url(#ruinas)" stroke="none" pointer-events="none"/>
     <g fill="#2b1d0e" text-anchor="middle" pointer-events="none">
       <text x="-95" y="335" font-size="20" font-style="italic" font-family="'Cinzel', serif" letter-spacing="2">DORNHAL</text>
-      <text x="-95" y="356" font-size="12" fill="#6e5a45" font-style="italic">reino vencido en la guerra</text>
-      <text x="-95" y="372" font-size="12" fill="#6e5a45" font-style="italic">de 1207 a 1210</text>
+      <text x="-95" y="358" font-size="15" fill="#6e5a45" font-style="italic">reino vencido en la guerra</text>
+      <text x="-95" y="377" font-size="15" fill="#6e5a45" font-style="italic">de 1207 a 1210</text>
     </g>
     <!-- capital en ruinas -->
     <g transform="translate(-110 440)" pointer-events="none">
       <path d="M-10 6 L-10 -8 L-4 -8 L-4 -2 L2 -2 L2 -12 L8 -12 L8 6 Z" fill="none" stroke="#2b1d0e" stroke-width="1.3"/>
-      <text x="0" y="24" font-size="12" text-anchor="middle" font-style="italic" fill="#2b1d0e">Ruinas de Velmoor</text>
+      <text x="0" y="27" font-size="15" text-anchor="middle" font-style="italic" fill="#2b1d0e">Ruinas de Velmoor</text>
     </g>
   </g>
 
@@ -51,13 +51,13 @@
 
 
 
-  <!-- camino de Aaron y Leo tras la guerra: de Dornhal a Aldemar (se muestra solo en modo ubicación) -->
+  <!-- camino de los que huyeron de Velmoor tras la guerra: de Dornhal a Aldemar (se muestra solo en modo ubicación) -->
   <g id="ruta" class="ruta" pointer-events="none">
     <path id="ruta-camino" d="M-110 440 C-40 455 40 470 110 505 C160 530 205 548 258 570"
           fill="none" stroke="#8a2f1f" stroke-width="3" stroke-linecap="round" stroke-dasharray="9 7"/>
     <path d="M258 570 l-14 -9 l3 9 l-3 9 Z" fill="#8a2f1f" stroke="none"/>
-    <text font-size="13" font-style="italic" fill="#8a2f1f" dy="-8">
-      <textPath href="#ruta-camino" startOffset="14%">camino de Aaron y Leo tras la guerra</textPath>
+    <text font-size="16" font-style="italic" fill="#8a2f1f" dy="-9">
+      <textPath href="#ruta-camino" startOffset="14%">camino de los que huyeron de Velmoor</textPath>
     </text>
   </g>
 
@@ -65,7 +65,7 @@
   <g id="ciudades"></g>
 
   <!-- rosa de los vientos -->
-  <g transform="translate(860 90)" fill="#2b1d0e" stroke="#2b1d0e" pointer-events="none">
+  <g id="rosa" transform="translate(860 90)" fill="#2b1d0e" stroke="#2b1d0e" pointer-events="none">
     <circle r="28" fill="none" stroke-width="1"/>
     <path d="M0 -40 L6 0 L0 40 L-6 0 Z" stroke="none"/>
     <path d="M-40 0 L0 6 L40 0 L0 -6 Z" stroke="none" fill-opacity=".45"/>
@@ -73,10 +73,10 @@
   </g>
 
   <!-- cartela -->
-  <g transform="translate(640 700)" pointer-events="none">
+  <g id="cartela" transform="translate(640 700)" pointer-events="none">
     <rect width="260" height="60" fill="#f3e9d2" stroke="#2b1d0e" stroke-width="1"/>
     <rect x="4" y="4" width="252" height="52" fill="none" stroke="#2b1d0e" stroke-opacity=".4" stroke-width="1"/>
     <text x="130" y="26" font-size="16" text-anchor="middle" font-family="'Cinzel', serif" fill="#2b1d0e">REINO DE CREGON</text>
-    <text x="130" y="45" font-size="12" text-anchor="middle" font-style="italic" fill="#6e5a45">carta de las ciudades, año 1218</text>
+    <text x="130" y="46" font-size="14" text-anchor="middle" font-style="italic" fill="#6e5a45">carta de las ciudades, año 1218</text>
   </g>
 </svg>

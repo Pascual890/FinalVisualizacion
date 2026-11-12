@@ -3,7 +3,7 @@
   "paginas": [
     {
       "id": "robos",
-      "anio": "1199 – 1218",
+      "anio": "1199 a 1218",
       "titulo": "Robos denunciados por año",
       "grafico": {
         "tipo": "lineas",
@@ -65,7 +65,8 @@
           }
         ]
       },
-      "texto": "Durante años la guardia anotó unos trescientos robos al año. Con la guerra se dispararon y ya no volvieron a bajar. En 1217 se denunciaron más de mil, el triple que antes, y en 1218 ya iban más cuando la guardia dejó de escribir, en septiembre. Con «cambio anual» se ve que el salto grande fue en 1209 y 1210. Desde entonces siguen subiendo, pero cada vez menos.",
+      "texto": "Durante años la guardia anotó unos trescientos robos al año. Con la guerra se dispararon y ya no volvieron a bajar. En 1217 se denunciaron más de mil, el triple que antes, y en 1218 ya iban más cuando la guardia dejó de escribir, en septiembre. El salto grande fue en 1209 y 1210. Desde entonces siguen subiendo, pero cada vez menos.",
+      "ayuda": "Cambia a «Cambio anual» para ver cuánto subieron o bajaron los robos cada año.",
       "clave": {
         "valor": "× 3",
         "texto": "De unos 330 robos al año antes de la guerra a 1.130 en 1217."
@@ -118,7 +119,7 @@
           "texto": "Sin más denuncias. La guardia no vuelve a escribir en este libro."
         }
       ],
-      "texto": "Las últimas páginas que escribió la guardia. Dos semanas después del robo de la daga, sin señores a quienes servir, el libro se queda en blanco.",
+      "texto": "Las últimas páginas que escribió la guardia. Poco más de dos semanas después del robo de la daga, sin señores a quienes servir, el libro se queda en blanco.",
       "clave": {
         "valor": "16 días",
         "texto": "pasan entre el robo de la daga y la última línea que escribió la guardia."

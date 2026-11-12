@@ -1,6 +1,6 @@
 {
-  "titulo": "Recado",
-  "sub": "escrito con tinta al dorso del aviso de la casa Vareck",
+  "titulo": "Nota del potrero",
+  "sub": "escrita con tinta al dorso del aviso de la casa Vareck",
   "_nota": "Lo dejó el dueño del potrero donde dormían Aaron y Leo. 'dorso': lo que se trasluce del aviso impreso por el otro lado.",
   "dorso": ["Casa Vareck", "Cien monedas", "por el nombre del ladrón de la daga"],
   "fecha": "Aldemar, a 20 de septiembre",
@@ -10,5 +10,5 @@
     "En el mercado dicen que ya no están en Cregon. Adónde, nadie lo sabe.",
     "Las cien monedas no las reclamo. Ya no hay quién las pague."
   ],
-  "firma": "Odo Brun, el del potrero de la cuesta"
+  "firma": "Odo Brun, dueño del potrero de la cuesta"
 }

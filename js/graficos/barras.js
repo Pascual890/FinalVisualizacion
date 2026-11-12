@@ -1,4 +1,4 @@
-import { s, colorDe, num, tip, COLORES } from '../util.js';
+import { s, colorDe, cantidad, tip, COLORES } from '../util.js';
 import { marco, animar } from './comun.js';
 
 /**
@@ -6,13 +6,13 @@ import { marco, animar } from './comun.js';
  * spec: { unidad, items: [{etiqueta, valor, casa?, color?, aparte?}] }
  * Un item con `aparte: true` se dibuja separado y rayado, como comparación.
  */
-const W = 660, FILA = 64, M = { t: 18, r: 110, l: 8 };
+const W = 660, FILA = 68, M = { t: 18, r: 176, l: 8 };
 
 export default function barras(cont, spec) {
   const items = spec.items.map(it => ({ ...it, colorFinal: colorDe(it) }));
   const separaciones = items.filter(it => it.aparte).length ? 22 : 0;
   const H = M.t + items.length * FILA + separaciones + 8;
-  const { svg } = marco(cont, { ancho: W, alto: H, etiqueta: `Barras: ${items.map(i => `${i.etiqueta} ${i.valor}`).join(', ')}` });
+  const { svg } = marco(cont, { ancho: W, alto: H, etiqueta: `Barras: ${items.map(i => `${i.etiqueta}, ${cantidad(i.valor, spec.unidad)}`).join('. ')}` });
 
   const max = Math.max(...items.map(i => i.valor));
   const largo = v => (v / max) * (W - M.l - M.r);
@@ -33,9 +33,9 @@ export default function barras(cont, spec) {
     g.append(
       s('text', { class: 'etiqueta', x: M.l, y: yy + 18 }, it.etiqueta),
       barra,
-      s('text', { class: `valor${it.aparte ? ' valor--fuera' : ''}`, x: M.l + largo(it.valor) + 10, y: yy + 42 }, `${num.format(it.valor)} ${spec.unidad}`)
+      s('text', { class: `valor${it.aparte ? ' valor--fuera' : ''}`, x: M.l + largo(it.valor) + 10, y: yy + 43 }, cantidad(it.valor, spec.unidad))
     );
-    const mostrar = ev => tip(ev, it.etiqueta, `${num.format(it.valor)} ${spec.unidad}`);
+    const mostrar = ev => tip(ev, it.etiqueta, cantidad(it.valor, spec.unidad));
     g.addEventListener('pointermove', mostrar);
     g.addEventListener('pointerleave', () => tip(null));
     svg.append(g);

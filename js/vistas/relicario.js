@@ -71,7 +71,7 @@ export default function relicario(ctx) {
       h('div', { class: 'caja-abierta__terciopelo' }, huella, svg, daga3d?.nodo),
       h('div', { class: 'caja-abierta__frente' },
         h('div', { class: 'caja-abierta__acciones' }, armar, ayuda),
-        h('span', { class: 'caja-abierta__vacia' }, `${meta.sub} · dibujo del registro`))));
+        h('span', { class: 'caja-abierta__vacia' }, `${meta.sub}, dibujo del registro`))));
 
   const presentacion = h('article', { class: 'reliquia papel papel--viejo' },
     h('p', { class: 'reliquia__lema' }, d.lema),

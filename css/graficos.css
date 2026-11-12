@@ -6,17 +6,17 @@
 .grafico svg { display: block; width: 100%; height: auto; overflow: visible; font-family: var(--f-texto); }
 
 .eje line, .eje path { stroke: var(--tinta-tenue); stroke-opacity: .55; shape-rendering: crispEdges; }
-.eje text { fill: var(--tinta-tenue); font-size: 13px; }
+.eje text { fill: var(--tinta-tenue); font-size: 16px; }
 .rejilla line { stroke: var(--tinta); stroke-opacity: .09; stroke-dasharray: 2 4; }
-.unidad { fill: var(--tinta-tenue); font-size: 12px; font-style: italic; }
+.unidad { fill: var(--tinta-tenue); font-size: 15px; font-style: italic; }
 
-.etiqueta { fill: var(--tinta); font-size: 15px; }
-.valor { fill: var(--tinta); font-size: 14px; font-variant-numeric: tabular-nums; }
+.etiqueta { fill: var(--tinta); font-size: 17px; }
+.valor { fill: var(--tinta); font-size: 16px; font-variant-numeric: tabular-nums; }
 .valor--fuera { fill: var(--tinta-tenue); }
 
 /* franja de la guerra */
 .franja rect { fill: url(#rayado); }
-.franja text { fill: var(--sangre); font-size: 12px; font-style: italic; letter-spacing: .05em; }
+.franja text { fill: var(--sangre); font-size: 15px; font-style: italic; letter-spacing: .05em; }
 
 /* marcas de datos */
 .marca-dato { transition: opacity .3s, filter .3s; cursor: default; }
@@ -38,7 +38,7 @@ svg .marca-dato.is-seguido { filter: url(#brillo); }
 .sector { stroke: var(--hoja); stroke-width: 2; transition: transform .25s var(--ease), opacity .3s; transform-origin: center; transform-box: view-box; }
 .sector:hover { transform: scale(1.03); }
 .centro-valor { font-family: var(--f-titulo); font-size: 30px; fill: var(--tinta); }
-.centro-texto { font-size: 13px; fill: var(--tinta-tenue); font-style: italic; }
+.centro-texto { font-size: 15px; fill: var(--tinta-tenue); font-style: italic; }
 .guia { stroke: var(--tinta-tenue); stroke-opacity: .6; fill: none; }
 
 /* leyenda (también filtra: toca para ocultar) */
@@ -64,7 +64,7 @@ svg .marca-dato.is-seguido { filter: url(#brillo); }
 .mapa-grafico #reino { fill: var(--pergamino); }
 .ciudad { cursor: pointer; }
 .ciudad__circulo { transition: r .8s var(--ease), opacity .3s; }
-.ciudad__nombre { font-size: 15px; fill: var(--tinta); paint-order: stroke; stroke: rgba(243,233,210,.85); stroke-width: 4px; pointer-events: none; }
+.ciudad__nombre { font-size: 18px; fill: var(--tinta); paint-order: stroke; stroke: rgba(243,233,210,.85); stroke-width: 4px; pointer-events: none; }
 .ciudad:hover .ciudad__circulo, .ciudad:focus-visible .ciudad__circulo { stroke: var(--oro); stroke-width: 3; filter: url(#brillo); }
 .ciudad:focus-visible { outline: none; }
 /* el lugar elegido en la Carta: anillo de vela que late y nombre destacado */
@@ -72,7 +72,7 @@ svg .marca-dato.is-seguido { filter: url(#brillo); }
 .ciudad.is-elegida .ciudad__anillo { opacity: 1; animation: latido 1.8s ease-in-out infinite; }
 @keyframes latido { 0%, 100% { stroke-opacity: 1; } 50% { stroke-opacity: .35; } }
 .ciudad.is-elegida .ciudad__circulo:not(.ciudad__circulo--zona) { fill: var(--vela); stroke: var(--tinta); stroke-width: 2; }
-.ciudad.is-elegida .ciudad__nombre { font-weight: bold; font-size: 18px; }
+.ciudad.is-elegida .ciudad__nombre { font-weight: bold; font-size: 21px; }
 .parcela { transition: opacity .3s; }
 .mapa-grafico .ruta { opacity: 0; transition: opacity .6s; }
 .mapa-grafico .ruta.is-visible { opacity: 1; }
@@ -100,3 +100,12 @@ svg .marca-dato:focus-visible, svg .escudo:focus-visible { filter: url(#brillo);
 .mapa-despues { display: flex; align-items: baseline; gap: 12px; margin: 10px 0 0; font-family: var(--f-registro); font-style: italic; font-size: 1.02rem; line-height: 1.35; }
 .mapa-despues[hidden] { display: none; }
 .mapa-despues strong { font-family: var(--f-titulo); font-style: normal; font-size: 1.5rem; color: var(--sangre); white-space: nowrap; }
+
+/* mapas dentro de los libros: encuadre cerrado sobre el reino y letra más grande */
+.mapa-grafico--libro .ciudad__nombre { font-size: 22px; stroke-width: 5px; }
+.mapa-grafico--libro .valor { font-size: 21px; }
+.mapa-grafico--libro .unidad { font-size: 19px; }
+/* con el encuadre cerrado, lo que queda fuera del recuadro no debe asomar sobre la página */
+.mapa-grafico--libro svg { overflow: hidden; }
+/* el rótulo de Dornhal queda cortado por el encuadre: en los libros no se muestra */
+.mapa-grafico--libro #reino-vecino text { display: none; }

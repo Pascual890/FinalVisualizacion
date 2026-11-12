@@ -126,10 +126,14 @@ function objeto(doc, ctx) {
   }
 
   if (doc.forma === 'recado') {
+    // la nota de verdad, en pequeño: saludo, primer párrafo y firma
+    const d = ctx.docs[doc.id];
     const hoja = h('div', { class: 'papel papel--trapo doblada recado-mesa' },
       h('span', { class: 'recado-mesa__dorso', 'aria-hidden': 'true' }, 'Cien monedas'),
-      h('span', { class: 'recado-mesa__lineas', 'aria-hidden': 'true' },
-        [58, 90, 76, 94, 62, 84, 40].map(w => h('i', { style: { width: `${w}%` } }))));
+      h('span', { class: 'recado-mesa__texto', 'aria-hidden': 'true' },
+        h('span', {}, d.saludo),
+        h('span', {}, d.parrafos[0]),
+        h('span', { class: 'recado-mesa__firma' }, d.firma.split(',')[0])));
     pieza.append(hoja);
     requestAnimationFrame(() => bordeIrregular(hoja, { semilla: 29, amplitud: 3 }));
   }
@@ -141,7 +145,7 @@ function objeto(doc, ctx) {
       h('span', { class: 'noticia-mesa__titular' }, ctx.docs[doc.id].titular),
       h('span', { class: 'noticia-mesa__columnas' }, renglones([96, 100, 92, 100, 70]), renglones([100, 88, 100, 94, 100])));
     pieza.append(hoja);
-    requestAnimationFrame(() => bordeIrregular(hoja, { semilla: 41, amplitud: 3, quemado: 'bl', radio: 40 }));
+    requestAnimationFrame(() => bordeIrregular(hoja, { semilla: 41, amplitud: 3, quemado: 'bl', radio: 40, estira: 1.7 }));
   }
 
   if (doc.forma === 'caja') {

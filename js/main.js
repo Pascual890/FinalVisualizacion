@@ -83,7 +83,7 @@ function mostrar() {
   const listo = vista.montado?.({ origen: origen?.id === ruta.id ? origen : null, previa });
   if (origen?.id === ruta.id && !vista.abreSolo) abrirDesde(origen, vista);
   Promise.resolve(listo).then(pintarSeguido);
-  document.title = ruta.vista === 'doc' ? `${ctx.docs[ruta.id].titulo} · Archivo de Cregon` : ruta.vista === 'colofon' ? 'Créditos · Archivo de Cregon' : 'Archivo de Cregon';
+  document.title = ruta.vista === 'doc' ? `${ctx.docs[ruta.id].titulo} | Archivo de Cregon` : ruta.vista === 'colofon' ? 'Créditos | Archivo de Cregon' : 'Archivo de Cregon';
 }
 
 function noSeAbre() {

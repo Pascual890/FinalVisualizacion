@@ -65,7 +65,27 @@ export function colorDe(item, porDefecto = COLORES.tinta) {
   return porDefecto;
 }
 
-export const num = new Intl.NumberFormat('es-ES');
+// siempre con punto de millar: sin esto el español escribe «8200» pero «34.500»
+export const num = new Intl.NumberFormat('es-ES', { useGrouping: 'always' });
+const numCorto = new Intl.NumberFormat('es-ES', { maximumFractionDigits: 2 });
+
+/**
+ * Una cifra con su unidad, como se dice en voz alta. La riqueza se guarda en
+ * miles de monedas, pero siempre se escribe en monedas: «620 mil monedas»,
+ * «1 millón de monedas», «1,2 millones de monedas». Con `corto` va sin la
+ * palabra de la unidad (para ejes y sitios estrechos).
+ */
+export function cantidad(v, unidad, { corto = false } = {}) {
+  if (unidad !== 'mil monedas') return corto ? num.format(v) : `${num.format(v)} ${unidad}`;
+  if (v === 0) return corto ? '0' : '0 monedas';
+  if (Math.abs(v) >= 1000) {
+    const m = v / 1000;
+    return `${numCorto.format(m)} ${Math.abs(m) === 1 ? 'millón' : 'millones'}${corto ? '' : ' de monedas'}`;
+  }
+  return `${num.format(v)} mil${corto ? '' : ' monedas'}`;
+}
+/** El nombre de la unidad para rotular un eje o una leyenda. */
+export const nombreUnidad = unidad => (unidad === 'mil monedas' ? 'monedas' : unidad);
 
 /* --------------------------------------------------------------------------
    Enlaces en el texto: [Vareck](noble:vareck), [Aldemar](lugar:aldemar),
@@ -183,7 +203,7 @@ const ESQUINAS = {
   tl: [0, 0, 90, 0], tr: [1, 0, 180, 90], br: [1, 1, -90, -180], bl: [0, 1, 0, -90]
 };
 
-export function bordeIrregular(el, { semilla = 7, amplitud = 2.4, paso = 12, quemado = null, radio = 110 } = {}) {
+export function bordeIrregular(el, { semilla = 7, amplitud = 2.4, paso = 12, quemado = null, radio = 110, estira = 1 } = {}) {
   const pintar = () => {
     const w = el.offsetWidth, h = el.offsetHeight;
     if (!w || !h) return;
@@ -208,9 +228,9 @@ export function bordeIrregular(el, { semilla = 7, amplitud = 2.4, paso = 12, que
       const arco = [];
       for (let i = 0; i <= 30; i++) {
         const k = i / 30, th = (a0 + (a1 - a0) * k) * Math.PI / 180, rr = r(th, k);
-        arco.push([cx + Math.cos(th) * rr, cy + Math.sin(th) * rr]);
+        arco.push([cx + Math.cos(th) * rr * estira, cy + Math.sin(th) * rr]);
       }
-      const fuera = p => Math.hypot(p[0] - cx, p[1] - cy) > R;
+      const fuera = p => Math.hypot((p[0] - cx) / estira, p[1] - cy) > R;
       if (quemado === 'tl') pts = [...pts.filter(fuera), ...arco];
       else {
         const i = pts.findIndex(p => !fuera(p));
@@ -219,6 +239,7 @@ export function bordeIrregular(el, { semilla = 7, amplitud = 2.4, paso = 12, que
       el.classList.add('chamuscado');
       el.dataset.esquina = quemado;
       el.style.setProperty('--q-r', `${R * 1.45}px`);
+      el.style.setProperty('--q-estira', estira);
     }
     el.style.clipPath = `polygon(${pts.map(([x, y]) => `${x.toFixed(1)}px ${y.toFixed(1)}px`).join(',')})`;
   };

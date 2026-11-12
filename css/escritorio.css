@@ -295,10 +295,10 @@ a.obj { pointer-events: auto; }
 .nota-mesa__lineas { display: grid; gap: 7px; margin-top: 8px; }
 .nota-mesa__lineas i { height: 2px; background: var(--lapiz); opacity: .35; border-radius: 2px; }
 /* el recado: renglones de tinta y, por detrás, el aviso impreso que se trasluce */
-.recado-mesa { position: relative; padding: 14% 12% 18%; overflow: hidden; }
+.recado-mesa { position: relative; padding: 11% 10% 13%; overflow: hidden; }
 .recado-mesa__dorso { position: absolute; inset: 30% 0 auto; text-align: center; transform: scaleX(-1) rotate(-4deg); font-family: var(--f-titulo); font-size: clamp(.7rem, 1.1vw, 1.1rem); letter-spacing: .12em; text-transform: uppercase; color: var(--tinta); opacity: .1; }
-.recado-mesa__lineas { position: relative; display: grid; gap: 8px; }
-.recado-mesa__lineas i { height: 2px; background: var(--tinta); opacity: .55; border-radius: 2px; transform: rotate(-.6deg); }
+.recado-mesa__texto { position: relative; display: grid; gap: .5em; font-family: var(--f-registro); font-style: italic; font-size: clamp(.5rem, .74vw, .8rem); line-height: 1.28; color: var(--tinta); }
+.recado-mesa__firma { text-align: right; }
 
 /* --- relicario: caja abierta y vacía ------------------------------------ */
 .caja3d { aspect-ratio: 16 / 7; --alto: 30px; }
@@ -421,5 +421,5 @@ a.obj { pointer-events: auto; }
 .noticia-mesa__lineas i { height: 1.5px; background: var(--tinta); opacity: .45; }
 .barra__colofon { font-family: var(--f-registro); font-style: italic; color: var(--polvo); opacity: .7; padding: 6px 4px; transition: color .2s, opacity .2s; }
 .barra__colofon:hover, .barra__colofon:focus-visible { color: var(--vela); opacity: 1; }
-.portada__pie a { color: inherit; text-decoration: underline; text-underline-offset: 3px; position: relative; }
+.portada__pie a { color: inherit; text-decoration: underline; text-underline-offset: 3px; position: relative; margin-left: 18px; }
 .portada__pie:has(a:hover), .portada__pie:has(a:focus-visible) { opacity: .9; }
