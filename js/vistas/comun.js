@@ -1,7 +1,7 @@
 import { h, s } from '../util.js';
 import { estado, seguir, cortarRastro } from '../estado.js';
 
-/** Barra superior: nombre del archivo y a quién se sigue. */
+/** Barra superior: nombre del archivo, documentos abiertos y a quién se sigue. */
 export function barra(ctx, { volver = true, colofon = false } = {}) {
   const fin = h('div', { class: 'barra__fin' });
   const nodo = h('header', { class: volver ? 'barra barra--volver' : 'barra' },
@@ -15,6 +15,8 @@ export function barra(ctx, { volver = true, colofon = false } = {}) {
   const pintar = () => {
     fin.replaceChildren(...[
       estado.seguido ? sello(ctx) : null,
+      abiertos(ctx),
+      colofon ? h('a', { class: 'barra__colofon', href: '#/' }, 'Inicio') : null,
       colofon ? h('a', { class: 'barra__colofon', href: '#/creditos' }, 'Créditos') : null
     ].filter(Boolean));
   };
@@ -28,6 +30,17 @@ function sello(ctx) {
   return h('span', { class: 'siguiendo' },
     h('a', { href: `#/doc/linajes/${casa.id}`, style: { textDecoration: 'none' } }, `Siguiendo a ${casa.nombre}`),
     h('button', { type: 'button', 'aria-label': `Dejar de seguir a ${casa.nombre}`, onclick: () => seguir(casa.id) }, '×')
+  );
+}
+
+/** Cuántos documentos de la mesa se han abierto ya: una raya por documento. */
+function abiertos(ctx) {
+  const total = ctx.documentos.length;
+  const n = ctx.documentos.filter(d => estado.vistos.has(d.id)).length;
+  return h('span', { class: 'hallazgos', title: 'Documentos del archivo que ya abriste' },
+    h('span', { class: 'hallazgos__marcas', 'aria-hidden': 'true' },
+      Array.from({ length: total }, (_, i) => h('i', { class: i < n ? 'is-hallada' : null }))),
+    h('span', {}, `${n} de ${total} documentos`)
   );
 }
 

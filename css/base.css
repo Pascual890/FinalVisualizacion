@@ -253,10 +253,10 @@ button { font: inherit; color: inherit; }
   .volver__resto { display: none; }
 }
 
-/* contador de notas de Leo: palotes a lápiz */
+/* contador de documentos abiertos: un palote por documento */
 .hallazgos {
   display: inline-flex; align-items: center; gap: 10px;
-  font-family: var(--f-mano); font-size: 1.35rem; color: var(--polvo);
+  font-family: var(--f-registro); font-style: italic; font-size: 1rem; color: var(--polvo);
   text-decoration: none;
 }
 .hallazgos:hover { color: var(--vela); }
